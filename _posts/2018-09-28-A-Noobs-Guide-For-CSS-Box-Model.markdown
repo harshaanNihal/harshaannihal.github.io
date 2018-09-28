@@ -72,6 +72,8 @@ Generally, only Content-Box and Border-Box are used that's why Most of the Brows
 
 Although Context-Box is the Default property but the CSS hero is Border-Box.The `box-sizing: Border-box` property will modify box model & move applied padding and border value inside the Content box making sure the width you set is the width you get there is no math to calculate the actual width like in content or padding box. Border box is always the way to go in my opinion but as the content box is default you can add this CSS code to convert all box-sizing to border-box.<br>
 
+<script src="https://gist.github.com/klassynihal/32fab60ef77b92b155895ecf998264ef.js"></script>
+
 ### Refrences
 * [css-tricks.com](https://css-tricks.com/box-sizing/)
 * [TechSquidTV](https://www.youtube.com/watch?v=9r2dYgpxCd4)
