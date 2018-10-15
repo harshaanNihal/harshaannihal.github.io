@@ -96,7 +96,8 @@ img {
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 3.1rem;
+  line-height: 1.2;
 }
 
 h2 {
@@ -268,6 +269,8 @@ h6 {
   height: 7px;
   width: 50px;
   background-color: #1F2A3C;
+  -webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+          clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
   -webkit-transition: left .35s ease-out, right .35s ease-out;
   transition: left .35s ease-out, right .35s ease-out;
 }
@@ -461,10 +464,10 @@ h6 {
 .blog__block.--grid {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 100px 1fr;
-      grid-template-columns: 100px 1fr;
-  -ms-grid-rows: 100px;
-      grid-template-rows: 100px;
+  -ms-grid-columns: 160px 1fr;
+      grid-template-columns: 160px 1fr;
+  -ms-grid-rows: 110px;
+      grid-template-rows: 110px;
 }
 
 .blog__block:hover .blog__img {

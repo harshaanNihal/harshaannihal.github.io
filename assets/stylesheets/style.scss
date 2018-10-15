@@ -119,6 +119,7 @@
     height: 7px;
     width: $width / 5;
     background-color: $blueblack;
+    clip-path: polygon(0 0,0 100%, 100% 100%,100% 0 );
     transition: left .35s ease-out, right .35s ease-out;
   }
   &::after {
@@ -285,8 +286,8 @@
 
   &.--grid{
     display: grid;
-    grid-template-columns: 100px 1fr;
-    grid-template-rows: 100px;
+    grid-template-columns: 160px 1fr;
+    grid-template-rows: 110px;
   }
   transition: all .4s ease-out;
   &:hover{
