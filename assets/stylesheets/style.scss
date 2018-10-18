@@ -15,7 +15,7 @@
     grid-template-columns: 2fr 1fr;
     align-items: center;
   }
-  .logo{
+  .logo {
     -webkit-filter: invert(100%);
             filter: invert(100%);
     height: 2.5rem;
@@ -159,7 +159,12 @@
   }
 }
 .about__me__text  {
+  text-align: center;
   padding: 1rem 4rem;
+  h3{font-weight: bold;}
+   p{
+     font-size: 1.5rem;
+   }
 }
 .profile-container{
 
@@ -273,6 +278,7 @@
 ==============================
 */
 .blog__container{
+  font-family: 'Karla', sans-serif;
   width: 85%;
   margin: 0 auto;
 
@@ -323,13 +329,32 @@
 .date__shell{
   text-align: center;
   z-index: -1;
+  color: #333;
   position:absolute;
   top:50%;
   left:50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
+  
+    .date{
+      
+      font-weight: 900;
+      font-size: 40px;
+    }
+    .month{
+      
+
+      color: rgb(92, 92, 92);
+      font-size: .8rem;
+      letter-spacing: 4px;
+    }
 }
 .blog__title{
+  font-family: 'Karla', sans-serif;
+  font-size: 1.4rem;
   place-self: center; 
+  color: #333;
+  padding: .5rem;
+
 }
 
 .--btn {
@@ -384,10 +409,11 @@
 ==============================
 */
 .contact{
-  padding: 15% 0 0 0;
+  color: #FFF;
+  padding: 10% 0 0 0;
   background: $blueblack;
   -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 0 100%, 0 0);
-clip-path: polygon(50% 30%, 100% 0, 100% 100%, 0 100%, 0 0);
+clip-path: polygon(50% 20%, 100% 0, 100% 100%, 0 100%, 0 0);
 input, textarea{
   width: 60%;
   margin: .5rem auto;
@@ -414,6 +440,18 @@ input, textarea{
         }
     }    
 }
-.button{
-  @extend .--btn
+// .button{
+//   @extend .--btn
+// }
+
+/*
+==============================
+------Footer---------
+==============================
+*/
+footer{
+      background: #1B242F;
+    padding: 70px 0 50px 0;
+    // position: relative;
 }
+

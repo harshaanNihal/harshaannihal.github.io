@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
   line-height: 1;
+  font-family: Helvetica, sans-serif;
 }
 
 ol, ul {
@@ -227,7 +228,7 @@ h6 {
   font-size: 120%;
 }
 
-.--btn, .button {
+.--btn {
   margin: 1rem auto;
   color: #fff;
   display: -webkit-box;
@@ -255,7 +256,7 @@ h6 {
   cursor: pointer;
 }
 
-.--btn .hero__btn__icon, .button .hero__btn__icon {
+.--btn .hero__btn__icon {
   margin-left: 1rem;
   -webkit-transition: -webkit-transform .4s linear;
   transition: -webkit-transform .4s linear;
@@ -263,7 +264,7 @@ h6 {
   transition: transform .4s linear, -webkit-transform .4s linear;
 }
 
-.--btn::before, .button::before, .--btn::after, .button::after {
+.--btn::before, .--btn::after {
   content: '';
   position: absolute;
   height: 7px;
@@ -275,29 +276,29 @@ h6 {
   transition: left .35s ease-out, right .35s ease-out;
 }
 
-.--btn::after, .button::after {
+.--btn::after {
   bottom: -6px;
   right: -6px;
 }
 
-.--btn::before, .button::before {
+.--btn::before {
   top: -6px;
   left: -6px;
 }
 
-.--btn:hover, .button:hover {
+.--btn:hover {
   border-color: #e31b6d;
 }
 
-.--btn:hover::before, .button:hover::before {
+.--btn:hover::before {
   left: 195px;
 }
 
-.--btn:hover::after, .button:hover::after {
+.--btn:hover::after {
   right: 195px;
 }
 
-.--btn:hover .hero__btn__icon, .button:hover .hero__btn__icon {
+.--btn:hover .hero__btn__icon {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
 }
@@ -319,7 +320,16 @@ h6 {
 }
 
 .about__me__text {
+  text-align: center;
   padding: 1rem 4rem;
+}
+
+.about__me__text h3 {
+  font-weight: bold;
+}
+
+.about__me__text p {
+  font-size: 1.5rem;
 }
 
 .profile-image {
@@ -445,6 +455,7 @@ h6 {
 ==============================
 */
 .blog__container {
+  font-family: 'Karla', sans-serif;
   width: 85%;
   margin: 0 auto;
 }
@@ -498,6 +509,7 @@ h6 {
 .date__shell {
   text-align: center;
   z-index: -1;
+  color: #333;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -505,11 +517,26 @@ h6 {
           transform: translate(-50%, -50%);
 }
 
-.blog__title {
-  place-self: center;
+.date__shell .date {
+  font-weight: 900;
+  font-size: 40px;
 }
 
-.--btn.blog__btn, .blog__btn.button {
+.date__shell .month {
+  color: #5c5c5c;
+  font-size: .8rem;
+  letter-spacing: 4px;
+}
+
+.blog__title {
+  font-family: 'Karla', sans-serif;
+  font-size: 1.4rem;
+  place-self: center;
+  color: #333;
+  padding: .5rem;
+}
+
+.--btn.blog__btn {
   margin: 2rem auto;
   color: #333;
   font-size: 12px;
@@ -522,7 +549,7 @@ h6 {
   cursor: pointer;
 }
 
-.--btn.blog__btn::before, .blog__btn.button::before, .--btn.blog__btn::after, .blog__btn.button::after {
+.--btn.blog__btn::before, .--btn.blog__btn::after {
   content: '';
   position: absolute;
   height: 7px;
@@ -532,25 +559,25 @@ h6 {
   transition: left .35s ease-out, right .35s ease-out;
 }
 
-.--btn.blog__btn::after, .blog__btn.button::after {
+.--btn.blog__btn::after {
   bottom: -6px;
   right: -6px;
 }
 
-.--btn.blog__btn::before, .blog__btn.button::before {
+.--btn.blog__btn::before {
   top: -6px;
   left: -6px;
 }
 
-.--btn.blog__btn:hover, .blog__btn.button:hover {
+.--btn.blog__btn:hover {
   border-color: #1F2A3C;
 }
 
-.--btn.blog__btn:hover::before, .blog__btn.button:hover::before {
+.--btn.blog__btn:hover::before {
   left: 155px;
 }
 
-.--btn.blog__btn:hover::after, .blog__btn.button:hover::after {
+.--btn.blog__btn:hover::after {
   right: 155px;
 }
 
@@ -564,10 +591,11 @@ h6 {
 ==============================
 */
 .contact {
-  padding: 15% 0 0 0;
+  color: #FFF;
+  padding: 10% 0 0 0;
   background: #1F2A3C;
   -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 0 100%, 0 0);
-  clip-path: polygon(50% 30%, 100% 0, 100% 100%, 0 100%, 0 0);
+  clip-path: polygon(50% 20%, 100% 0, 100% 100%, 0 100%, 0 0);
 }
 
 .contact input, .contact textarea {
@@ -590,5 +618,15 @@ h6 {
 .contact input:focus ~ label, .contact input:not(:placeholder-shown) ~ label, .contact textarea:focus ~ label, .contact textarea:not(:placeholder-shown) ~ label {
   top: 5px;
   font-size: 0.65em;
+}
+
+/*
+==============================
+------Footer---------
+==============================
+*/
+footer {
+  background: #1B242F;
+  padding: 70px 0 50px 0;
 }
 /*# sourceMappingURL=style.css.map */

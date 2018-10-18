@@ -1,214 +1,245 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>NIHAL PORTFOLIO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- CUSTOM CSS -->
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/stylesheets/style.css" />
-  <!-- FONT AWESOM -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
-    <script>particlesJS("particles-js", {"particles":{"number":{"value":120,"density":{"enable":true,"value_area":800}},"color":{"value":"#E52E2D"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":0.5,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});var count_particles, stats, update; stats = new Stats; stats.setMode(0); stats.domElement.style.position = 'absolute'; stats.domElement.style.left = '0px'; stats.domElement.style.top = '0px'; document.body.appendChild(stats.domElement); count_particles = document.querySelector('.js-count-particles'); update = function() { stats.begin(); stats.end(); if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) { count_particles.innerText = window.pJSDom[0].pJS.particles.array.length; } requestAnimationFrame(update); }; requestAnimationFrame(update);;
-</script>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NIHAL PORTFOLIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/stylesheets/style.css" />
+    <!-- FONT AWESOM -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Karla:700" rel="stylesheet">
 
-  <!-- <script src="main.js"></script> -->
-</head>
+  </head>
 
-<body>
-  <section class="main-wrapper">
-    <header class="header --grid">
-      <figure>
-        <a href="#"> <img class="logo" src="assets/media/logo.png" alt="logo"> </a>
-      </figure>
-      <nav class="nav-container">
-        <ul class="nav-block">
-          <li class="nav-list">
-            <a class="nav-link" href="">Home</a>
-          </li>
-          <li class="nav-list">
-            <a class="nav-block" href="">About</a>
-          </li>
-          <li class="nav-list">
-            <a class="nav-link" href="">Portfolio</a>
-          </li>
-          <li class="nav-list">
-            <a class="nav-link" href="/blog">Blog</a>
-          </li>
-          <li class="nav-list">
-            <a class="nav-link" href="">Contact</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <!-- MAIN -->
-    <main>
-      <section class="hero" id="particlesJS">
-        <div class="hero__content">
-          <h1 class="hero__heading">Hello, I'm <span class="heading__shade">Harshaan Nihal Khan</span>.<br>I'm a
-            front-end web developer.</h1>
-          <button class="hero__btn --btn">View my work <span class="hero__btn__icon"><i class="fas fa-arrow-right"></i></span></button>
-      </section>
-      </div>
-    </main>
-  </section>
-  <!-- ABOUT SECTION -->
-  <section class="about --padding">
-    <section class="small-wrapper">
-      <h2 class="--center">ABOUT</h2>
-      <div class="hr --center"></div>
-      <section class="about__me --grid">
-        <figure class="profile-container">
-          <img src="assets/media/imacycleopathhexa.jpg" class="profile-image" alt="">
+  <body>
+    <section class="main-wrapper">
+      <header class="header --grid">
+        <figure>
+          <a href="#"> <img class="logo" src="assets/media/logo.png" alt="logo"> </a>
         </figure>
-        <div class="about__me__text">
-          <h3>About Nihal</h3>
-          <p>
-          I'm the Front-End Developer from Udaipur, raj.
-          currently javaScript in Dharamshala.
-          I have serious passion for UI effects, animations and creating intuitive, dynamic user experiences.
-          Let's make something special.
-          </p>
+        <nav class="nav-container">
+          <ul class="nav-block">
+            <li class="nav-list">
+              <a class="nav-link" href="">Home</a>
+            </li>
+            <li class="nav-list">
+              <a class="nav-block" href="">About</a>
+            </li>
+            <li class="nav-list">
+              <a class="nav-link" href="">Portfolio</a>
+            </li>
+            <li class="nav-list">
+              <a class="nav-link" href="/blog">Blog</a>
+            </li>
+            <li class="nav-list">
+              <a class="nav-link" href="">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <!-- MAIN -->
+      <main>
+        <section class="hero" id="particlesJS">
+          <div class="hero__content">
+            <h1 class="hero__heading">Hello, I'm <span class="heading__shade">Harshaan Nihal Khan</span>.<br>I'm a
+              front-end web developer.</h1>
+            <button class="hero__btn --btn">View my work <span class="hero__btn__icon"><i class="fas fa-arrow-right"></i></span></button>
+        </section>
         </div>
+      </main>
+    </section>
+    <!-- ABOUT SECTION -->
+    <section class="about --padding">
+      <section class="small-wrapper">
+        <h2 class="--center">ABOUT</h2>
+        <div class="hr --center"></div>
+        <section class="about__me --grid">
+          <figure class="profile-container">
+            <img src="assets/media/imacycleopathhexa.jpg" class="profile-image" alt="">
+          </figure>
+          <div class="about__me__text">
+            <h3>About Nihal</h3>
+            <p>
+              I'm the Front-End Developer from Udaipur, raj.
+            </p>
+            <p>
+              currentlylearning javaScript in Dharamshala.
+            </p>
+            <p>
+              Have serious passion for UI effects, animations and creating intuitive, dynamic user experiences.
+            </p>
+            <p>Let's make something special.
+            </p>
+          </div>
+        </section>
+      </section>
+      <section class="skills --padding">
+        <!-- <section class="small-wrapper"> -->
+        <h3 class="--center">My Skills</h3>
+        <section class="skills__wrapper --grid">
+
+          <div class="skillsbox --grid">
+            <img src="assets/media/html.png" class="skillsbox__icon">
+            <div class="skillsbox__bar">
+              <div class="bar-shell">
+                <div class="color-bar"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="skillsbox --grid">
+            <img src="assets/media/css.svg" class="skillsbox__icon">
+            <div class="skillsbox__bar">
+              <div class="bar-shell">
+                <div class="color-bar"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skillsbox --grid">
+            <img src="assets/media/psd.svg" class="skillsbox__icon">
+            <div class="skillsbox__bar">
+              <div class="bar-shell">
+                <div class="color-bar"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skillsbox --grid">
+            <img src="assets/media/sass.svg" class="skillsbox__icon">
+            <div class="skillsbox__bar">
+              <div class="bar-shell">
+                <div class="color-bar"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skillsbox --grid">
+            <img src="assets/media/html.png" class="skillsbox__icon">
+            <div class="skillsbox__bar">
+              <div class="bar-shell">
+                <div class="color-bar"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skillsbox --grid">
+            <img src="assets/media/html.png" class="skillsbox__icon">
+            <div class="skillsbox__bar">
+              <div class="bar-shell">
+                <div class="color-bar"></div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </section>
+
+    </section>
+    <!-- PROJECT SECTION -->
+    <section class="project --padding">
+      <h2 class="--center">PROJECTS</h2>
+      <section class="project__wrapper --grid">
+        <figure class="project__box">
+          <img src="assets/media/project1.png" class="project__screen">
+        </figure>
+        <figure class="project__box">
+          <img src="assets/media/project2.png" class="project__screen">
+        </figure>
+        <figure class="project__box">
+          <img src="assets/media/project3.png" class="project__screen">
+        </figure>
+        <figure class="project__box">
+          <img src="assets/media/project4.png" class="project__screen">
+        </figure>
+        <figure class="project__box">
+          <img src="assets/media/project5.png" class="project__screen">
+        </figure>
+        <figure class="project__box">
+          <img src="assets/media/project6.png" class="project__screen">
+        </figure>
       </section>
     </section>
-    <section class="skills --padding">
-      <!-- <section class="small-wrapper"> -->
-      <h3 class="--center">My Skills</h3>
-      <section class="skills__wrapper --grid">
+    <!-- BLOG -->
+    <section class="blog --padding">
+      <h2 class="--center">BLOG</h2>
+      <section class="blog__container --grid">
 
-        <div class="skillsbox --grid">
-          <img src="assets/media/html.png" class="skillsbox__icon">
-          <div class="skillsbox__bar">
-            <div class="bar-shell">
-              <div class="color-bar"></div>
+        <a href="/blog/A-Noobs-Guide-For-CSS-Box-Model" class="blog__block --grid">
+          <div class="blog__date">
+            <div class="image__shell">
+              <Img class="blog__img" src="assets/media/BoxModel.png">
             </div>
-
-          </div>
-        </div>
-
-        <div class="skillsbox --grid">
-          <img src="assets/media/css.svg" class="skillsbox__icon">
-          <div class="skillsbox__bar">
-            <div class="bar-shell">
-              <div class="color-bar"></div>
+            <div class="date__shell">
+              <h4 class="date">6</h4>
+              <h6 class="month">july</h6>
             </div>
           </div>
-        </div>
+          <div class="blog__title"> </div>
+        </a>
 
-        <div class="skillsbox --grid">
-          <img src="assets/media/psd.svg" class="skillsbox__icon">
-          <div class="skillsbox__bar">
-            <div class="bar-shell">
-              <div class="color-bar"></div>
+        <a href="/blog/A-Noobs-Guide-For-CSS-Box-Model" class="blog__block --grid">
+          <div class="blog__date">
+            <div class="image__shell">
+              <Img class="blog__img" src="assets/media/BoxModel.png">
+            </div>
+            <div class="date__shell">
+              <h4 class="date">6</h4>
+              <h6 class="month">july</h6>
             </div>
           </div>
-        </div>
-
-        <div class="skillsbox --grid">
-          <img src="assets/media/sass.svg" class="skillsbox__icon">
-          <div class="skillsbox__bar">
-            <div class="bar-shell">
-              <div class="color-bar"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skillsbox --grid">
-          <img src="assets/media/html.png" class="skillsbox__icon">
-          <div class="skillsbox__bar">
-            <div class="bar-shell">
-              <div class="color-bar"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skillsbox --grid">
-          <img src="assets/media/html.png" class="skillsbox__icon">
-          <div class="skillsbox__bar">
-            <div class="bar-shell">
-              <div class="color-bar"></div>
-            </div>
-          </div>
-        </div>
-
+          <div class="blog__title">The Noob Guide to CSS Box Model </div>
+        </a>
       </section>
+      <a href="/blog"><button class="blog__btn --btn">VIEW MORE</button></a>
     </section>
-
-  </section>
-  <!-- PROJECT SECTION -->
-  <section class="project">
-    <h2 class="--center">PROJECTS</h2>
-    <section class="project__wrapper --grid">
-      <figure class="project__box">
-        <img src="assets/media/project1.png" class="project__screen">
-      </figure>
-      <figure class="project__box">
-        <img src="assets/media/project2.png" class="project__screen">
-      </figure>
-      <figure class="project__box">
-        <img src="assets/media/project3.png" class="project__screen">
-      </figure>
-      <figure class="project__box">
-        <img src="assets/media/project4.png" class="project__screen">
-      </figure>
-      <figure class="project__box">
-        <img src="assets/media/project5.png" class="project__screen">
-      </figure>
-      <figure class="project__box">
-        <img src="assets/media/project6.png" class="project__screen">
-      </figure>
-    </section>
-  </section>
-  <!-- BLOG -->
-  <section class="blog --padding">
-    <h2 class="--center">BLOG</h2>
-    <section class="blog__container --grid">
-
-      <a href="/blog/A-Noobs-Guide-For-CSS-Box-Model" class="blog__block --grid">
-        <div class="blog__date">
-          <div class="image__shell">
-            <Img class="blog__img" src="assets/media/BoxModel.png">
-          </div>
-          <div class="date__shell">
-            <h4 class="date">6</h4>
-            <h6 class="month">july</h6>
-          </div>
+    <!-- CONTACT -->
+    <section class="contact --center">
+      <h2>contact</h2>
+      <h6>Have a question or want to work Together</h6>
+      <form class="">
+        <input placeholder="Name" type="text" name="name" required="">
+        <input placeholder="Enter email" type="email" name="email" required="">
+        <textarea placeholder="Your Message" type="text" name="message"></textarea>
         </div>
-        <div class="blog__title"> </div>
-      </a>
-
-      <a href="/blog/A-Noobs-Guide-For-CSS-Box-Model" class="blog__block --grid">
-        <div class="blog__date">
-          <div class="image__shell">
-            <Img class="blog__img" src="assets/media/BoxModel.png">
-          </div>
-          <div class="date__shell">
-            <h4 class="date">6</h4>
-            <h6 class="month">july</h6>
-          </div>
-        </div>
-        <div class="blog__title">the noob guide to css box model </div>
-      </a>
+        <button class="button --btn" type="submit" id="submit" value="SUBMIT">SUBMIT</button>
+      </form>
+      </form>
     </section>
-   <a href="/blog"><button class="blog__btn --btn">VIEW MORE</button></a>
-  </section>
-  <!-- CONTACT -->
-  <section class="contact --center">
-    <h2>contact</h2>
-    <h6>Have a question or want to work Together</h6>
-    <form class="" >
-      <input placeholder="Name" type="text" name="name" required="">
-      <input placeholder="Enter email" type="email" name="email" required="">
-      <textarea placeholder="Your Message" type="text" name="message"></textarea>
-      </div>
-      <button class="button --btn" type="submit" id="submit" value="SUBMIT">SUBMIT</button>
-    </form>
-    </form>
+    <!-- FOOTER -->
+    <footer>
+      <!-- <div class="icon-wrap flex row">
+      <a href="https://www.linkedin.com/in/klassynihal">
+        <div class="flex icon" id="icon-2">
+          <i class="mdi mdi-linkedin"></i>
+        </div>
+      </a>
+      <a href="https://www.facebook.com/klassynihal">
+        <div class="flex icon" id="icon-3">
+          <i class="fab fa-facebook-f"></i>
+        </div>
+      </a>
+      <a href="https://instagram.com/imacycleopath">
+        <div class="flex icon" id="icon-4">
+          <i class="mdi mdi-instagram"></i>
+        </div>
+      </a>
+      <a href="http://codepen.io/klassynihal/">
+        <div class="flex icon" id="icon-5">
+          <i class="mdi mdi-codepen"></i>
+        </div>
+      </a>
+    </div> -->
+      <!-- <div class="info-box">
+      <div class="footnote"> <span class="highlight">©201</span></div>
+    </div> -->
+    </footer>
 
-  </section>
 
 
 
@@ -218,7 +249,6 @@
 
 
 
-
-</body>
+  </body>
 
 </html>
