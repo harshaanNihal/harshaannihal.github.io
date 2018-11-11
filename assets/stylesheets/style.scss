@@ -4,8 +4,8 @@
 .header{
   width: 100%;
   height: auto;
-  position: fixed;
-  z-index: 2;
+  position: sticky;
+  top: 0;
   padding: .5rem 2rem;
   background: $darkblueblack;
   border-bottom:2px solid #04c2c9; 
@@ -47,6 +47,8 @@
 ==============================
 */
 .hero{
+  display: grid;
+  place-items : center;
   // background: url("../media/banner.jpg");
   // box-shadow: inset 0 0 0 1000px  #FF1B242f;
   background: $blueblack;
@@ -54,25 +56,13 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
   height: 100vh;
-  &:before{
-    content: "";
-    position: absolute;
-    left: 0; right: 0;
-    top: 0; bottom: 0;
-    // background:  #FE1B242f;
-  }
-
 }
+
 .hero__content{
   color: white;
   font-family: polya;
   text-align: center;
-  position: absolute;
-  left: 5%;
-  top: 55%;
-  transform: translate(-2%,-50%)
 }
 .hero__heading{
   margin: 0 auto 2rem auto;
