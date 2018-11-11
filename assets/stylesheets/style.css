@@ -129,9 +129,11 @@ h6 {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 2;
   padding: .5rem 2rem;
   background: #1B242f;
   border-bottom: 2px solid #04c2c9;
+  overflow: hidden;
 }
 
 .header.--grid {
@@ -145,12 +147,17 @@ h6 {
 }
 
 .header .logo {
-  -webkit-filter: invert(100%);
-  filter: invert(100%);
   height: 2.5rem;
   width: auto;
-  -webkit-transform: scale(1.8, 0.8);
-          transform: scale(1.8, 0.8);
+  -webkit-transition: -webkit-transform .5s linear;
+  transition: -webkit-transform .5s linear;
+  transition: transform .5s linear;
+  transition: transform .5s linear, -webkit-transform .5s linear;
+}
+
+.header .logo:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
 }
 
 .header .nav-block {

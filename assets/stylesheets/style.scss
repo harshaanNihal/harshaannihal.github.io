@@ -6,9 +6,11 @@
   height: auto;
   position: sticky;
   top: 0;
+  z-index: 2;
   padding: .5rem 2rem;
   background: $darkblueblack;
   border-bottom:2px solid #04c2c9; 
+  overflow: hidden;
 
   &.--grid{
     display: grid;
@@ -16,11 +18,17 @@
     align-items: center;
   }
   .logo {
-    -webkit-filter: invert(100%);
-            filter: invert(100%);
+    // -webkit-filter: invert(100%);
+            // filter: invert(100%);
     height: 2.5rem;
     width: auto;
-    transform: scale(1.8, .8);
+    // transform: scale(1.8, .8);
+    transition: transform .5s linear;
+    
+  }
+  .logo:hover{
+    transform: scale(1.5);
+    
   }
   
   .nav-block{
