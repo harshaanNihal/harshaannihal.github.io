@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>About</title>
-</head>
-<body>
-	<h1>This my About Page</h1>
-	<p>It is still in under construction</p>
-	<p>plz visit my <a href="/blog"> Blog </a>and give some feedback</p>
-	<a href="https://twitter.com/klassynihal?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @klassynihal</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-</body>
-</html>
+---
+layout: page
+---
+<div class="about__page --grid">
+  <img src="{{ '/assets/media/imacycleopathhexa.jpg' | relative_url }}" class="profile-image" alt="Portrait of {{ site.title }}">
+  <div>
+    <p>I'm a front-end developer from Udaipur, Rajasthan.</p>
+    <p>I'm currently learning JavaScript in Dharamshala.</p>
+    <p>I care about UI effects, animations and building intuitive, dynamic user experiences.</p>
+    <p>Let's make something special. Read the <a href="{{ '/blog/' | relative_url }}">blog</a>, browse the <a href="{{ '/#projects' | relative_url }}">projects</a> or <a href="mailto:{{ site.email }}">email me</a>.</p>
+  </div>
+</div>

@@ -2,6 +2,7 @@
 layout: post
 title:  "A Noob's Guide For CSS Box-Model"
 date:   2018-09-28 04:20:00 +0530
+image: /assets/media/BoxModel.png
 ---
 <style type="text/css">
 	img[alt="boxsizing"] {
@@ -72,7 +73,15 @@ Generally, only Content-Box and Border-Box are used that's why Most of the Brows
 
 Although Context-Box is the Default property but the CSS hero is Border-Box.The `box-sizing: Border-box` property will modify box model & move applied padding and border value inside the Content box making sure the width you set is the width you get there is no math to calculate the actual width like in content or padding box. Border box is always the way to go in my opinion but as the content box is default you can add this CSS code to convert all box-sizing to border-box.<br>
 
-<script src="https://gist.github.com/klassynihal/32fab60ef77b92b155895ecf998264ef.js"></script>
+```css
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+```
 
 ### Refrences
 * [css-tricks.com](https://css-tricks.com/box-sizing/)

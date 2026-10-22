@@ -16,11 +16,11 @@
 title: Harshaan Nihal Khan
 email: harshaan.n.khan@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  this is Nihal's awesome description for his new site.
+  Portfolio and blog of Harshaan Nihal Khan, a front-end web developer.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://harshaannihal.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: klassynihal
-github_username:  klassynihal
+github_username:  harshaanNihal
 
 # Build settings
 markdown: kramdown
@@ -41,3 +41,11 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# Keep repo-only files out of the published site.
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
