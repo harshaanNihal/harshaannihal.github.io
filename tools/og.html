@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- Template for assets/media/og.png (1200x630). Render it with any headless Chrome:
+     chrome --headless --screenshot=assets/media/og.png --window-size=1200,630 tools/og.html -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: polya; src: url("../assets/fonts/POLYA.otf"); }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden; position: relative;
+    display: flex; flex-direction: column; justify-content: center; gap: 22px; padding: 0 84px;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif; color: #e9eef7;
+    background:
+      radial-gradient(55% 70% at 88% 8%, rgba(227, 27, 109, 0.38), transparent 70%),
+      radial-gradient(50% 60% at 6% 100%, rgba(4, 194, 201, 0.28), transparent 70%),
+      #0b111c;
+  }
+  .mark { position: absolute; right: 84px; top: 84px; width: 150px; height: 150px; }
+  .role { font: 600 26px ui-monospace, Menlo, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: #4fe0e5; }
+  h1 { font: 400 112px/1.02 polya, Arial, sans-serif; letter-spacing: 0.015em; text-transform: uppercase; max-width: 900px; }
+  h1 span { color: #ff5c9a; text-shadow: 0 0 34px rgba(255, 92, 154, 0.55); }
+  .stack { font-size: 30px; color: #a3b3cb; }
+  .url { position: absolute; left: 84px; bottom: 56px; font: 600 26px ui-monospace, Menlo, monospace; color: #e9eef7; }
+</style>
+</head>
+<body>
+  <svg class="mark" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5c9a"/><stop offset="1" stop-color="#2fd3d9"/></linearGradient></defs><path d="M16 6h32l16 26-16 26H16L0 32z" fill="url(#g)"/><text x="32" y="41" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="24" fill="#0b111c">HN</text></svg>
+  <p class="role">Software Engineer</p>
+  <h1>Harshaan <span>Nihal Khan</span></h1>
+  <p class="stack">Ruby on Rails &middot; React &middot; Node &middot; React Native</p>
+  <p class="url">harshaannihal.github.io</p>
+</body>
+</html>

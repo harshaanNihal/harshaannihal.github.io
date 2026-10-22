@@ -1,0 +1,141 @@
+# Everything the portfolio says about you. Edit here, not in the templates.
+# GitHub numbers live in _data/github.yml, refreshed by tools/update-github-data.sh.
+
+name: Harshaan Nihal Khan
+role: Software Engineer
+location: Udaipur, India
+email: harshaan.n.khan@gmail.com
+github: harshaanNihal
+twitter: klassynihal
+
+hero:
+  eyebrow: Software Engineer in Udaipur, India
+  lead: I build web and mobile products with Ruby on Rails, React, Node and React Native. I care about UI effects, animation and interfaces that feel intuitive.
+
+about:
+  paragraphs:
+    - I'm a software engineer based in Udaipur, India. I work across the stack with Ruby on Rails, React, Node.js, React Native and Next.js.
+    - I've shipped features in Miru, Saeloun's open source time tracking and invoicing app, spanning invoicing, team management and email flows.
+    - My first public repos date from 2018, and the practice labs further down this page are still online.
+    - I have a serious passion for UI effects, animations and building intuitive, dynamic user experiences.
+  facts:
+    - label: Based in
+      value: Udaipur, India
+    - label: Stack
+      value: Rails, React, Node, React Native, Next.js
+    - label: Previously
+      links:
+        - text: Saeloun
+          url: https://www.saeloun.com
+        - text: BigBinary
+          url: https://www.bigbinary.com
+    - label: Alumnus of
+      value: AltCampus
+
+skills:
+  - group: Frontend
+    items: [React, Next.js, React Native, JavaScript, HTML5, CSS3 and Sass]
+  - group: Backend
+    items: [Ruby on Rails, Node.js, Express, MongoDB, Socket.IO]
+  - group: Tooling
+    items: [Git and GitHub, Vercel, Photoshop]
+
+# Featured work. `image` lives in assets/media/work/. Leave it out for a text-only card.
+projects:
+  - title: Miru
+    kicker: Open source
+    stat: miru_prs
+    stat_label: merged pull requests
+    blurb: Time tracking, invoicing and employee benefits, built with Ruby on Rails and React. I shipped invoicing, team management and email reminder features.
+    tech: [Ruby on Rails, React]
+    links:
+      - text: Live app
+        url: https://miru.so
+      - text: My pull requests
+        url: https://github.com/saeloun/miru-web/pulls?q=is%3Apr+author%3AharshaanNihal+is%3Amerged
+  - title: Bookings
+    kicker: Live demo
+    image: work/booking.jpg
+    alt: Bookings homepage with a stays search box and destination tiles
+    blurb: A travel booking front end modeled on Booking.com. Search stays by destination, dates and guests, then browse featured cities and property types.
+    tech: [React, React Router, date-fns]
+    links:
+      - text: Live demo
+        url: https://bookingcom-kohl.vercel.app
+      - text: Code
+        url: https://github.com/harshaanNihal/bookingcom
+  - title: Law firms manager
+    kicker: Live demo
+    image: work/legistify.jpg
+    alt: Firms list with an add firm card, under a Legistify header
+    blurb: A dashboard to list, add and delete law firms, with validated forms and toast feedback. Built on Vite with Redux and Ant Design.
+    tech: [React, Redux, Ant Design, Vite]
+    links:
+      - text: Live demo
+        url: https://lawyers-management-system.vercel.app
+      - text: Code
+        url: https://github.com/harshaanNihal/lawyers-management-system
+
+more_projects:
+  - title: chatApp
+    blurb: A realtime single-channel chat app with emotion detection. React and Redux on the front, Express, MongoDB and Socket.IO behind it, with Passport auth.
+    tech: JavaScript
+    url: https://github.com/harshaanNihal/chatApp
+  - title: boiled-mern
+    blurb: A MERN boilerplate to start full-stack projects fast, with Webpack, ESLint and pre-commit hooks wired up.
+    tech: JavaScript
+    url: https://github.com/harshaanNihal/boiled-mern
+  - title: trelloClone
+    blurb: A Trello-style board in vanilla JavaScript. Boards hold lists, lists hold cards, and everything supports create, edit and delete.
+    tech: JavaScript
+    url: https://github.com/harshaanNihal/trelloClone
+  - title: loDash-Clone
+    blurb: A clone of the Lodash utility library, written in vanilla JavaScript.
+    tech: JavaScript
+    url: https://github.com/harshaanNihal/loDash-Clone
+
+open_source:
+  repo: saeloun/miru-web
+  prs:
+    - number: 538
+      title: Invoice search
+    - number: 496
+      title: Weekly email reminder for missing time entries
+    - number: 470
+      title: Email verification, backend
+    - number: 454
+      title: Team member delete API
+    - number: 582
+      title: Team member page, final integration
+
+# Small UI experiments from the HTML and CSS lab. `url` is relative to the lab site.
+experiments:
+  - title: AltCampus landing page
+    image: work/lab-altcampus.jpg
+    url: Day-23/
+  - title: Dropdown menu
+    image: work/lab-dropdown.jpg
+    url: Day-27/Dropdown%20Menu/
+  - title: Intense landing page
+    image: work/lab-intense.jpg
+    url: final_project1/
+  - title: Stimulus personal page
+    image: work/lab-stimulus.jpg
+    url: final_project2/
+  - title: Hover notification badges
+    image: work/lab-notifications.jpg
+    url: Day-27/notification%20hover/
+  - title: Perspective portfolio
+    image: work/lab-perspective.jpg
+    url: Day-27/Perspective_portfolio/
+
+labs:
+  - title: HTML and CSS practice
+    blurb: 43 layouts and small projects from learning HTML and CSS.
+    url: https://harshaannihal.github.io/html_css_practice/
+  - title: JavaScript core practice
+    blurb: Day-by-day exercises, from the DOM and closures to a to-do app and a Chrome extension.
+    url: https://harshaannihal.github.io/js_core_practice/
+  - title: Birthday card
+    blurb: A one-page birthday card with a gradient that changes every second.
+    url: https://harshaannihal.github.io/birthday/

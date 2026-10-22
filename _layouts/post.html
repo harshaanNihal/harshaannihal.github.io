@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<article class="page container container--narrow" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="page__head">
+    <p class="kicker"><a href="{{ '/blog/' | relative_url }}">Blog</a></p>
+    <h1 itemprop="headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %-d, %Y" }}</time>
+      <span aria-hidden="true">·</span>
+      {%- assign words = content | number_of_words -%}
+      <span>{{ words | divided_by: 200 | plus: 1 }} min read</span>
+    </p>
+  </header>
+  <div class="prose" itemprop="articleBody">
+    {{ content }}
+  </div>
+  <footer class="post-end">
+    <a class="btn btn--ghost" href="{{ '/blog/' | relative_url }}">{% include icon.html name="arrow-right" %} All posts</a>
+  </footer>
+</article>

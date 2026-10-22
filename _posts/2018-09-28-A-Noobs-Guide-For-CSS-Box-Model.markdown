@@ -3,6 +3,7 @@ layout: post
 title:  "A Noob's Guide For CSS Box-Model"
 date:   2018-09-28 04:20:00 +0530
 image: /assets/media/BoxModel.png
+description: A beginner-friendly walk through the CSS box model, covering content, padding, border and margin, and why box-sizing border-box is worth using.
 ---
 <style type="text/css">
 	img[alt="boxsizing"] {
@@ -14,13 +15,18 @@ image: /assets/media/BoxModel.png
 		line-height: 2.4rem;
 		padding-right: 30px;
 	}
-	body{
-		line-height: 1.8;
-		font-family: helvetica;
+	@media (max-width: 700px) {
+		img[alt="boxsizing"] {
+			width: 100%;
+			float: none;
+			margin: 0 0 1rem;
+		}
+		#margin-text {
+			line-height: 1.7;
+			padding-right: 0;
+		}
 	}
 </style>
-
-# A Noob's Guide For CSS Box-Model
 
 Every HTML element we create appears to always just stack on each other. HTML elements are just boxes with different names for semantic purposes. Every HTML element starts as a generic rectangular box before CSS modifies its properties. Before we get into these properties lets get back into the whole stacking into the top of each other thing. All Elements has a display property `display:inline` & our Web has been Automatically assigned each element as default value without us knowing.
 
@@ -51,7 +57,7 @@ Default, when we set width to element width, is applied to the content area and 
 
 Let consider 2 Boxes with width 50%. if we add Padding to it the total width will exceed 100% and it will mess up the layout and this is why we need Box-Sizing properties.
 
-#### There are 3 Major type of Box-Sizing Properties.
+## There are 3 Major type of Box-Sizing Properties.
 
 * ***Content-Box*** - This is the initial and default value as specified by the CSS standard. The `width` and `height` properties include the content but does not include the padding, border, or margin. For example, `.box {width: 350px; border: 10px solid black;}` renders a box that is 370px wide.
 
@@ -83,7 +89,7 @@ html {
 }
 ```
 
-### Refrences
+## References
 * [css-tricks.com](https://css-tricks.com/box-sizing/)
 * [TechSquidTV](https://www.youtube.com/watch?v=9r2dYgpxCd4)
 

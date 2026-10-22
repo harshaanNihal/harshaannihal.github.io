@@ -1,0 +1,33 @@
+{%- assign p = site.data.profile -%}
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <svg class="brand__mark" width="34" height="34" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <defs><linearGradient id="brand-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5c9a"/><stop offset="1" stop-color="#2fd3d9"/></linearGradient></defs>
+        <path d="M16 6h32l16 26-16 26H16L0 32z" fill="url(#brand-g)"/>
+        <text x="32" y="41" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="24" fill="#0b111c">HN</text>
+      </svg>
+      <span class="brand__name">{{ p.name }}</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="{{ '/#about' | relative_url }}" data-nav="about">About</a></li>
+        <li><a href="{{ '/#work' | relative_url }}" data-nav="work">Work</a></li>
+        <li><a href="{{ '/#open-source' | relative_url }}" data-nav="open-source">Open source</a></li>
+        <li><a href="{{ '/#experiments' | relative_url }}" data-nav="experiments">Experiments</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}" data-nav="blog">Blog</a></li>
+        <li><a href="{{ '/#contact' | relative_url }}" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__tools">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to light theme" aria-pressed="false">
+        <span class="theme-icon theme-icon--sun">{% include icon.html name="sun" %}</span>
+        <span class="theme-icon theme-icon--moon">{% include icon.html name="moon" %}</span>
+      </button>
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__open">{% include icon.html name="menu" %}</span>
+        <span class="nav-toggle__close">{% include icon.html name="x" %}</span>
+      </button>
+    </div>
+  </div>
+</header>

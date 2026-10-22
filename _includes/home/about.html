@@ -1,0 +1,38 @@
+{%- assign p = site.data.profile -%}
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="kicker">About</p>
+      <h2 id="about-title">Engineer, tinkerer, UI enthusiast.</h2>
+    </header>
+    <div class="about__grid">
+      <div class="about__text prose reveal">
+        {%- for paragraph in p.about.paragraphs %}
+        <p>{{ paragraph }}</p>
+        {%- endfor %}
+      </div>
+      <dl class="facts reveal" style="--d:100ms">
+        {%- for fact in p.about.facts %}
+        <div class="facts__row">
+          <dt>{{ fact.label }}</dt>
+          <dd>
+            {%- if fact.links -%}
+              {%- for link in fact.links -%}<a href="{{ link.url }}">{{ link.text }}</a>{% unless forloop.last %}, {% endunless %}{%- endfor -%}
+            {%- else -%}{{ fact.value }}{%- endif -%}
+          </dd>
+        </div>
+        {%- endfor %}
+      </dl>
+    </div>
+    <div class="skills">
+      {%- for group in p.skills %}
+      <div class="skills__group reveal" style="--d:{{ forloop.index0 | times: 80 }}ms">
+        <h3>{{ group.group }}</h3>
+        <ul class="chips">
+          {%- for item in group.items %}<li class="chip">{{ item }}</li>{% endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

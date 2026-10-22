@@ -1,28 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ page.title }} | {{ site.title }}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/stylesheets/style.css' | relative_url }}" />
-  <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/stylesheets/pages.css' | relative_url }}" />
-  <link href="https://fonts.googleapis.com/css?family=Karla:700" rel="stylesheet">
-  {%- feed_meta -%}
-</head>
-
-<body>
-  {% include site-nav.html %}
-  <main class="page --padding">
-    <div class="page__content">
-      {%- if page.title -%}
-      <h1>{{ page.title }}</h1>
-      {%- endif -%}
-      {{ content }}
-    </div>
-  </main>
-  {% include site-footer.html %}
-</body>
-
-</html>
+---
+layout: default
+---
+<article class="page container container--narrow">
+  <header class="page__head">
+    <h1>{{ page.title }}</h1>
+    {%- if page.lead %}<p class="lead">{{ page.lead }}</p>{% endif -%}
+  </header>
+  <div class="prose">
+    {{ content }}
+  </div>
+</article>

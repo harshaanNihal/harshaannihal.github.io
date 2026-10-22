@@ -1,0 +1,49 @@
+{%- assign p = site.data.profile -%}
+{%- assign g = site.data.github -%}
+<section class="section section--alt" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="kicker">Selected work</p>
+      <h2 id="work-title">Things I've built and shipped.</h2>
+    </header>
+    <div class="cards">
+      {%- for project in p.projects %}
+      <article class="card reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
+        {%- if project.image %}
+        <div class="card__media"><img src="{{ '/assets/media/' | append: project.image | relative_url }}" width="1200" height="750" loading="lazy" alt="{{ project.alt }}"></div>
+        {%- elsif project.stat %}
+        <div class="card__media card__media--stat" role="img" aria-label="{{ g[project.stat] }} {{ project.stat_label }}">
+          <span class="card__stat" aria-hidden="true">{{ g[project.stat] }}</span>
+          <span class="card__stat-label" aria-hidden="true">{{ project.stat_label }}</span>
+        </div>
+        {%- endif %}
+        <div class="card__body">
+          <p class="card__kicker">{{ project.kicker }}</p>
+          <h3>{{ project.title }}</h3>
+          <p class="card__text">{{ project.blurb }}</p>
+          <ul class="chips">{% for t in project.tech %}<li class="chip">{{ t }}</li>{% endfor %}</ul>
+          <ul class="card__links">
+            {%- for link in project.links %}
+            <li><a class="link-arrow" href="{{ link.url }}">{{ link.text }} {% include icon.html name="arrow-up-right" px=16 %}</a></li>
+            {%- endfor %}
+          </ul>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+
+    <h3 class="subhead reveal">More builds</h3>
+    <ul class="rows">
+      {%- for project in p.more_projects %}
+      <li class="row reveal" style="--d:{{ forloop.index0 | times: 70 }}ms">
+        <a class="row__link" href="{{ project.url }}">
+          <span class="row__title">{{ project.title }} {% include icon.html name="code" px=16 %}</span>
+          <span class="row__text">{{ project.blurb }}</span>
+          <span class="chip">{{ project.tech }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    <p class="section__more reveal"><a class="btn btn--ghost" href="https://github.com/{{ p.github }}?tab=repositories">All {{ g.public_repos }} repositories on GitHub {% include icon.html name="arrow-up-right" px=16 %}</a></p>
+  </div>
+</section>

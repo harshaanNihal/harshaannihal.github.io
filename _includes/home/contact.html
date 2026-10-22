@@ -1,0 +1,21 @@
+{%- assign p = site.data.profile -%}
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact__panel reveal">
+      <p class="kicker">Contact</p>
+      <h2 id="contact-title">Let's build something good.</h2>
+      <p class="lead">Have a role, a project or a question in mind? My inbox is open.</p>
+      <div class="contact__actions">
+        <a class="btn btn--primary" href="mailto:{{ p.email }}">{% include icon.html name="mail" %} {{ p.email }}</a>
+        <button class="btn btn--ghost" type="button" data-copy="{{ p.email }}">
+          <span data-copy-icon>{% include icon.html name="copy" %}</span>
+          <span data-copy-label>Copy email</span>
+        </button>
+      </div>
+      <ul class="social" aria-label="Find me online">
+        <li><a class="icon-btn" href="https://github.com/{{ p.github }}" aria-label="GitHub">{% include icon.html name="github" %}</a></li>
+        <li><a class="icon-btn" href="https://twitter.com/{{ p.twitter }}" aria-label="Twitter">{% include icon.html name="twitter" %}</a></li>
+      </ul>
+    </div>
+  </div>
+</section>

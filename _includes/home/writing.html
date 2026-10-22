@@ -1,0 +1,20 @@
+<section class="section" id="blog" aria-labelledby="blog-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="kicker">Writing</p>
+      <h2 id="blog-title">From the blog.</h2>
+    </header>
+    <ul class="posts">
+      {%- for post in site.posts limit: 3 %}
+      <li class="reveal" style="--d:{{ forloop.index0 | times: 80 }}ms">
+        <a class="post-card" href="{{ post.url | relative_url }}">
+          <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+          <span class="post-card__title">{{ post.title | escape }}</span>
+          {% include icon.html name="arrow-right" px=18 %}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    <p class="section__more reveal"><a class="btn btn--ghost" href="{{ '/blog/' | relative_url }}">All posts {% include icon.html name="arrow-right" px=16 %}</a></p>
+  </div>
+</section>

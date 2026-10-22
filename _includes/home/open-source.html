@@ -1,0 +1,29 @@
+{%- assign p = site.data.profile -%}
+{%- assign g = site.data.github -%}
+<section class="section" id="open-source" aria-labelledby="os-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="kicker">Open source</p>
+      <h2 id="os-title">Shipping in public.</h2>
+    </header>
+    <div class="os__grid">
+      <div class="os__intro reveal">
+        <p class="os__big"><span class="os__num" data-count="{{ g.miru_prs }}">{{ g.miru_prs }}</span> merged pull requests in <a href="https://github.com/{{ p.open_source.repo }}">Miru</a></p>
+        <p class="prose">Miru is Saeloun's open source time tracking and invoicing app, with {{ g.miru_stars }} stars on GitHub. My changes touched invoices, team management and email flows across the Rails API and the React front end.</p>
+        <p class="prose">Across GitHub I've had {{ g.merged_prs_elsewhere }} pull requests merged into other people's public repositories.</p>
+        <a class="btn btn--ghost" href="https://github.com/{{ p.open_source.repo }}/pulls?q=is%3Apr+author%3A{{ p.github }}+is%3Amerged">{% include icon.html name="git-merge" %} See every merged PR</a>
+      </div>
+      <ol class="prs reveal" style="--d:100ms" aria-label="Selected merged pull requests in Miru">
+        {%- for pr in p.open_source.prs %}
+        <li>
+          <a class="pr" href="https://github.com/{{ p.open_source.repo }}/pull/{{ pr.number }}">
+            <span class="pr__num">#{{ pr.number }}</span>
+            <span class="pr__title">{{ pr.title }}</span>
+            {% include icon.html name="arrow-up-right" px=16 %}
+          </a>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </div>
+</section>
