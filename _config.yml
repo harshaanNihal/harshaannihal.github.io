@@ -17,6 +17,7 @@ title: Harshaan Nihal Khan
 email: harshaan.n.khan@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Portfolio and blog of Harshaan Nihal Khan, a front-end web developer.
+timezone: Asia/Kolkata # post dates carry +0530; without this Pages renders them in UTC
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://harshaannihal.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: klassynihal
