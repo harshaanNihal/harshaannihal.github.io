@@ -1,24 +1,65 @@
 ---
 layout: default
 ---
-<article class="page container container--narrow" itemscope itemtype="https://schema.org/BlogPosting">
-  <header class="page__head">
-    <p class="kicker"><a href="{{ '/#writing' | relative_url }}">Writing</a></p>
+{%- comment -%}
+  A post that points at a Medium story with `canonical_url` borrows that story's cover from
+  _data/medium.yml, unless the post sets its own `cover` (a path under assets/media, no extension).
+  A post with neither gets a header and no picture.
+{%- endcomment -%}
+{%- assign medium_twin = nil -%}
+{%- if page.canonical_url -%}
+  {%- assign medium_twin = site.data.medium.posts | where: 'url', page.canonical_url | first -%}
+{%- endif -%}
+{%- assign cover = page.cover | default: medium_twin.cover -%}
+{%- assign minutes = content | strip_html | number_of_words | divided_by: 200.0 | ceil | at_least: 1 -%}
+{%- assign blog_url = '/blog/' | relative_url -%}
+<article class="page post container container--narrow" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="page__head post__head">
+    <p class="kicker"><a href="{{ blog_url }}">Blog</a></p>
     <h1 itemprop="headline">{{ page.title | escape }}</h1>
+    {%- if page.description %}
+    <p class="lead" itemprop="description">{{ page.description }}</p>
+    {%- endif %}
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %-d, %Y" }}</time>
       <span aria-hidden="true">·</span>
-      {%- assign words = content | number_of_words -%}
-      <span>{{ words | divided_by: 200 | plus: 1 }} min read</span>
+      <span>{{ minutes }} min read</span>
     </p>
+    {%- if page.canonical_url %}
+    <p class="post-note">
+      {%- if page.canonical_url contains 'medium.com' %}Also published on Medium.{% else %}Originally published elsewhere.{% endif %}
+      <a href="{{ page.canonical_url }}" itemprop="sameAs">Read it there {% include icon.html name="arrow-up-right" px=14 %}</a>
+    </p>
+    {%- endif %}
   </header>
+  {%- if cover %}
+  <figure class="post__cover">
+    <picture><source type="image/avif" srcset="{{ '/assets/media/' | append: cover | append: '.avif' | relative_url }}"><img src="{{ '/assets/media/' | append: cover | append: '.jpg' | relative_url }}" width="720" height="405" alt="" decoding="async" fetchpriority="high"></picture>
+  </figure>
+  {%- endif %}
   <div class="prose" itemprop="articleBody">
     {{ content }}
   </div>
-  <footer class="post-end">
-    <a class="btn btn--ghost" href="{{ '/#writing' | relative_url }}">{% include icon.html name="arrow-right" %} More writing</a>
+  {%- if page.previous or page.next %}
+  <nav class="post-nav" aria-label="More posts">
+    {%- if page.previous %}
+    <a class="post-nav__link post-nav__link--older" href="{{ page.previous.url | relative_url }}" rel="prev">
+      <span class="post-nav__label">{% include icon.html name="arrow-right" px=16 %} Older post</span>
+      <span class="post-nav__title">{{ page.previous.title | escape }}</span>
+    </a>
+    {%- endif %}
+    {%- if page.next %}
+    <a class="post-nav__link post-nav__link--newer" href="{{ page.next.url | relative_url }}" rel="next">
+      <span class="post-nav__label">Newer post {% include icon.html name="arrow-right" px=16 %}</span>
+      <span class="post-nav__title">{{ page.next.title | escape }}</span>
+    </a>
+    {%- endif %}
+  </nav>
+  {%- endif %}
+  <footer class="post__foot">
+    <a class="back-link" href="{{ blog_url }}">{% include icon.html name="arrow-right" px=18 %} Back to the blog</a>
     {%- if page.canonical_url %}
-    <a class="btn btn--ghost" href="{{ page.canonical_url }}">{% include icon.html name="book-open" %} Read it on Medium</a>
+    {% include btn.html href=page.canonical_url label="Read it on Medium" icon="arrow-up-right" variant="ghost" %}
     {%- endif %}
   </footer>
 </article>
