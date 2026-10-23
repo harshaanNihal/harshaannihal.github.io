@@ -40,6 +40,7 @@
       </li>
       {%- endfor %}
     </ul>
-    <p class="section__more reveal"><a class="btn btn--ghost" href="https://github.com/{{ p.github }}?tab=repositories">More on GitHub {% include icon.html name="arrow-up-right" px=16 %}</a></p>
+    {%- capture repos_url %}https://github.com/{{ p.github }}?tab=repositories{% endcapture %}
+    <p class="section__more reveal">{% include btn.html href=repos_url label="More on GitHub" icon="arrow-up-right" variant="notch" %}</p>
   </div>
 </section>

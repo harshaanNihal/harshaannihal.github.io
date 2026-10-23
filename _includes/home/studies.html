@@ -19,7 +19,7 @@
     </ul>
     <p class="studies__links reveal">
       {%- for item in p.labs %}
-      <a class="btn btn--ghost" href="{{ item.url }}">{{ item.title }} {% include icon.html name="arrow-up-right" px=16 %}</a>
+      {% include btn.html href=item.url label=item.title icon="arrow-up-right" variant="notch" %}
       {%- endfor %}
     </p>
   </div>
