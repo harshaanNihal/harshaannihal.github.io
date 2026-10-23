@@ -1,0 +1,23 @@
+{% raw %}
+/* The river of dabs. Each dab follows the line's direction at its spot, set off to one side by up to
+   half the river's width, which swells in the middle and tapers at both ends like a loaded brush. */
+function river({ seed, count, half, len, widths, colors }) {
+  const rand = random(seed);
+  const groups = new Map();
+  for (let i = 0; i < count; i++) {
+    const s = (i + rand()) / count;
+    const swell = Math.pow(Math.sin(Math.PI * Math.min(1, s * 1.15)), 0.55);
+    const o = (rand() * 2 - 1) * half * Math.max(0.18, swell);
+    const L = between(rand, len) / line.total;
+    const a = line.at(Math.max(0, s - L / 2));
+    const m = line.at(s);
+    const b = line.at(Math.min(1, s + L / 2));
+    const off = (p) => ({ x: p.x - p.ty * o, y: p.y + p.tx * o });
+    const pa = off(a);
+    const pm = off(m);
+    const pb = off(b);
+    add(groups, pick(rand, colors), pick(rand, widths), `M${n(pa.x)} ${n(pa.y)}Q${n(pm.x)} ${n(pm.y)} ${n(pb.x)} ${n(pb.y)}`);
+  }
+  return paths(groups);
+}
+{% endraw %}

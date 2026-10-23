@@ -1,6 +1,7 @@
 /* Portfolio styles, inlined into every page by _includes/head.html.
    Tokens, base, layout, components, sections, motion, responsive. No build step.
-   Theme: The Starry Night. Night is the default, day is the light variant. */
+   Theme: The Starry Night, in midnight navy, cobalt and bright red, with the painting's own gold for the
+   stars. Night and day follow the visitor's device. */
 
 /* Polya by Adrien Coquet, a wireframe display face (all capitals). Latin subset built by tools/font.sh. */
 @font-face {
@@ -34,25 +35,30 @@
   --header-h: 68px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Night: the sky over Saint-Remy. Gold from the moon, blue from the swirls. */
-  --bg: #0a1329;
-  --bg-alt: #0d1a38;
-  --surface: #11224a;
-  --line: #243a72;
+  /* Night: the sky over Saint-Remy in midnight navy. Gold from the moon and stars, cobalt for the lines that
+     join things, bright red for heat (hover, focus, "latest", press). Cobalt is never small text on navy. */
+  --navy: #021861;
+  --cobalt: #255dce;
+  --red: #de1110;
+  --bg: #021861;
+  --bg-alt: #031c6e;
+  --surface: #0a2a7f;
+  --line: #1a3c9a;
   --frame: #c9a227;
   --text: #f6efd8;
-  --muted: #b0bcd9;
+  --muted: #b9c6e8;
   --gold: #f2c14e;
   --gold-bright: #ffe08a;
   --gold-text: #ffe08a;
   --gold-ink: #1b1403;
   --link: #ffd86b;
-  --sky: #8fc1f2;
-  --crimson: #e8505b;
-  --badge: #c42b38;
-  --tok-tag: #ff8e98;
-  --glass: rgba(10, 19, 41, 0.8);
-  --scrim: rgba(7, 14, 34, 0.9);
+  --sky: #255dce;
+  --sky-text: #9dbcf7;
+  --crimson: #de1110;
+  --badge: #de1110;
+  --tok-tag: #ff7a72;
+  --glass: rgba(2, 24, 97, 0.82);
+  --scrim: rgba(1, 16, 66, 0.9);
   --wash-filter: saturate(1.55) brightness(0.9);
   --wash-opacity: 1;
   --shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
@@ -70,7 +76,7 @@
   --ps-glow: rgba(255, 214, 102, 0.4);
   --sw-1: rgba(126, 176, 240, 0.72);
   --sw-2: rgba(240, 236, 214, 0.62);
-  --sw-3: rgba(52, 98, 196, 0.78);
+  --sw-3: rgba(37, 93, 206, 0.82);
   --sw-4: rgba(255, 212, 102, 0.62);
   --sw-5: rgba(178, 214, 246, 0.6);
   /* Light that follows the pointer over a framed card, and the pencil hatching inside a pressed notch. */
@@ -80,25 +86,27 @@
   color-scheme: dark;
 }
 
-/* Day: the same painting in Arles daylight. */
+/* Day: the same painting in Arles daylight, inked in midnight navy, linked in cobalt, heated in a deeper red
+   that passes on cream. */
 :root[data-theme="light"] {
   --bg: #f8f1dc;
   --bg-alt: #f0e6c6;
   --surface: #fffaf0;
   --line: #d8c995;
   --frame: #a8801a;
-  --text: #14224a;
-  --muted: #475686;
+  --text: #021861;
+  --muted: #3d4c80;
   --gold: #e0a92e;
   --gold-bright: #c98a12;
   --gold-text: #7d5200;
   --gold-ink: #1b1403;
-  --link: #1f3f96;
-  --sky: #2a56b8;
-  --crimson: #b3141b;
-  --badge: #b3141b;
-  --tok-tag: #b3141b;
-  --glass: rgba(248, 241, 220, 0.85);
+  --link: #255dce;
+  --sky: #255dce;
+  --sky-text: #1d4db0;
+  --crimson: #c00e0d;
+  --badge: #de1110;
+  --tok-tag: #c00e0d;
+  --glass: rgba(248, 241, 220, 0.88);
   --scrim: rgba(248, 241, 220, 0.9);
   --wash-filter: saturate(1.8) brightness(1.12);
   --wash-opacity: 0.5;
@@ -273,8 +281,7 @@ a:hover {
 h1,
 h2,
 h3,
-.brand,
-.art__word {
+.brand {
   font-family: var(--font-display);
   font-weight: 400;
   font-synthesis: none;
@@ -730,7 +737,7 @@ h2 {
   position: absolute;
   inset: -6%;
   z-index: -3;
-  background: var(--wash, none) center / cover no-repeat, linear-gradient(160deg, #1b3a82, #0a1329);
+  background: var(--wash, none) center / cover no-repeat, linear-gradient(160deg, #1b3a82, #021861);
   /* The blur melts the pixel grid of the stretched thumbnail, which shows on tall tablet screens. */
   filter: var(--wash-filter) blur(12px);
   opacity: var(--wash-opacity);
@@ -1122,8 +1129,8 @@ h2 {
   border-radius: 4px;
   background: var(--bg);
   color: var(--muted);
-  font: 600 0.66rem var(--font-body);
-  letter-spacing: 0.18em;
+  font: 600 0.72rem var(--font-body);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -1163,41 +1170,85 @@ h2 {
   --lit: var(--gold-text);
 }
 
-/* The roles hang on a dashed line, one star each. --mark is the star's offset from the top of its role,
-   so each stretch of line can stop just short of the next star. */
+/* The ledger: dates in a column that never moves, a dashed line down the gutter beside it with one star per
+   row, then the role. --when is the date column and --rail the gutter the line runs down; --mark is the star's
+   offset from the top of its row, so each stretch of line stops just short of the next star. */
 .career {
-  --gap: clamp(44px, 6vw, 64px);
-  --mark: 13px;
+  --when: 7.6rem;
+  --rail: 48px;
+  --gap: clamp(40px, 5vw, 60px);
+  --mark: 14px;
   display: grid;
   gap: var(--gap);
-  padding-left: 36px;
 }
 
-.career__role {
+.career__row {
   position: relative;
+  display: grid;
+  grid-template-columns: var(--when) minmax(0, 1fr);
+  column-gap: var(--rail);
 }
 
-.career__role::before {
+.career__row::before {
   content: "";
   position: absolute;
-  left: -36px;
+  left: calc(var(--when) + var(--rail) / 2 - 6px);
   top: var(--mark);
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   border: 1.5px solid var(--muted);
   border-radius: 50%;
   background: var(--bg);
   transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, scale 0.5s var(--ease);
 }
 
-.career__role:not(:last-child)::after {
+.career__row:not(:last-child)::after {
   content: "";
   position: absolute;
-  left: -31px;
-  top: calc(var(--mark) + 17px);
-  bottom: calc(6px - var(--gap) - var(--mark));
-  border-left: 1px dashed var(--sky);
-  opacity: 0.55;
+  left: calc(var(--when) + var(--rail) / 2 - 0.75px);
+  top: calc(var(--mark) + 19px);
+  bottom: calc(7px - var(--gap) - var(--mark));
+  border-left: 1.5px dashed var(--sky-text);
+  opacity: 0.45;
+}
+
+.career__when {
+  padding-top: 8px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.career__when time:last-of-type,
+.career__where {
+  display: block;
+}
+
+/* Now: the open slot is the one red star, the name still unprinted in gold outline. */
+.career__row--now::before {
+  border-color: var(--red);
+  background: var(--red);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--red) 28%, transparent);
+}
+
+.career__row--now .career__when {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.career__company--open {
+  color: transparent;
+  -webkit-text-stroke: max(1px, 0.024em) var(--gold);
+}
+
+:root[data-theme="light"] .career__company--open {
+  -webkit-text-stroke-color: var(--link);
+}
+
+.career__ask {
+  margin-top: 10px;
 }
 
 .career__role.is-active::before {
@@ -1208,8 +1259,8 @@ h2 {
 }
 
 .career__company {
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  line-height: 1.05;
+  font-size: clamp(1.7rem, 3.1vw, 2.35rem);
+  line-height: 1.04;
   transition: color 0.4s;
 }
 
@@ -1217,24 +1268,22 @@ h2 {
   color: var(--gold-text);
 }
 
-.career__when {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-variant-numeric: tabular-nums;
-}
-
 .career__position {
   display: grid;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 18px;
+}
+
+.career__position + .career__position {
+  margin-top: 26px;
 }
 
 .career__title {
   font-weight: 600;
 }
 
-.career__notes {
+.career__notes,
+.career__text {
   display: grid;
   gap: 6px;
   max-width: 62ch;
@@ -1257,6 +1306,34 @@ h2 {
   border-radius: 50%;
   background: currentColor;
   opacity: 0.6;
+}
+
+/* Press, such as the Ruby Weekly feature, is marked with a stroke of red under the words. */
+.press {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: inset 0 -0.42em 0 color-mix(in srgb, var(--red) 55%, transparent);
+  transition: box-shadow 0.25s var(--ease);
+}
+
+.press:hover {
+  box-shadow: inset 0 -1.2em 0 color-mix(in srgb, var(--red) 55%, transparent);
+}
+
+.career__case {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  margin-top: 2px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.career__case:hover {
+  text-decoration: underline;
 }
 
 /* The role's stack as a row of lit stars. Beside the sky (wide screens with JavaScript) the sky already
@@ -1304,6 +1381,25 @@ h2 {
   top: calc(var(--header-h) + 28px);
 }
 
+/* The sky can only ride as far as the ledger runs, so the section's closing space sits inside the ledger, and
+   the sky, however its pills wrap, is never taller than fits beside the last role while it is read. The field
+   gives up the height. */
+@media (min-width: 961px) {
+  #experience {
+    padding-bottom: 0;
+  }
+
+  .career {
+    padding-bottom: clamp(72px, 10vw, 120px);
+  }
+
+  .skill-sky {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(42vh + 200px);
+  }
+}
+
 .skill-sky__roles {
   display: flex;
   flex-wrap: wrap;
@@ -1316,20 +1412,22 @@ html:not(.js) .skill-sky__roles {
   display: none;
 }
 
+/* "Lit up for" captions the pills on its own line, so the four of them keep to one row beside the sky. */
 .skill-sky__label {
-  margin-right: 6px;
+  flex-basis: 100%;
+  margin-bottom: 2px;
   color: var(--muted);
   font-size: 0.9rem;
 }
 
 .skill-sky__role {
   min-height: 40px;
-  padding: 8px 15px;
+  padding: 7px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: none;
   color: var(--muted);
-  font: 500 0.9rem var(--font-body);
+  font: 500 0.86rem var(--font-body);
   cursor: pointer;
   transition: color 0.2s, background 0.2s, border-color 0.2s;
 }
@@ -1499,33 +1597,8 @@ html:not(.js) .skill-sky__roles {
   background: var(--surface);
 }
 
-/* ---------- Cards: framed canvases ---------- */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-  gap: 24px;
-}
-
-.card {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  overflow: hidden;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-/* A card is not a link, so it does not lift. It is framed work in a gallery: the frame turns gold
-   and a pool of moonlight follows the pointer across it. Stories, which are links, also lift. */
-.card:hover {
-  border-color: var(--frame);
-  box-shadow: var(--shadow);
-}
-
-.card::before,
+/* ---------- Links and moonlight ---------- */
+/* A story is a link, so it lifts, and a pool of moonlight follows the pointer across it. */
 .story::before {
   content: "";
   position: absolute;
@@ -1538,101 +1611,9 @@ html:not(.js) .skill-sky__roles {
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .card:hover::before,
   .story:hover::before {
     opacity: 1;
   }
-}
-
-.card__media {
-  position: relative;
-  margin: 10px 10px 0;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border: 1px solid var(--frame);
-  border-radius: 10px;
-  background: var(--bg-alt);
-}
-
-.card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  transition: transform 0.6s var(--ease);
-}
-
-.card:hover .card__media img {
-  transform: scale(1.04);
-}
-
-/* A page from the sketchbook, where a project without a screenshot is lettered by hand: squared
-   paper, the name in Polya, and a band of pencil hatching under it. The painted stars stay in the sky. */
-.card__media--art,
-.story__media--art {
-  --grid: color-mix(in srgb, var(--sky) 16%, transparent);
-  display: grid;
-  place-items: center;
-  background:
-    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 18px 18px,
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 18px 18px,
-    var(--bg-alt);
-}
-
-.art__word {
-  position: relative;
-  padding: 0 0.12em 0.14em;
-  color: var(--gold-text);
-  font: 400 clamp(3rem, 8vw, 4.2rem) / 1 var(--font-display);
-  letter-spacing: 0.02em;
-  text-shadow: var(--ink-shadow);
-}
-
-:root[data-theme="light"] .art__word {
-  color: var(--link);
-}
-
-.art__word::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.12em;
-  height: 0.22em;
-  background: repeating-linear-gradient(-55deg, currentColor 0 1.5px, transparent 1.5px 6px);
-  opacity: 0.55;
-}
-
-.card__body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 12px;
-  padding: 20px 24px 24px;
-}
-
-.card__kicker {
-  color: var(--gold-text);
-  font: 600 0.7rem var(--font-body);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.card h3 {
-  font-size: 1.5rem;
-  line-height: 1.2;
-}
-
-.card__text {
-  color: var(--muted);
-}
-
-.card__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  margin-top: auto;
-  padding-top: 8px;
 }
 
 .link-arrow {
@@ -1725,11 +1706,16 @@ html:not(.js) .skill-sky__roles {
   text-wrap: pretty;
 }
 
+/* The row is clipped sideways 8px outside its edge (room for a star's glow), so the line that leads into a
+   star is cut off wherever that star starts a new line, and a wrapped row never opens on a dash. */
 .index__stars {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px 0;
+  gap: 4px 34px;
+  margin-left: -8px;
+  padding-left: 8px;
+  overflow-x: clip;
   font-size: 0.86rem;
 }
 
@@ -1749,17 +1735,13 @@ html:not(.js) .skill-sky__roles {
   box-shadow: 0 0 8px var(--gold);
 }
 
-.index__stars span + span::before {
-  margin-left: 34px;
-}
-
-/* The dashed line that joins one star to the next. */
+/* The dashed line that joins one star to the next, across the gap. */
 .index__stars span + span::after {
   content: "";
   position: absolute;
-  left: 6px;
+  right: calc(100% + 8px);
   top: 50%;
-  width: 24px;
+  width: 22px;
   border-top: 1px dashed var(--sky);
   opacity: 0.8;
 }
@@ -1770,50 +1752,196 @@ html:not(.js) .skill-sky__roles {
   gap: 6px 18px;
 }
 
-.index__item > :not(.index__peek) {
+.index__item > :not(.case__sketch) {
   grid-column: 1;
 }
 
-.index__peek {
+.case__title {
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+.index__kind {
+  margin-top: -4px;
+}
+
+/* The case study opens in place: the toggle reads as a link, and the facts sit in a short ledger. */
+.case__more {
+  margin-top: 4px;
+}
+
+.case__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--link);
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+.case__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.case__toggle:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.case__toggle .icon {
+  transition: rotate 0.3s var(--ease);
+}
+
+.case__close,
+[open] > .case__toggle .case__open {
+  display: none;
+}
+
+[open] > .case__toggle .case__close {
+  display: inline;
+}
+
+[open] > .case__toggle .icon {
+  rotate: 180deg;
+}
+
+.case__facts {
+  display: grid;
+  gap: 2px;
+  max-width: 62ch;
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.case__facts > div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.case__facts dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.case__facts dd {
+  text-wrap: pretty;
+}
+
+.case__more .index__links {
+  margin-top: 16px;
+}
+
+/* The system, sketched as a constellation: its parts are stars, the dashed lines are how they connect. The lines
+   stretch with the sketch but keep their weight; the labels are text, so they keep their size. Dim until the
+   row is the one being looked at, never so dim that a label stops reading. */
+.case__sketch {
+  --spot: var(--gold);
+  position: relative;
   grid-column: 2;
-  grid-row: 1 / span 5;
+  grid-row: 1 / span 7;
   align-self: center;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border: 1px solid var(--frame);
-  border-radius: 10px;
-  opacity: 0.35;
-  filter: saturate(0.4);
-  transform: translateY(14px) rotate(1.5deg) scale(0.96);
-  transition: opacity 0.5s, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.5s, box-shadow 0.5s;
+  aspect-ratio: 16 / 11;
+  margin: 0 clamp(44px, 5vw, 72px);
 }
 
-.index__item:hover .index__peek,
-.index__item:focus-within .index__peek {
-  opacity: 1;
-  filter: none;
-  transform: none;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
-}
-
-.index__peek img {
+.case__lines {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  overflow: visible;
 }
 
-.index__peek .card__media--art {
-  height: 100%;
+.case__lines line {
+  stroke: var(--sky-text);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 5;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.45;
+  transition: opacity 0.5s var(--ease), stroke-opacity 0.6s var(--ease) calc(var(--i) * 110ms + 500ms);
+}
+
+.case__node {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: max-content;
+  max-width: 7.6em;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.25;
+  text-align: center;
+  translate: var(--tx, -50%) var(--ty, -50%);
+  transition: color 0.4s;
+}
+
+/* The star on the point, and the label beside it on the side its data names. */
+.case__node::before {
+  content: "";
+  position: absolute;
+  left: var(--sx, 50%);
+  top: var(--sy, 50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--spot);
+  box-shadow: 0 0 0 3px var(--bg-alt), 0 0 6px color-mix(in srgb, var(--spot) 60%, transparent);
+  translate: -50% -50%;
+  transition: background 0.4s, box-shadow 0.4s, scale 0.5s var(--ease), opacity 0.4s ease calc(var(--i) * 90ms + 200ms);
+}
+
+.case__node--above {
+  --ty: calc(-100% - 16px);
+  --sy: calc(100% + 16px);
+}
+
+.case__node--below {
+  --ty: 16px;
+  --sy: -16px;
+}
+
+
+
+/* Lit while the row is looked at, and for as long as its case study is open. */
+.index__item:hover .case__node,
+.index__item:focus-within .case__node,
+.case__more[open] ~ .case__sketch .case__node {
+  color: var(--text);
+}
+
+.index__item:hover .case__node::before,
+.index__item:focus-within .case__node::before,
+.case__more[open] ~ .case__sketch .case__node::before {
+  background: var(--spot);
+  box-shadow: 0 0 0 3px var(--bg-alt), 0 0 12px var(--spot);
+  scale: 1.25;
+}
+
+.index__item:hover .case__lines line,
+.index__item:focus-within .case__lines line,
+.case__more[open] ~ .case__sketch .case__lines line {
+  opacity: 0.9;
+}
+
+:root[data-theme="light"] .case__sketch {
+  --spot: var(--gold-text);
+}
+
+/* The constellation joins up the first time its row comes into view: stars first, then the lines. The reveal
+   moves opacity and stroke-opacity only, so hover keeps scale and opacity to itself. */
+.js .case.reveal:not(.in) .case__node::before {
+  opacity: 0;
+}
+
+.js .case.reveal:not(.in) .case__lines line {
+  stroke-opacity: 0;
 }
 
 @media (hover: none) {
-  .index__peek {
-    opacity: 1;
-    filter: none;
-    transform: none;
-  }
-
   .index__item.in .index__name {
     color: var(--gold);
     transition-delay: 0.4s;
@@ -1824,77 +1952,485 @@ html:not(.js) .skill-sky__roles {
   }
 }
 
-@media (max-width: 760px) {
+/* Below the width where the sketch column is roomy enough for its labels, the rows stack, as Experience does. */
+@media (max-width: 960px) {
   .index__item {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .index__peek {
+  /* On a phone the constellation stands up: the parts run down the sketch in two columns, each label beside its
+     star, so long labels never collide. The lines take the same turn: x and y swap, and the two columns sit
+     between 37% and 63% of the width (the matrix is that swap and squeeze). Standing up it is tall, so it
+     waits inside the case study and shows below the facts once the case is open. */
+  .case__sketch {
+    display: none;
     grid-column: 1;
     grid-row: auto;
-    opacity: 1;
-    filter: none;
-    transform: none;
+    width: min(100%, 420px);
+    aspect-ratio: 3 / 4;
+    margin: 18px auto 8px;
+  }
+
+  .case__more[open] ~ .case__sketch {
+    display: block;
+  }
+
+  .case__lines g {
+    transform: matrix(0, 1, 0.5, 0, 26, 0);
+  }
+
+  .case__node {
+    left: calc(var(--y) * 0.5% + 26%);
+    top: calc(var(--x) * 1%);
+    max-width: calc(40% - 22px);
+  }
+
+  .case__node--above {
+    --tx: calc(-100% - 14px);
+    --ty: -50%;
+    --sx: calc(100% + 14px);
+    --sy: 50%;
+    text-align: right;
+  }
+
+  .case__node--below {
+    --tx: 14px;
+    --ty: -50%;
+    --sx: -14px;
+    --sy: 50%;
+    text-align: left;
+  }
+
+}
+
+@media (max-width: 760px) {
+  .case__facts > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .index__name,
-  .index__name::after,
-  .index__peek {
+  .index__name::after {
     transition: none;
   }
 }
 
-/* ---------- More builds ---------- */
-.rows {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr));
-  gap: 16px;
-}
-
-.rows > li {
-  display: flex;
-}
-
-.row__link {
-  display: grid;
-  flex: 1;
-  grid-template-columns: 1fr auto;
-  align-content: start;
-  gap: 6px;
-  padding: 18px 22px;
+/* ---------- Code: a year on GitHub, this site's experiments, side projects ---------- */
+/* The contribution calendar, as GitHub draws it: a column per week, a square per day, months above and three
+   weekdays down the side. Levels are GitHub's own quartiles on one cobalt ramp, brighter for more by night and
+   darker for more by day, so the busiest days read first in both. An empty day is a quiet square a step up
+   from the card, so the year keeps its shape. */
+.gh {
+  --l0: color-mix(in srgb, var(--cobalt) 30%, var(--surface));
+  --l1: var(--cobalt);
+  --l2: #5a86e6;
+  --l3: #93b2f0;
+  --l4: #d3e1ff;
+  container-type: inline-size;
+  padding: clamp(18px, 3vw, 28px);
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface);
+}
+
+:root[data-theme="light"] .gh {
+  --l0: #efe6cb;
+  --l1: #c2d3f6;
+  --l2: #7fa3ea;
+  --l3: var(--cobalt);
+  --l4: #0f3584;
+}
+
+.gh__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin-bottom: 18px;
+  color: var(--muted);
+}
+
+.gh__head strong {
   color: var(--text);
-  text-decoration: none;
-  transition: transform 0.25s var(--ease), border-color 0.25s;
+  font-size: 1.15rem;
 }
 
-.row__link:hover {
-  transform: translateY(-3px);
-  border-color: var(--frame);
-}
-
-.row__title {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.gh__handle {
   font-weight: 600;
 }
 
-.row__text {
-  grid-column: 1 / -1;
+/* The squares grow with the card until the year fills it; on a phone they stop at 9px and the year scrolls. */
+.gh__cal {
+  --cell: clamp(9px, (100cqw - 40px) / 53 - 3px, 18px);
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-template-areas: ". months" "days grid";
+  gap: 6px 8px;
+  justify-content: start;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+}
+
+.gh__months {
+  grid-area: months;
+  position: relative;
+  height: 1.2em;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.gh__months span {
+  position: absolute;
+  left: calc(var(--w) * (var(--cell) + 3px));
+}
+
+.gh__days {
+  grid-area: days;
+  display: grid;
+  grid-template-rows: repeat(7, var(--cell));
+  gap: 3px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: var(--cell);
+}
+
+.gh__days span:nth-child(1) {
+  grid-row: 2;
+}
+
+.gh__days span:nth-child(2) {
+  grid-row: 4;
+}
+
+.gh__days span:nth-child(3) {
+  grid-row: 6;
+}
+
+.gh__grid {
+  grid-area: grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, var(--cell));
+  grid-auto-columns: var(--cell);
+  gap: 3px;
+}
+
+.gh__week {
+  display: contents;
+}
+
+.gh i {
+  display: block;
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 3px;
+  background: var(--l0);
+}
+
+.gh i.l1 {
+  background: var(--l1);
+}
+
+.gh i.l2 {
+  background: var(--l2);
+}
+
+.gh i.l3 {
+  background: var(--l3);
+}
+
+.gh i.l4 {
+  background: var(--l4);
+}
+
+.gh__legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.gh__legend i {
+  width: 12px;
+  height: 12px;
+}
+
+/* The hover note on a day. The grid is a picture for the eye; the table behind it carries the numbers. */
+.gh__tip {
+  position: fixed;
+  z-index: 60;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  translate: -50% calc(-100% - 8px);
+}
+
+/* The experiments, as a file view: the files down the side, and for the open one its path, a preview, the
+   real code behind it, and what it does. */
+.repo-view {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.32fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+html:not(.js) .repo-view {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+html:not(.js) .repo-view__files {
+  display: none;
+}
+
+.repo-view__files {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 10px;
+  border-right: 1px solid var(--line);
+  background: var(--bg-alt);
+}
+
+.repo-view__file {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--muted);
+  font: 500 0.95rem var(--font-body);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.repo-view__file .icon {
+  grid-row: 1 / span 2;
+}
+
+.repo-view__path {
+  color: var(--muted);
+  font: 0.76rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  opacity: 0.85;
+}
+
+.repo-view__file:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.repo-view__file[aria-selected="true"] {
+  background: var(--surface);
+  color: var(--gold-text);
+}
+
+.experiment {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  grid-template-areas: "path path" "preview code" "about about";
+  gap: 18px 22px;
+  padding: clamp(16px, 2.5vw, 24px);
+}
+
+.js .experiment:not(.is-shown) {
+  display: none;
+}
+
+html:not(.js) .experiment + .experiment {
+  border-top: 1px solid var(--line);
+}
+
+.experiment__path {
+  grid-area: path;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font: 0.84rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.experiment__path a {
+  color: var(--text);
+}
+
+.experiment__preview {
+  grid-area: preview;
+  align-self: start;
+  overflow: hidden;
+  border: 1px solid var(--frame);
+  border-radius: 10px;
+  background: var(--bg);
+  aspect-ratio: 16 / 10;
+}
+
+.experiment__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.experiment__live {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  height: 100%;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* The code scrolls in its own frame, which takes keyboard focus so the scroll works without a pointer. */
+.experiment__code {
+  grid-area: code;
+  min-width: 0;
+  max-height: 360px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  scrollbar-width: thin;
+}
+
+.experiment__code .highlight {
+  margin: 0;
+}
+
+.experiment__code pre {
+  margin: 0;
+  padding: 14px 16px;
+  font: 0.8rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  tab-size: 2;
+}
+
+.experiment__about {
+  grid-area: about;
+  display: grid;
+  gap: 8px;
+  max-width: 70ch;
+}
+
+.experiment__title {
+  font: 600 1.1rem var(--font-body);
+}
+
+.experiment__about p {
+  color: var(--muted);
+}
+
+.experiment__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.experiment__tags li {
+  padding: 3px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+/* Side projects as GitHub rows: the name, one line, the language with GitHub's own colour, and a live demo. */
+.repos {
+  border-top: 1px solid var(--line);
+}
+
+.repo {
+  display: grid;
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.repo__name {
+  justify-self: start;
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+.repo__text {
+  max-width: 70ch;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
-.row__link .chip {
-  grid-row: 1;
-  grid-column: 2;
-  align-self: start;
-  font-size: 0.75rem;
+.repo__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 20px;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.repo__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.repo__lang::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #f1e05a;
+}
+
+.repo__lang--html::before {
+  background: #e34c26;
+}
+
+.repo__meta .link-arrow {
+  font-weight: 600;
+}
+
+.repos__more {
+  margin-top: 16px;
+}
+
+.repos__more .repos {
+  margin-top: 12px;
+}
+
+@media (max-width: 760px) {
+  .repo-view {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .repo-view__files {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .experiment {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "path" "preview" "code" "about";
+  }
 }
 
 /* ---------- Writing ---------- */
@@ -1966,21 +2502,29 @@ html:not(.js) .skill-sky__roles {
   text-transform: uppercase;
 }
 
-/* Press for a story, such as a Ruby Weekly feature. It sits above the card's stretched title link. */
-.story__press {
-  position: relative;
+/* The ribbon on a featured story's cover, such as its Ruby Weekly feature: bright red, white words, above the
+   story's stretched link so it stays its own link. */
+.ribbon {
+  position: absolute;
+  left: 14px;
+  top: 14px;
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  color: var(--gold-text);
-  font-weight: 600;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 6px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 700;
   text-decoration: none;
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.7);
+  transition: transform 0.25s var(--ease);
 }
 
-.story__press:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.ribbon:hover {
+  transform: translateY(-2px);
 }
 
 .story h3 {
@@ -2051,93 +2595,6 @@ html:not(.js) .skill-sky__roles {
   gap: 24px;
 }
 
-/* ---------- Studies: the oldest work, kept compact ---------- */
-.studies {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: 32px clamp(32px, 5vw, 64px);
-  align-items: start;
-}
-
-.studies__links {
-  display: grid;
-  justify-items: start;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.shots {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px 16px;
-}
-
-.shot {
-  display: grid;
-  gap: 10px;
-  color: var(--text);
-  text-decoration: none;
-}
-
-.shot__img {
-  display: block;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border: 1px solid var(--frame);
-  border-radius: 10px;
-  background: var(--surface);
-  transition: box-shadow 0.3s, transform 0.3s var(--ease);
-}
-
-.shot__img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  transition: transform 0.6s var(--ease);
-}
-
-/* The name sits under the picture, never on it. */
-.shot__caption {
-  font-size: 0.92rem;
-  font-weight: 600;
-  line-height: 1.35;
-  transition: color 0.2s;
-}
-
-/* Inline, so the arrow follows the last word when a name wraps. */
-.shot__caption .icon {
-  display: inline-block;
-  margin-left: 2px;
-  vertical-align: -2px;
-}
-
-.shot:hover .shot__img {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-}
-
-.shot:hover .shot__img img {
-  transform: scale(1.06);
-}
-
-.shot:hover .shot__caption {
-  color: var(--gold-text);
-}
-
-@media (max-width: 960px) {
-  .studies {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .shots {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 12px;
-  }
-}
-
 /* ---------- The ask: one line and the address, where the reader decides ---------- */
 .ask {
   position: relative;
@@ -2199,7 +2656,7 @@ html:not(.js) .skill-sky__roles {
   inset: -6%;
   z-index: -3;
   /* The top half of the painting only: the sky and the moon, not the portrait below them. */
-  background: var(--wash, none) 50% 0 / 200% auto no-repeat, linear-gradient(160deg, #1b3a82, #0a1329);
+  background: var(--wash, none) 50% 0 / 200% auto no-repeat, linear-gradient(160deg, #1b3a82, #021861);
   filter: var(--wash-filter) blur(14px);
   opacity: var(--wash-opacity);
 }
@@ -2490,7 +2947,7 @@ html:not(.js) .skill-sky__roles {
 .highlight .na,
 .highlight .nf,
 .highlight .py {
-  color: var(--sky);
+  color: var(--sky-text);
 }
 
 .highlight .s,
@@ -2736,6 +3193,66 @@ html:not(.js) .skill-sky__roles {
   }
 }
 
+/* Phones: the ledger's dates move above each role, and the line runs down the left edge. */
+@media (max-width: 640px) {
+  .career {
+    --mark: 6px;
+  }
+
+  .career__row {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 30px;
+  }
+
+  .career__row::before {
+    left: 0;
+  }
+
+  .career__row:not(:last-child)::after {
+    left: 5.25px;
+  }
+
+  .career__when {
+    padding-top: 0;
+    margin-bottom: 6px;
+    text-align: left;
+  }
+
+  .career__when time:last-of-type,
+  .career__where {
+    display: inline;
+  }
+
+  .career__where::before {
+    content: "· ";
+  }
+}
+
+/* Short phones: a smaller portrait, so the name, the lead and the email still share the first screen. The
+   plaque, wider than the smaller frame, hangs from its left edge instead of overhanging the screen. */
+@media (max-width: 560px) and (max-height: 760px) {
+  .portrait {
+    justify-items: start;
+    width: min(160px, 46vw);
+  }
+
+  .plaque {
+    letter-spacing: 0.04em;
+  }
+}
+
+/* The smallest phones: the name and the two round buttons still share one line. */
+@media (max-width: 380px) {
+  .site-header .brand__name {
+    font-size: 0.76rem;
+  }
+
+  .site-header .brand__mark {
+    width: 26px;
+    height: 26px;
+  }
+}
+
 /* The name and six nav links need about 880px in one row; narrower, the links fold into the menu. */
 @media (max-width: 900px) {
   .js .site-header .nav-toggle {
@@ -2946,6 +3463,7 @@ html:not(.js) .skill-sky__roles {
   }
 
   .entry__meta {
+    grid-column: 1;
     grid-row: 1 / span 3;
     flex-direction: column;
     align-items: flex-start;
@@ -2984,8 +3502,8 @@ html:not(.js) .skill-sky__roles {
   padding: 2px 10px;
   border: 1px solid transparent;
   border-radius: 999px;
-  font: 700 0.66rem var(--font-body);
-  letter-spacing: 0.14em;
+  font: 700 0.72rem var(--font-body);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -2998,29 +3516,6 @@ html:not(.js) .skill-sky__roles {
 .source--medium {
   border-color: var(--line);
   color: var(--muted);
-}
-
-/* A post with no cover gets a sketchbook page (see .card__media--art) with a drawn star on it. */
-.story__media--art {
-  position: relative;
-}
-
-.story__glyph {
-  position: relative;
-  display: grid;
-  color: var(--gold-text);
-}
-
-:root[data-theme="light"] .story__glyph {
-  color: var(--link);
-}
-
-.story__glyph .icon {
-  width: clamp(48px, 7vw, 72px);
-  height: auto;
-  fill: currentColor;
-  fill-opacity: 0.18;
-  stroke-width: 1.4;
 }
 
 /* Above the stretched title link, so it stays clickable. */

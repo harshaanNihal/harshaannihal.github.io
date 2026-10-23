@@ -1,6 +1,6 @@
 {%- assign medium = site.data.medium -%}
 {%- assign latest = medium.posts | first -%}
-<section class="section" id="writing" aria-labelledby="writing-title">
+<section class="section section--alt" id="writing" aria-labelledby="writing-title">
   <div class="container">
     <header class="section__head reveal">
       <h2 id="writing-title">Notes from Medium.</h2>
@@ -9,11 +9,11 @@
     <div class="writing">
       <article class="story story--feature reveal">
         {%- if latest.cover %}
-        <div class="story__media">{% include picture.html src=latest.cover alt="" w=720 h=405 %}</div>
+        <div class="story__media">{% include picture.html src=latest.cover alt="" w=720 h=405 %}{% for f in site.data.profile.featured %}{% if latest.url contains f.match %}<a class="ribbon" href="{{ f.url }}">{{ f.text }} {% include icon.html name="arrow-up-right" px=14 %}</a>{% endif %}{% endfor %}</div>
         {%- endif %}
         <div class="story__body">
-          <p class="story__meta"><span class="badge">Latest</span><time datetime="{{ latest.date | date: '%Y-%m-%d' }}">{{ latest.date | date: "%b %-d, %Y" }}</time><span>{{ latest.minutes }} min read</span>{% for f in site.data.profile.featured %}{% if latest.url contains f.match %}<a class="story__press" href="{{ f.url }}">{{ f.text }} {% include icon.html name="arrow-up-right" px=14 %}</a>{% endif %}{% endfor %}</p>
           <h3><a href="{{ latest.url }}">{{ latest.title }}</a></h3>
+          <p class="story__meta"><span class="badge">Latest</span><time datetime="{{ latest.date | date: '%Y-%m-%d' }}">{{ latest.date | date: "%b %-d, %Y" }}</time><span>{{ latest.minutes }} min read</span></p>
           <p class="story__excerpt">{{ latest.excerpt }}</p>
           <ul class="chips">{% for tag in latest.tags %}<li class="chip">{{ tag }}</li>{% endfor %}</ul>
           <p class="story__more">Read on Medium {% include icon.html name="arrow-up-right" px=16 %}</p>
@@ -27,8 +27,8 @@
             <div class="story__media">{% include picture.html src=post.cover alt="" w=720 h=405 %}</div>
             {%- endif %}
             <div class="story__body">
-              <p class="story__meta"><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%b %-d, %Y" }}</time><span>{{ post.minutes }} min read</span>{% for f in site.data.profile.featured %}{% if post.url contains f.match %}<a class="story__press" href="{{ f.url }}">{{ f.text }} {% include icon.html name="arrow-up-right" px=14 %}</a>{% endif %}{% endfor %}</p>
               <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+              <p class="story__meta"><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%b %-d, %Y" }}</time><span>{{ post.minutes }} min read</span></p>
               <p class="story__excerpt">{{ post.excerpt }}</p>
               <p class="story__more">Read on Medium {% include icon.html name="arrow-up-right" px=16 %}</p>
             </div>

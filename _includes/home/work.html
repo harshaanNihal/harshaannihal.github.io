@@ -1,41 +1,59 @@
 {%- assign p = site.data.profile -%}
+{%- comment -%}
+  Case studies: the systems behind the roles, and two products built outside them, as rows of the index. Each
+  row has its company as a big outlined name that inks in gold, the system's name, its dates, a short summary,
+  its tools as stars, and a sketch of the system drawn as a constellation: the parts are stars and the dashed
+  lines are how they connect. A part's label sits on the side away from its lines (above it, lines only run
+  down; below it, only up, or level to a neighbour), so no line crosses a word. The case study (role, tools,
+  outcome) opens in place in a details element, so it works without JavaScript; on a phone the sketch waits
+  inside it. The Experience ledger links to each row by id.
+{%- endcomment -%}
 <section class="section section--alt" id="work" aria-labelledby="work-title">
   <div class="container">
     <header class="section__head reveal">
-      <h2 id="work-title">Things I've built and shipped.</h2>
+      <h2 id="work-title">The systems behind the roles.</h2>
+      <p class="section__lead">Four from my jobs and two I built outside them. Open one for my role, the tools and what it did.</p>
     </header>
     <div class="index">
-      {%- for project in p.projects %}
-      <article class="index__item reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
-        <h3 class="index__name">{{ project.title }}</h3>
-        <p class="index__kind">{{ project.kicker }}</p>
-        <p class="index__text">{{ project.blurb }}</p>
-        <p class="index__stars">{% for t in project.tech %}<span>{{ t }}</span>{% endfor %}</p>
-        <ul class="index__links">
-          {%- for link in project.links %}
-          <li><a class="link-arrow" href="{{ link.url }}">{{ link.text }} {% include icon.html name="arrow-up-right" px=16 %}</a></li>
+      {%- for c in p.case_studies %}
+      <article class="index__item case reveal" id="case-{{ c.id }}">
+        <h3 class="index__name">{{ c.company }}</h3>
+        <p class="case__title">{{ c.title }}</p>
+        <p class="index__kind">{{ c.when }}</p>
+        <p class="index__text">{{ c.summary }}</p>
+        {%- if c.tools %}
+        <p class="index__stars">{% for t in c.tools limit: 4 %}<span>{{ t }}</span>{% endfor %}</p>
+        {%- endif %}
+        <details class="case__more">
+          <summary class="case__toggle"><span class="case__open">Read the case study</span><span class="case__close">Close the case study</span> {% include icon.html name="arrow-down" px=16 %}</summary>
+          <dl class="case__facts">
+            <div><dt>Role</dt><dd>{{ c.role }}</dd></div>
+            {%- if c.tools %}
+            <div><dt>Tools</dt><dd>{{ c.tools | join: ", " }}</dd></div>
+            {%- endif %}
+            <div><dt>Outcome</dt><dd>{{ c.outcome }}</dd></div>
+          </dl>
+          {%- if c.links %}
+          <ul class="index__links">
+            {%- for link in c.links %}
+            <li><a class="link-arrow" href="{{ link.url }}">{{ link.text }} {% include icon.html name="arrow-up-right" px=16 %}</a></li>
+            {%- endfor %}
+          </ul>
+          {%- endif %}
+        </details>
+        <figure class="case__sketch">
+          <svg class="case__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g>
+            {%- for e in c.edges %}{% assign i0 = e[0] %}{% assign i1 = e[1] %}{% assign a = c.nodes[i0] %}{% assign b = c.nodes[i1] %}
+            <line x1="{{ a.x }}" y1="{{ a.y }}" x2="{{ b.x }}" y2="{{ b.y }}" style="--i:{{ forloop.index0 }}"/>
+            {%- endfor %}
+          </g></svg>
+          {%- for n in c.nodes %}
+          <span class="case__node case__node--{{ n.side }}" style="--x:{{ n.x }};--y:{{ n.y }};--i:{{ forloop.index0 }}" aria-hidden="true">{{ n.label }}</span>
           {%- endfor %}
-        </ul>
-        <div class="index__peek">
-          {%- if project.image %}{% include picture.html src=project.image alt=project.alt w=720 h=450 %}{%- elsif project.art %}<div class="card__media--art" aria-hidden="true"><span class="art__word">{{ project.art }}</span></div>{%- endif %}
-        </div>
+          <figcaption class="visually-hidden">The parts of the system: {% for n in c.nodes %}{{ n.label }}{% unless forloop.last %}, {% endunless %}{% endfor %}.</figcaption>
+        </figure>
       </article>
       {%- endfor %}
     </div>
-
-    <h3 class="subhead reveal">More builds</h3>
-    <ul class="rows">
-      {%- for project in p.more_projects %}
-      <li class="reveal" style="--d:{{ forloop.index0 | times: 70 }}ms">
-        <a class="row__link" href="{{ project.url }}">
-          <span class="row__title">{{ project.title }} {% include icon.html name="code" px=16 %}</span>
-          <span class="row__text">{{ project.blurb }}</span>
-          <span class="chip">{{ project.tech }}</span>
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-    {%- capture repos_url %}https://github.com/{{ p.github }}?tab=repositories{% endcapture %}
-    <p class="section__more reveal"><a class="link-arrow" href="{{ repos_url }}">More on GitHub {% include icon.html name="arrow-up-right" px=16 %}</a></p>
   </div>
 </section>

@@ -2,7 +2,8 @@
 # Rebuild every optimized image in assets/media from the originals in _src/. macOS only (uses sips).
 #   _src/hero.jpg       the portrait, becomes hero-480, hero-720 and hero-1152 (AVIF with a JPEG fallback)
 #   _src/sky.jpg       the top 16:9 band of hero.jpg, the source of the hero wash
-#   _src/work/NAME.jpg  project and study screenshots, become work/NAME.avif and work/NAME.jpg at 720 px
+#   _src/work/NAME.jpg  previews of this site's experiments (captured from the site), become work/NAME.avif
+#                       and work/NAME.jpg at 720 px
 # It also writes _includes/hero-wash.txt, a tiny inline image of the sky that paints the hero background.
 set -eu
 cd "$(dirname "$0")/.."
@@ -23,8 +24,6 @@ for src in _src/work/*.jpg; do
   name=$(basename "$src" .jpg)
   encode "$src" "$out/work/$name" 720 50 70
 done
-# The featured project shows up to about 640 CSS px wide, so it also gets a 1280 px copy for 2x screens.
-encode _src/work/miru.jpg "$out/work/miru-1280" 1280 50 70
 
 # The wash is only the sky (_src/sky.jpg is the top 16:9 band of hero.jpg), so the face and shirt do not muddy it.
 tmp=$(mktemp -t wash).jpg

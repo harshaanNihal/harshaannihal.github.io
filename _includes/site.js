@@ -12,7 +12,7 @@
 
   function applyTheme(theme, persist) {
     root.setAttribute('data-theme', theme);
-    if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#f8f1dc' : '#0a1329');
+    if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#f8f1dc' : '#021861');
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(theme === 'light'));
       toggle.setAttribute('aria-label', theme === 'light' ? 'Switch to night theme' : 'Switch to day theme');
@@ -76,26 +76,36 @@
     revealed.forEach(function (el) { el.classList.add('in'); });
   }
 
-  /* Mark the section in view in the nav. */
+  /* Mark the section in view in the nav. A link can stand for several sections (data-nav="work code"). */
   var links = {};
-  document.querySelectorAll('[data-nav]').forEach(function (link) { links[link.getAttribute('data-nav')] = link; });
+  document.querySelectorAll('[data-nav]').forEach(function (link) {
+    link.getAttribute('data-nav').split(' ').forEach(function (id) { links[id] = link; });
+  });
   var sections = Object.keys(links).map(function (id) { return document.getElementById(id); }).filter(Boolean);
 
   if (sections.length && 'IntersectionObserver' in window) {
+    var inBand = null;
     var navObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        var link = links[entry.target.id];
-        if (!link) return;
-        if (entry.isIntersecting) {
-          Object.keys(links).forEach(function (key) { links[key].removeAttribute('aria-current'); });
-          link.setAttribute('aria-current', 'true');
-        } else {
-          link.removeAttribute('aria-current');
-        }
+        if (entry.isIntersecting) inBand = entry.target.id;
+        else if (inBand === entry.target.id) inBand = null;
       });
+      Object.keys(links).forEach(function (key) { links[key].removeAttribute('aria-current'); });
+      if (inBand) links[inBand].setAttribute('aria-current', 'true');
     }, { rootMargin: '-45% 0px -50% 0px' });
     sections.forEach(function (section) { navObserver.observe(section); });
   }
+
+  /* A link to a case study (from the Experience ledger, or a #case- address) opens it. */
+  function openCase(hash) {
+    var row = hash && hash.indexOf('#case-') === 0 && document.getElementById(hash.slice(1));
+    var more = row && row.querySelector('details');
+    if (more) more.open = true;
+  }
+  document.querySelectorAll('[data-open-case]').forEach(function (link) {
+    link.addEventListener('click', function () { openCase(link.getAttribute('href')); });
+  });
+  openCase(location.hash);
 
   /* Copy the email address. The icon turns into a check and screen readers hear it. */
   document.querySelectorAll('[data-copy]').forEach(function (button) {
@@ -212,11 +222,11 @@
     }
   }
 
-  /* ---------- Moonlight on framed cards ---------- */
-  /* A soft pool of light follows the pointer across a card or story (CSS draws it from --mx and --my). */
+  /* ---------- Moonlight on stories ---------- */
+  /* A soft pool of light follows the pointer across a story (CSS draws it from --mx and --my). */
   if (window.matchMedia('(hover: hover)').matches) {
     document.addEventListener('pointermove', function (event) {
-      var card = event.target.closest && event.target.closest('.card, .story');
+      var card = event.target.closest && event.target.closest('.story');
       if (!card) return;
       var rect = card.getBoundingClientRect();
       card.style.setProperty('--mx', Math.round(event.clientX - rect.left) + 'px');
@@ -600,6 +610,66 @@
   }
   if ('requestIdleCallback' in window) requestIdleCallback(bootSkies, { timeout: 1200 });
   else setTimeout(bootSkies, 200);
+
+  /* ---------- Code: the contribution calendar and the experiments file view ---------- */
+  /* A day's note on hover: its count and date, worked out from the week's counts and the calendar's first
+     Sunday. On a narrow screen the calendar starts scrolled to the latest weeks, as GitHub's does. */
+  var calendar = document.querySelector('[data-calendar]');
+  if (calendar) {
+    var first = new Date(calendar.getAttribute('data-start') + 'T00:00:00');
+    var weeks = [].slice.call(calendar.querySelectorAll('.gh__week'));
+    var tip = null;
+    var hideTip = function () { if (tip) tip.hidden = true; };
+    calendar.addEventListener('pointerover', function (event) {
+      var cell = event.target.closest && event.target.closest('i');
+      if (!cell) return hideTip();
+      var week = cell.parentNode;
+      var w = weeks.indexOf(week);
+      var d = [].indexOf.call(week.children, cell);
+      var count = +(week.getAttribute('data-c').split(',')[d] || 0);
+      var day = new Date(first.getTime());
+      day.setDate(day.getDate() + w * 7 + d);
+      if (!tip) {
+        tip = document.createElement('div');
+        tip.className = 'gh__tip';
+        document.body.appendChild(tip);
+      }
+      tip.textContent = (count ? count + (count === 1 ? ' contribution' : ' contributions') : 'No contributions') + ' on ' +
+        day.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      var r = cell.getBoundingClientRect();
+      tip.style.left = r.left + r.width / 2 + 'px';
+      tip.style.top = r.top + 'px';
+      tip.hidden = false;
+    });
+    calendar.addEventListener('pointerleave', hideTip);
+    window.addEventListener('scroll', hideTip, { passive: true });
+    calendar.scrollLeft = calendar.scrollWidth;
+  }
+
+  /* The experiments are tabs: click or arrow keys pick a file, and only its panel shows. Without JavaScript
+     the tabs are hidden and every panel reads in turn. */
+  var view = document.querySelector('[data-repo-view]');
+  if (view) {
+    var tabs = [].slice.call(view.querySelectorAll('[role="tab"]'));
+    var pick = function (tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).classList.toggle('is-shown', on);
+      });
+      if (focus) tab.focus();
+    };
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { pick(tab, false); });
+      tab.addEventListener('keydown', function (event) {
+        var next = { ArrowDown: i + 1, ArrowRight: i + 1, ArrowUp: i - 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        pick(tabs[(next + tabs.length) % tabs.length], true);
+      });
+    });
+  }
 
   /* For anyone who opens the console. */
   if (window.console && console.log) {

@@ -1,0 +1,7 @@
+{%- comment -%} One repository as a GitHub row: name, one line, language and a live demo when there is one. Pass repo. {%- endcomment -%}
+{%- assign r = include.repo -%}
+<li class="repo">
+  <a class="repo__name" href="{{ r.url }}">{{ r.name }}</a>
+  <p class="repo__text">{{ r.text }}</p>
+  <p class="repo__meta"><span class="repo__lang repo__lang--{{ r.language | slugify }}">{{ r.language }}</span>{% if r.demo %}<a class="link-arrow" href="{{ r.demo }}">Live demo {% include icon.html name="arrow-up-right" px=14 %}</a>{% endif %}</p>
+</li>

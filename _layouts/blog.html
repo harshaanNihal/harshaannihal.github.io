@@ -78,8 +78,8 @@ layout: default
         <div class="story__media">{% include picture.html src=cover alt="" w=720 h=405 %}</div>
         {%- endif %}
         <div class="story__body">
-          <p class="story__meta">{{ meta }}</p>
           <h2><a href="{{ href }}">{{ title | escape }}</a></h2>
+          <p class="story__meta">{{ meta }}</p>
           {%- if excerpt != '' %}
           <p class="story__excerpt">{{ excerpt }}</p>
           {%- endif %}
@@ -92,8 +92,8 @@ layout: default
     </li>
     {%- else %}
     <li class="entry">
-      <p class="entry__meta">{{ meta }}</p>
       <h2 class="entry__title"><a href="{{ href }}">{{ title | escape }}</a></h2>
+      <p class="entry__meta">{{ meta }}</p>
       {%- if excerpt != '' %}
       <p class="entry__excerpt">{{ excerpt }}</p>
       {%- endif %}

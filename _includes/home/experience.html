@@ -1,8 +1,10 @@
 {%- assign p = site.data.profile -%}
 {%- comment -%}
-  Where he has worked, beside the skills sky. Each role carries the skills its positions used (data-skills,
-  slugified); site.js lights those stars and joins them into the role's own constellation. Without
-  JavaScript the timeline and the full list of skills still read in full.
+  Where he has worked, as a ledger on the timeline: dates in a column that never moves, one star on the dashed
+  line per row, then the company, title, notes and stack. The top row is the open slot for the next role, the
+  last is the side projects, and each role links to its case study in Work. Each row carries the skills it used
+  (data-skills, slugified); site.js lights those stars in the skills sky and joins them. Without JavaScript the
+  ledger and the full list of skills still read in full.
 {%- endcomment -%}
 <section class="section" id="experience" aria-labelledby="experience-title">
   <div class="container">
@@ -12,25 +14,55 @@
     </header>
     <div class="career-wrap">
       <ol class="career reveal">
+        <li class="career__row career__row--now">
+          <p class="career__when">Now</p>
+          <div class="career__body">
+            <h3 class="career__company career__company--open">Open to new roles</h3>
+            <p class="career__ask"><a class="link-arrow" href="mailto:{{ p.email }}">Tell me about the role {% include icon.html name="arrow-right" px=16 %}</a></p>
+          </div>
+        </li>
         {%- for job in p.experience %}
         {%- assign skills = "" %}
         {%- for position in job.positions %}{% for t in position.tech %}{% assign slug = t | slugify %}{% assign skills = skills | append: slug | append: " " %}{% endfor %}{% endfor %}
-        <li class="career__role" id="role-{{ job.company | slugify }}" data-role data-skills="{{ skills | strip }}">
-          <h3 class="career__company">{{ job.company }}</h3>
-          <p class="career__when"><time datetime="{{ job.start | date: '%Y-%m' }}">{{ job.start | date: "%b %Y" }}</time> – <time datetime="{{ job.end | date: '%Y-%m' }}">{{ job.end | date: "%b %Y" }}</time> · Remote</p>
-          {%- for position in job.positions %}
-          <div class="career__position">
-            <p class="career__title">{{ position.title }}</p>
-            <ul class="career__notes">
-              {%- for note in position.notes %}
-              <li>{{ note }}</li>
-              {%- endfor %}
-            </ul>
-            <p class="career__stack">{% for t in position.tech %}<span>{{ t }}</span>{% endfor %}</p>
+        <li class="career__row career__role" id="role-{{ job.company | slugify }}" data-role data-skills="{{ skills | strip }}">
+          <p class="career__when"><time datetime="{{ job.start | date: '%Y-%m' }}">{{ job.start | date: "%b %Y" }}</time> – <time datetime="{{ job.end | date: '%Y-%m' }}">{{ job.end | date: "%b %Y" }}</time> <span class="career__where">Remote</span></p>
+          <div class="career__body">
+            <h3 class="career__company">{{ job.company }}</h3>
+            {%- for position in job.positions %}
+            <div class="career__position">
+              <p class="career__title">{{ position.title }}</p>
+              <ul class="career__notes">
+                {%- for note in position.notes %}
+                {%- assign line = note %}
+                {%- if position.press and note contains position.press.match %}
+                {%- capture press_link %}<a class="press" href="{{ position.press.url }}">{{ position.press.match }}</a>{% endcapture %}
+                {%- assign line = note | replace: position.press.match, press_link %}
+                {%- endif %}
+                <li>{{ line }}</li>
+                {%- endfor %}
+              </ul>
+              <p class="career__stack">{% for t in position.tech %}<span>{{ t }}</span>{% endfor %}</p>
+              {%- if position.case %}
+              <a class="career__case" href="#case-{{ position.case }}" data-open-case>Read the case study {% include icon.html name="arrow-down" px=15 %}</a>
+              {%- endif %}
+            </div>
+            {%- endfor %}
           </div>
-          {%- endfor %}
         </li>
         {%- endfor %}
+        {%- assign sp = p.side_projects %}
+        {%- assign skills = "" %}{% for t in sp.tech %}{% assign slug = t | slugify %}{% assign skills = skills | append: slug | append: " " %}{% endfor %}
+        <li class="career__row career__role" id="role-side-projects" data-role data-skills="{{ skills | strip }}">
+          <p class="career__when">Since {{ sp.since }}</p>
+          <div class="career__body">
+            <h3 class="career__company">{{ sp.title }}</h3>
+            <div class="career__position">
+              <p class="career__text">{{ sp.text }}</p>
+              <p class="career__stack">{% for t in sp.tech %}<span>{{ t }}</span>{% endfor %}</p>
+              <a class="career__case" href="#code">See the code {% include icon.html name="arrow-down" px=15 %}</a>
+            </div>
+          </div>
+        </li>
       </ol>
 
       {%- comment -%}
@@ -51,6 +83,7 @@
           {%- for job in p.experience %}
           <button class="skill-sky__role" type="button" data-show-role="role-{{ job.company | slugify }}" aria-pressed="false">{{ job.company }}</button>
           {%- endfor %}
+          <button class="skill-sky__role" type="button" data-show-role="role-side-projects" aria-pressed="false">Side projects</button>
         </div>
         <div class="skill-sky__field">
           <svg class="skill-sky__lines" aria-hidden="true" focusable="false"><polyline points=""/></svg>
