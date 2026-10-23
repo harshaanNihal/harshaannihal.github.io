@@ -5,24 +5,20 @@
       <p class="kicker">Selected work</p>
       <h2 id="work-title">Things I've built and shipped.</h2>
     </header>
-    <div class="cards">
+    <div class="index">
       {%- for project in p.projects %}
-      <article class="card reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
-        {%- if project.image %}
-        <div class="card__media">{% include picture.html src=project.image alt=project.alt w=720 h=450 %}</div>
-        {%- elsif project.art %}
-        <div class="card__media card__media--art" aria-hidden="true"><span class="art__word">{{ project.art }}</span></div>
-        {%- endif %}
-        <div class="card__body">
-          <p class="card__kicker">{{ project.kicker }}</p>
-          <h3>{{ project.title }}</h3>
-          <p class="card__text">{{ project.blurb }}</p>
-          <ul class="chips">{% for t in project.tech %}<li class="chip">{{ t }}</li>{% endfor %}</ul>
-          <ul class="card__links">
-            {%- for link in project.links %}
-            <li><a class="link-arrow" href="{{ link.url }}">{{ link.text }} {% include icon.html name="arrow-up-right" px=16 %}</a></li>
-            {%- endfor %}
-          </ul>
+      <article class="index__item reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
+        <h3 class="index__name">{{ project.title }}</h3>
+        <p class="index__kind">{{ project.kicker }}</p>
+        <p class="index__text">{{ project.blurb }}</p>
+        <p class="index__stars">{% for t in project.tech %}<span>{{ t }}</span>{% endfor %}</p>
+        <ul class="index__links">
+          {%- for link in project.links %}
+          <li><a class="link-arrow" href="{{ link.url }}">{{ link.text }} {% include icon.html name="arrow-up-right" px=16 %}</a></li>
+          {%- endfor %}
+        </ul>
+        <div class="index__peek">
+          {%- if project.image %}{% include picture.html src=project.image alt=project.alt w=720 h=450 %}{%- elsif project.art %}<div class="card__media--art" aria-hidden="true"><span class="art__word">{{ project.art }}</span></div>{%- endif %}
         </div>
       </article>
       {%- endfor %}
