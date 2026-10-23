@@ -3,6 +3,7 @@ layout: post
 title:  "A Noob's Guide For CSS Box-Model"
 date:   2018-09-28 04:20:00 +0530
 image: /assets/media/BoxModel.png
+canonical_url: https://medium.com/altcampus/a-noobs-guide-for-css-box-model-9eada38cdeb9
 description: A beginner-friendly walk through the CSS box model, covering content, padding, border and margin, and why box-sizing border-box is worth using.
 ---
 <style type="text/css">

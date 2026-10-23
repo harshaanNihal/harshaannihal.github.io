@@ -1,20 +1,43 @@
-<section class="section" id="blog" aria-labelledby="blog-title">
+{%- assign medium = site.data.medium -%}
+{%- assign latest = medium.posts | first -%}
+<section class="section" id="writing" aria-labelledby="writing-title">
   <div class="container">
     <header class="section__head reveal">
       <p class="kicker">Writing</p>
-      <h2 id="blog-title">From the blog.</h2>
+      <h2 id="writing-title">Notes from Medium.</h2>
+      <p class="section__lead">What I learn, written down. From making a slow Rails job fast to the CSS box model.</p>
     </header>
-    <ul class="posts">
-      {%- for post in site.posts limit: 3 %}
-      <li class="reveal" style="--d:{{ forloop.index0 | times: 80 }}ms">
-        <a class="post-card" href="{{ post.url | relative_url }}">
-          <time class="post-card__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
-          <span class="post-card__title">{{ post.title | escape }}</span>
-          {% include icon.html name="arrow-right" px=18 %}
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-    <p class="section__more reveal"><a class="btn btn--ghost" href="{{ '/blog/' | relative_url }}">All posts {% include icon.html name="arrow-right" px=16 %}</a></p>
+    <div class="writing">
+      <article class="story story--feature reveal">
+        {%- if latest.cover %}
+        <div class="story__media">{% include picture.html src=latest.cover alt="" w=720 h=405 %}</div>
+        {%- endif %}
+        <div class="story__body">
+          <p class="story__meta"><span class="badge">Latest</span><time datetime="{{ latest.date | date: '%Y-%m-%d' }}">{{ latest.date | date: "%b %-d, %Y" }}</time><span>{{ latest.minutes }} min read</span></p>
+          <h3><a href="{{ latest.url }}">{{ latest.title }}</a></h3>
+          <p class="story__excerpt">{{ latest.excerpt }}</p>
+          <ul class="chips">{% for tag in latest.tags %}<li class="chip">{{ tag }}</li>{% endfor %}</ul>
+          <p class="story__more">Read on Medium {% include icon.html name="arrow-up-right" px=16 %}</p>
+        </div>
+      </article>
+      <ul class="stories">
+        {%- for post in medium.posts offset: 1 %}
+        <li class="reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
+          <article class="story">
+            {%- if post.cover %}
+            <div class="story__media">{% include picture.html src=post.cover alt="" w=720 h=405 %}</div>
+            {%- endif %}
+            <div class="story__body">
+              <p class="story__meta"><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%b %-d, %Y" }}</time><span>{{ post.minutes }} min read</span></p>
+              <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+              <p class="story__excerpt">{{ post.excerpt }}</p>
+              <p class="story__more">Read on Medium {% include icon.html name="arrow-up-right" px=16 %}</p>
+            </div>
+          </article>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    <p class="section__more reveal"><a class="btn btn--ghost" href="{{ medium.profile }}">{% include icon.html name="book-open" %} All stories on Medium {% include icon.html name="arrow-up-right" px=16 %}</a></p>
   </div>
 </section>

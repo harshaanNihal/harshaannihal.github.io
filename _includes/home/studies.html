@@ -1,0 +1,26 @@
+{%- assign p = site.data.profile -%}
+{%- assign lab = '/html_css_practice/Project/' -%}
+<section class="section section--alt" id="studies" aria-labelledby="studies-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="kicker">Studies</p>
+      <h2 id="studies-title">UI studies from the practice lab.</h2>
+      <p class="section__lead">Small pages where I worked out layout, hover effects and animation by hand. Each one opens a live page.</p>
+    </header>
+    <ul class="shots">
+      {%- for shot in p.experiments %}
+      <li class="reveal" style="--d:{{ forloop.index0 | times: 70 }}ms">
+        <a class="shot" href="{{ lab | append: shot.url | relative_url }}">
+          {% include picture.html src=shot.image alt="" w=720 h=450 %}
+          <span class="shot__caption">{{ shot.title }} {% include icon.html name="arrow-up-right" px=16 %}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+    <p class="studies__links reveal">
+      {%- for item in p.labs %}
+      <a class="btn btn--ghost" href="{{ item.url }}">{{ item.title }} {% include icon.html name="arrow-up-right" px=16 %}</a>
+      {%- endfor %}
+    </p>
+  </div>
+</section>

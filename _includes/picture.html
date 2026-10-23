@@ -1,0 +1,3 @@
+{%- comment -%} AVIF with a JPEG fallback. Pass src (path under assets/media, no extension), alt, w and h. {%- endcomment -%}
+{%- assign picture_base = '/assets/media/' | append: include.src -%}
+<picture><source type="image/avif" srcset="{{ picture_base | append: '.avif' | relative_url }}"><img src="{{ picture_base | append: '.jpg' | relative_url }}" width="{{ include.w }}" height="{{ include.h }}" alt="{{ include.alt }}" loading="lazy" decoding="async"></picture>

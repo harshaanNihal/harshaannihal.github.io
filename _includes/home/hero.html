@@ -1,34 +1,38 @@
 {%- assign p = site.data.profile -%}
-{%- assign g = site.data.github -%}
 <section class="hero" id="top" aria-labelledby="hero-title">
-  <canvas class="hero__canvas" data-particles aria-hidden="true"></canvas>
+  <div class="hero__wash" aria-hidden="true"></div>
+  <div class="sky" aria-hidden="true">
+    <span class="stars"></span>
+    <span class="halo halo--a"></span>
+    <span class="halo halo--b"></span>
+    <span class="halo halo--c"></span>
+    <span class="moon"></span>
+  </div>
   <div class="container hero__inner">
     <div class="hero__copy">
-      <p class="pill reveal"><span class="pill__dot" aria-hidden="true"></span>{{ p.hero.eyebrow }}</p>
+      <p class="pill reveal">{% include icon.html name="star" px=16 %}{{ p.hero.eyebrow }}</p>
       <h1 class="hero__title reveal" id="hero-title" style="--d:60ms">Hi, I'm <span class="name">{{ p.name }}</span></h1>
       <p class="lead reveal" style="--d:120ms">{{ p.hero.lead }}</p>
       <div class="hero__cta reveal" style="--d:180ms">
         <a class="btn btn--primary" href="#work">See my work {% include icon.html name="arrow-right" %}</a>
-        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+        <a class="btn btn--ghost" href="#contact">Say hello</a>
       </div>
       <ul class="social reveal" style="--d:240ms" aria-label="Find me online">
         <li><a class="icon-btn" href="https://github.com/{{ p.github }}" aria-label="GitHub">{% include icon.html name="github" %}</a></li>
+        <li><a class="icon-btn" href="{{ site.data.medium.profile }}" aria-label="Medium">{% include icon.html name="book-open" %}</a></li>
         <li><a class="icon-btn" href="https://twitter.com/{{ p.twitter }}" aria-label="Twitter">{% include icon.html name="twitter" %}</a></li>
         <li><a class="icon-btn" href="mailto:{{ p.email }}" aria-label="Email">{% include icon.html name="mail" %}</a></li>
       </ul>
     </div>
-    <div class="portrait">
-      <img src="{{ '/assets/media/portrait.jpg' | relative_url }}" srcset="{{ '/assets/media/portrait-400.jpg' | relative_url }} 400w, {{ '/assets/media/portrait.jpg' | relative_url }} 640w" sizes="(max-width: 960px) 260px, 380px" width="640" height="640" alt="Portrait of {{ p.name }}" fetchpriority="high">
-    </div>
+    <figure class="portrait">
+      <div class="portrait__frame">
+        <picture>
+          <source type="image/avif" srcset="{{ '/assets/media/hero-480.avif' | relative_url }} 480w, {{ '/assets/media/hero-720.avif' | relative_url }} 720w" sizes="(max-width: 960px) 300px, 420px">
+          <img src="{{ '/assets/media/hero-720.jpg' | relative_url }}" srcset="{{ '/assets/media/hero-480.jpg' | relative_url }} 480w, {{ '/assets/media/hero-720.jpg' | relative_url }} 720w" sizes="(max-width: 960px) 300px, 420px" width="720" height="960" alt="Portrait of {{ p.name }} in sunglasses, in front of Van Gogh's The Starry Night" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
+      <figcaption class="plaque">Portrait with The Starry Night</figcaption>
+    </figure>
   </div>
   <a class="scroll-cue" href="#about" aria-label="Scroll to the about section">{% include icon.html name="arrow-down" %}</a>
-</section>
-
-<section class="stats" aria-label="GitHub at a glance">
-  <ul class="container stats__list">
-    <li class="reveal"><span class="stat__num" data-count="{{ site.time | date: '%Y' | minus: g.joined }}">{{ site.time | date: '%Y' | minus: g.joined }}</span><span class="stat__label">years on GitHub</span></li>
-    <li class="reveal" style="--d:80ms"><span class="stat__num" data-count="{{ g.public_repos }}">{{ g.public_repos }}</span><span class="stat__label">public repositories</span></li>
-    <li class="reveal" style="--d:160ms"><span class="stat__num" data-count="{{ g.merged_prs_elsewhere }}">{{ g.merged_prs_elsewhere }}</span><span class="stat__label">pull requests merged in other repos</span></li>
-    <li class="reveal" style="--d:240ms"><span class="stat__num" data-count="{{ g.followers }}">{{ g.followers }}</span><span class="stat__label">followers</span></li>
-  </ul>
 </section>

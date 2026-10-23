@@ -3,7 +3,7 @@ layout: default
 ---
 <article class="page container container--narrow" itemscope itemtype="https://schema.org/BlogPosting">
   <header class="page__head">
-    <p class="kicker"><a href="{{ '/blog/' | relative_url }}">Blog</a></p>
+    <p class="kicker"><a href="{{ '/#writing' | relative_url }}">Writing</a></p>
     <h1 itemprop="headline">{{ page.title | escape }}</h1>
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%B %-d, %Y" }}</time>
@@ -16,6 +16,9 @@ layout: default
     {{ content }}
   </div>
   <footer class="post-end">
-    <a class="btn btn--ghost" href="{{ '/blog/' | relative_url }}">{% include icon.html name="arrow-right" %} All posts</a>
+    <a class="btn btn--ghost" href="{{ '/#writing' | relative_url }}">{% include icon.html name="arrow-right" %} More writing</a>
+    {%- if page.canonical_url %}
+    <a class="btn btn--ghost" href="{{ page.canonical_url }}">{% include icon.html name="book-open" %} Read it on Medium</a>
+    {%- endif %}
   </footer>
 </article>

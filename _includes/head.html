@@ -1,10 +1,9 @@
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#0b111c">
+<meta name="theme-color" content="#0a1329">
 <script>
-  /* Set the theme before first paint so there is no flash. Dark is the default. */
+  /* Set the theme before first paint so there is no flash. Night is the default. */
   (function () {
     var root = document.documentElement, theme = null;
     root.classList.add('js');
@@ -16,9 +15,13 @@
   })();
 </script>
 {% seo %}
-{% feed_meta %}
 <link rel="icon" href="{{ '/assets/media/favicon.svg' | relative_url }}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ '/assets/media/apple-touch-icon.png' | relative_url }}">
-<link rel="preload" href="{{ '/assets/fonts/inter-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ '/assets/fonts/POLYA.otf' | relative_url }}" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+<link rel="preload" href="{{ '/assets/fonts/dm-serif-display-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+{%- if page.layout == 'home' %}
+<link rel="preload" as="image" type="image/avif" href="{{ '/assets/media/hero-720.avif' | relative_url }}" imagesrcset="{{ '/assets/media/hero-480.avif' | relative_url }} 480w, {{ '/assets/media/hero-720.avif' | relative_url }} 720w" imagesizes="(max-width: 960px) 300px, 420px" fetchpriority="high">
+{%- endif %}
+<style>
+:root { --wash: url("{% include hero-wash.txt %}"); }
+{% include site.css %}
+</style>

@@ -1,5 +1,4 @@
 {%- assign p = site.data.profile -%}
-{%- assign g = site.data.github -%}
 <section class="section section--alt" id="work" aria-labelledby="work-title">
   <div class="container">
     <header class="section__head reveal">
@@ -10,12 +9,9 @@
       {%- for project in p.projects %}
       <article class="card reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
         {%- if project.image %}
-        <div class="card__media"><img src="{{ '/assets/media/' | append: project.image | relative_url }}" width="1200" height="750" loading="lazy" alt="{{ project.alt }}"></div>
-        {%- elsif project.stat %}
-        <div class="card__media card__media--stat" role="img" aria-label="{{ g[project.stat] }} {{ project.stat_label }}">
-          <span class="card__stat" aria-hidden="true">{{ g[project.stat] }}</span>
-          <span class="card__stat-label" aria-hidden="true">{{ project.stat_label }}</span>
-        </div>
+        <div class="card__media">{% include picture.html src=project.image alt=project.alt w=720 h=450 %}</div>
+        {%- elsif project.art %}
+        <div class="card__media card__media--art" aria-hidden="true"><span class="art__word">{{ project.art }}</span></div>
         {%- endif %}
         <div class="card__body">
           <p class="card__kicker">{{ project.kicker }}</p>
@@ -35,7 +31,7 @@
     <h3 class="subhead reveal">More builds</h3>
     <ul class="rows">
       {%- for project in p.more_projects %}
-      <li class="row reveal" style="--d:{{ forloop.index0 | times: 70 }}ms">
+      <li class="reveal" style="--d:{{ forloop.index0 | times: 70 }}ms">
         <a class="row__link" href="{{ project.url }}">
           <span class="row__title">{{ project.title }} {% include icon.html name="code" px=16 %}</span>
           <span class="row__text">{{ project.blurb }}</span>
@@ -44,6 +40,6 @@
       </li>
       {%- endfor %}
     </ul>
-    <p class="section__more reveal"><a class="btn btn--ghost" href="https://github.com/{{ p.github }}?tab=repositories">All {{ g.public_repos }} repositories on GitHub {% include icon.html name="arrow-up-right" px=16 %}</a></p>
+    <p class="section__more reveal"><a class="btn btn--ghost" href="https://github.com/{{ p.github }}?tab=repositories">More on GitHub {% include icon.html name="arrow-up-right" px=16 %}</a></p>
   </div>
 </section>

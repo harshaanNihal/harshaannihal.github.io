@@ -1,5 +1,5 @@
 # Everything the portfolio says about you. Edit here, not in the templates.
-# GitHub numbers live in _data/github.yml, refreshed by tools/update-github-data.sh.
+# The Medium stories live in _data/medium.yml, refreshed by tools/update-medium.py.
 
 name: Harshaan Nihal Khan
 role: Software Engineer
@@ -16,13 +16,11 @@ about:
   paragraphs:
     - I'm a software engineer based in Udaipur, India. I work across the stack with Ruby on Rails, React, Node.js, React Native and Next.js.
     - I've shipped features in Miru, Saeloun's open source time tracking and invoicing app, spanning invoicing, team management and email flows.
-    - My first public repos date from 2018, and the practice labs further down this page are still online.
+    - I write about what I learn on Medium, from speeding up a slow Rails job to the CSS box model.
     - I have a serious passion for UI effects, animations and building intuitive, dynamic user experiences.
   facts:
     - label: Based in
       value: Udaipur, India
-    - label: Stack
-      value: Rails, React, Node, React Native, Next.js
     - label: Previously
       links:
         - text: Saeloun
@@ -31,6 +29,10 @@ about:
           url: https://www.bigbinary.com
     - label: Alumnus of
       value: AltCampus
+    - label: Writing
+      links:
+        - text: Medium
+          url: https://medium.com/@klassynihal
 
 skills:
   - group: Frontend
@@ -40,22 +42,22 @@ skills:
   - group: Tooling
     items: [Git and GitHub, Vercel, Photoshop]
 
-# Featured work. `image` lives in assets/media/work/. Leave it out for a text-only card.
+# Featured work. `image` is a path under assets/media without an extension (see tools/images.sh).
+# Use `art` for a text-only panel instead of a screenshot.
 projects:
   - title: Miru
     kicker: Open source
-    stat: miru_prs
-    stat_label: merged pull requests
+    art: Miru
     blurb: Time tracking, invoicing and employee benefits, built with Ruby on Rails and React. I shipped invoicing, team management and email reminder features.
     tech: [Ruby on Rails, React]
     links:
       - text: Live app
         url: https://miru.so
-      - text: My pull requests
-        url: https://github.com/saeloun/miru-web/pulls?q=is%3Apr+author%3AharshaanNihal+is%3Amerged
+      - text: Code
+        url: https://github.com/saeloun/miru-web
   - title: Bookings
     kicker: Live demo
-    image: work/booking.jpg
+    image: work/booking
     alt: Bookings homepage with a stays search box and destination tiles
     blurb: A travel booking front end modeled on Booking.com. Search stays by destination, dates and guests, then browse featured cities and property types.
     tech: [React, React Router, date-fns]
@@ -66,7 +68,7 @@ projects:
         url: https://github.com/harshaanNihal/bookingcom
   - title: Law firms manager
     kicker: Live demo
-    image: work/legistify.jpg
+    image: work/legistify
     alt: Firms list with an add firm card, under a Legistify header
     blurb: A dashboard to list, add and delete law firms, with validated forms and toast feedback. Built on Vite with Redux and Ant Design.
     tech: [React, Redux, Ant Design, Vite]
@@ -94,48 +96,29 @@ more_projects:
     tech: JavaScript
     url: https://github.com/harshaanNihal/loDash-Clone
 
-open_source:
-  repo: saeloun/miru-web
-  prs:
-    - number: 538
-      title: Invoice search
-    - number: 496
-      title: Weekly email reminder for missing time entries
-    - number: 470
-      title: Email verification, backend
-    - number: 454
-      title: Team member delete API
-    - number: 582
-      title: Team member page, final integration
-
-# Small UI experiments from the HTML and CSS lab. `url` is relative to the lab site.
+# Small UI studies from the HTML and CSS lab. `url` is relative to the lab site.
 experiments:
   - title: AltCampus landing page
-    image: work/lab-altcampus.jpg
+    image: work/lab-altcampus
     url: Day-23/
   - title: Dropdown menu
-    image: work/lab-dropdown.jpg
+    image: work/lab-dropdown
     url: Day-27/Dropdown%20Menu/
   - title: Intense landing page
-    image: work/lab-intense.jpg
+    image: work/lab-intense
     url: final_project1/
   - title: Stimulus personal page
-    image: work/lab-stimulus.jpg
+    image: work/lab-stimulus
     url: final_project2/
   - title: Hover notification badges
-    image: work/lab-notifications.jpg
+    image: work/lab-notifications
     url: Day-27/notification%20hover/
   - title: Perspective portfolio
-    image: work/lab-perspective.jpg
+    image: work/lab-perspective
     url: Day-27/Perspective_portfolio/
 
 labs:
-  - title: HTML and CSS practice
-    blurb: 43 layouts and small projects from learning HTML and CSS.
+  - title: All HTML and CSS studies
     url: https://harshaannihal.github.io/html_css_practice/
-  - title: JavaScript core practice
-    blurb: Day-by-day exercises, from the DOM and closures to a to-do app and a Chrome extension.
+  - title: JavaScript exercises
     url: https://harshaannihal.github.io/js_core_practice/
-  - title: Birthday card
-    blurb: A one-page birthday card with a gradient that changes every second.
-    url: https://harshaannihal.github.io/birthday/

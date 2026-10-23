@@ -4,9 +4,9 @@
     <p>&copy; {{ site.time | date: "%Y" }} {{ p.name }}</p>
     <ul class="site-footer__links">
       <li><a href="https://github.com/{{ p.github }}">GitHub</a></li>
+      <li><a href="{{ site.data.medium.profile }}">Medium</a></li>
       <li><a href="https://twitter.com/{{ p.twitter }}">Twitter</a></li>
       <li><a href="mailto:{{ p.email }}">Email</a></li>
-      <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
     </ul>
     <p class="site-footer__note">Built with Jekyll and hosted on GitHub Pages. <a href="https://github.com/{{ p.github }}/{{ p.github | downcase }}.github.io">Source</a></p>
   </div>

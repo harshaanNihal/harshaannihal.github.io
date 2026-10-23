@@ -1,31 +1,39 @@
 <!DOCTYPE html>
-<!-- Template for assets/media/og.png (1200x630). Render it with any headless Chrome:
-     chrome --headless --screenshot=assets/media/og.png --window-size=1200,630 tools/og.html -->
+<!-- Template for assets/media/og.jpg (1200x630). Render it to PNG with any headless Chrome, then convert:
+       chrome --headless --screenshot=og.png --window-size=1200,630 tools/og.html
+       sips -s format jpeg -s formatOptions 82 og.png --out assets/media/og.jpg -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <style>
-  @font-face { font-family: polya; src: url("../assets/fonts/POLYA.otf"); }
+  @font-face { font-family: "DM Serif Display"; src: url("../assets/fonts/dm-serif-display-latin.woff2") format("woff2"); }
   * { box-sizing: border-box; margin: 0; }
   body {
-    width: 1200px; height: 630px; overflow: hidden; position: relative;
-    display: flex; flex-direction: column; justify-content: center; gap: 22px; padding: 0 84px;
-    font-family: Inter, "Helvetica Neue", Arial, sans-serif; color: #e9eef7;
+    position: relative; width: 1200px; height: 630px; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: 0 90px;
+    font-family: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; color: #f6efd8;
     background:
-      radial-gradient(55% 70% at 88% 8%, rgba(227, 27, 109, 0.38), transparent 70%),
-      radial-gradient(50% 60% at 6% 100%, rgba(4, 194, 201, 0.28), transparent 70%),
-      #0b111c;
+      linear-gradient(90deg, rgba(7, 14, 34, 0.96) 0%, rgba(7, 14, 34, 0.82) 48%, rgba(7, 14, 34, 0.2) 100%),
+      url("../assets/media/hero-720.jpg") 50% 4% / 120% auto,
+      #0a1329;
   }
-  .mark { position: absolute; right: 84px; top: 84px; width: 150px; height: 150px; }
-  .role { font: 600 26px ui-monospace, Menlo, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: #4fe0e5; }
-  h1 { font: 400 112px/1.02 polya, Arial, sans-serif; letter-spacing: 0.015em; text-transform: uppercase; max-width: 900px; }
-  h1 span { color: #ff5c9a; text-shadow: 0 0 34px rgba(255, 92, 154, 0.55); }
-  .stack { font-size: 30px; color: #a3b3cb; }
-  .url { position: absolute; left: 84px; bottom: 56px; font: 600 26px ui-monospace, Menlo, monospace; color: #e9eef7; }
+  .role { font-size: 24px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #ffe08a; }
+  .role::before { content: "\2726"; margin-right: 14px; color: #f2c14e; }
+  h1 { max-width: 640px; font: 400 98px/1.02 "DM Serif Display", Georgia, serif; }
+  h1 span { background: linear-gradient(120deg, #ffe08a 10%, #f2c14e 55%, #e08a2c); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stack { font-size: 28px; color: #b0bcd9; }
+  .url { position: absolute; left: 90px; bottom: 54px; font-size: 24px; font-weight: 600; letter-spacing: 0.04em; color: #f6efd8; }
+  .frame {
+    position: absolute; right: 90px; top: 70px; width: 360px; padding: 10px;
+    border-radius: 50% 50% 26px 26px / 37.5% 37.5% 26px 26px;
+    background: linear-gradient(160deg, #ffe9a3, #d9962b 52%, #7a4e08);
+    box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.8), 0 0 90px -10px rgba(255, 216, 107, 0.45);
+  }
+  .frame img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 50% 50% 17px 17px / 37.5% 37.5% 17px 17px; }
 </style>
 </head>
 <body>
-  <svg class="mark" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5c9a"/><stop offset="1" stop-color="#2fd3d9"/></linearGradient></defs><path d="M16 6h32l16 26-16 26H16L0 32z" fill="url(#g)"/><text x="32" y="41" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="24" fill="#0b111c">HN</text></svg>
+  <div class="frame"><img src="../assets/media/hero-720.jpg" alt=""></div>
   <p class="role">Software Engineer</p>
   <h1>Harshaan <span>Nihal Khan</span></h1>
   <p class="stack">Ruby on Rails &middot; React &middot; Node &middot; React Native</p>
