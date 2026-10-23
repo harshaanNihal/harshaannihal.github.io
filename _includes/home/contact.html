@@ -1,24 +1,31 @@
 {%- assign p = site.data.profile -%}
-<section class="section contact" id="contact" aria-labelledby="contact-title">
-  <div class="container">
-    <div class="contact__panel reveal">
-      <p class="kicker">Contact</p>
+<section class="section contact" id="contact" aria-labelledby="contact-title" data-sky-host>
+  <div class="contact__wash" aria-hidden="true"></div>
+  <div class="sky" aria-hidden="true">
+    <span class="stars"></span>
+    <canvas class="sky__canvas" data-constellation></canvas>
+    {% include swirl.html id="contact" %}
+    <span class="moon">{% include pstar.html class="pstar--moon" %}<span class="moon__crescent"></span></span>
+  </div>
+  <div class="container contact__inner">
+    <header class="section__head reveal">
       <h2 id="contact-title">Let's build something good.</h2>
       <p class="lead">Have a role, a project or a question in mind? My inbox is open.</p>
-      <div class="contact__actions">
-        {%- capture mail_href %}mailto:{{ p.email }}{% endcapture %}
-        {%- capture mail_label %}{{ p.email | replace: '@', '<wbr>@' }}{% endcapture %}
-        {% include btn.html href=mail_href label=mail_label icon="arrow-right" variant="notch" %}
-        <button class="btn btn--ghost" type="button" data-copy="{{ p.email }}">
-          <span data-copy-icon>{% include icon.html name="copy" %}</span>
-          <span data-copy-label>Copy email</span>
-        </button>
-      </div>
-      <ul class="social" aria-label="Find me online">
-        <li><a class="icon-btn" href="https://github.com/{{ p.github }}" aria-label="GitHub">{% include icon.html name="github" %}</a></li>
-        <li><a class="icon-btn" href="{{ site.data.medium.profile }}" aria-label="Medium">{% include icon.html name="book-open" %}</a></li>
-        <li><a class="icon-btn" href="https://twitter.com/{{ p.twitter }}" aria-label="Twitter">{% include icon.html name="twitter" %}</a></li>
-      </ul>
+    </header>
+    <div class="contact__actions reveal">
+      {%- capture mail_href %}mailto:{{ p.email }}{% endcapture %}
+      {%- capture mail_label %}{{ p.email | replace: '@', '<wbr>@' }}{% endcapture %}
+      {% include btn.html href=mail_href label=mail_label icon="arrow-right" variant="notch" %}
+      <button class="btn btn--ghost btn--copy" type="button" data-copy="{{ p.email }}">
+        <span class="copy-icon" aria-hidden="true">{% include icon.html name="copy" %}{% include icon.html name="check" %}</span>
+        <span data-copy-label>Copy email</span>
+      </button>
+      <span class="visually-hidden" role="status" data-copy-status></span>
     </div>
+    <ul class="social reveal" aria-label="Find me online">
+      <li><a class="icon-btn" href="https://github.com/{{ p.github }}" aria-label="GitHub">{% include icon.html name="github" %}</a></li>
+      <li><a class="icon-btn" href="{{ site.data.medium.profile }}" aria-label="Medium">{% include icon.html name="book-open" %}</a></li>
+      <li><a class="icon-btn" href="https://twitter.com/{{ p.twitter }}" aria-label="Twitter">{% include icon.html name="twitter" %}</a></li>
+    </ul>
   </div>
 </section>

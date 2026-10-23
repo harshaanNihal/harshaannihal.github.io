@@ -1,0 +1,5 @@
+{%- comment -%}
+  A painted star: a glow, then four bands of brush dabs (symbols in sky-defs.html) that turn at their own speeds.
+  Pass class for the variant and placement. Decorative, so the parent .sky carries aria-hidden.
+{%- endcomment -%}
+<span class="pstar {{ include.class }}"{% if include.origin %} data-sky-origin{% endif %}><span class="pstar__glow"></span><svg class="pstar__band pstar__band--4" viewBox="0 0 200 200" focusable="false"><use href="#ps-b4"/></svg><svg class="pstar__band pstar__band--3" viewBox="0 0 200 200" focusable="false"><use href="#ps-b3"/></svg><svg class="pstar__band pstar__band--2" viewBox="0 0 200 200" focusable="false"><use href="#ps-b2"/></svg><svg class="pstar__band pstar__band--1" viewBox="0 0 200 200" focusable="false"><use href="#ps-core"/></svg></span>
