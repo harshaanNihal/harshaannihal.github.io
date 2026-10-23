@@ -1,0 +1,76 @@
+{%- assign p = site.data.profile -%}
+{%- comment -%}
+  Where he has worked, beside the skills sky. Each role carries the skills its positions used (data-skills,
+  slugified); site.js lights those stars and joins them into the role's own constellation. Without
+  JavaScript the timeline and the full list of skills still read in full.
+{%- endcomment -%}
+<section class="section" id="experience" aria-labelledby="experience-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <h2 id="experience-title">Where I've shipped.</h2>
+      <p class="section__lead">Rails and React in production since 2019: meal-delivery logistics for a cloud kitchen, therapy workflows for healthcare clients, and Cisco Meraki's switch dashboard.</p>
+    </header>
+    <div class="career-wrap">
+      <ol class="career reveal">
+        {%- for job in p.experience %}
+        {%- assign skills = "" %}
+        {%- for position in job.positions %}{% for t in position.tech %}{% assign slug = t | slugify %}{% assign skills = skills | append: slug | append: " " %}{% endfor %}{% endfor %}
+        <li class="career__role" id="role-{{ job.company | slugify }}" data-role data-skills="{{ skills | strip }}">
+          <h3 class="career__company">{{ job.company }}</h3>
+          <p class="career__when"><time datetime="{{ job.start | date: '%Y-%m' }}">{{ job.start | date: "%b %Y" }}</time> – <time datetime="{{ job.end | date: '%Y-%m' }}">{{ job.end | date: "%b %Y" }}</time> · Remote</p>
+          {%- for position in job.positions %}
+          <div class="career__position">
+            <p class="career__title">{{ position.title }}</p>
+            <ul class="career__notes">
+              {%- for note in position.notes %}
+              <li>{{ note }}</li>
+              {%- endfor %}
+            </ul>
+            <p class="career__stack">{% for t in position.tech %}<span>{{ t }}</span>{% endfor %}</p>
+          </div>
+          {%- endfor %}
+        </li>
+        {%- endfor %}
+      </ol>
+
+      {%- comment -%}
+        The skills sky: every skill on an oval, labels pointing out so the lines inside never cross them.
+        Groups 1 and 3 run down the left arc, groups 2 and 4 down the right, each heading on the row above
+        its stars. Rows are evenly spaced from -0.9 to 0.9 of the half height, and CSS turns a row's --uy
+        into its point on the oval.
+      {%- endcomment -%}
+      {%- assign g = p.skills -%}
+      {%- assign left_rows = g[0].items.size | plus: g[2].items.size | plus: 2 -%}
+      {%- assign right_rows = g[1].items.size | plus: g[3].items.size | plus: 2 -%}
+      {%- assign last_row = left_rows | at_least: right_rows | minus: 1 -%}
+      {%- assign step = 1.8 | divided_by: last_row -%}
+      <div class="skill-sky reveal" data-skill-sky>
+        <h3 class="visually-hidden">Skills</h3>
+        <div class="skill-sky__roles" role="group" aria-labelledby="skill-sky-label">
+          <span class="skill-sky__label" id="skill-sky-label">Lit up for</span>
+          {%- for job in p.experience %}
+          <button class="skill-sky__role" type="button" data-show-role="role-{{ job.company | slugify }}" aria-pressed="false">{{ job.company }}</button>
+          {%- endfor %}
+        </div>
+        <div class="skill-sky__field">
+          <svg class="skill-sky__lines" aria-hidden="true" focusable="false"><polyline points=""/></svg>
+          {%- for group in g limit: 4 %}
+          {%- assign i = forloop.index0 %}
+          {%- assign side = "" %}{% if i == 0 or i == 2 %}{% assign side = " is-left" %}{% endif %}
+          {%- assign head_row = 0 %}
+          {%- if i > 1 %}{% assign above = i | minus: 2 %}{% assign head_row = g[above].items.size | plus: 1 %}{% endif %}
+          <div class="skill-sky__group">
+            <h4 class="skill-sky__head{{ side }}" style="--uy:{{ head_row | times: step | minus: 0.9 | round: 3 }}">{{ group.group }}</h4>
+            <ul>
+              {%- for item in group.items %}
+              {%- assign uy = forloop.index | plus: head_row | times: step | minus: 0.9 | round: 3 %}
+              <li class="skill-sky__star{{ side }}" data-skill="{{ item | slugify }}" style="--uy:{{ uy }}">{{ item }}</li>
+              {%- endfor %}
+            </ul>
+          </div>
+          {%- endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

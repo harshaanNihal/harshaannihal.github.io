@@ -6,7 +6,7 @@ Portfolio of Harshaan Nihal Khan, built with [Jekyll](https://jekyllrb.com/) and
 
 ## Edit the content
 
-Everything the home page says lives in [`_data/profile.yml`](_data/profile.yml): the hero line, about text, skills, featured work and UI studies. Change the YAML, not the templates.
+Everything the home page says lives in [`_data/profile.yml`](_data/profile.yml): the hero line, about text, work history, skills, featured work and UI studies. Change the YAML, not the templates.
 
 The Writing section comes from Medium. Refresh it after publishing a story, then review and commit the diff:
 

@@ -23,15 +23,5 @@
         {%- endfor %}
       </dl>
     </div>
-    <div class="skills">
-      {%- for group in p.skills %}
-      <div class="skills__group reveal" style="--d:{{ forloop.index0 | times: 80 }}ms">
-        <h3>{{ group.group }}</h3>
-        <ul class="chips">
-          {%- for item in group.items %}<li class="chip">{{ item }}</li>{% endfor %}
-        </ul>
-      </div>
-      {%- endfor %}
-    </div>
   </div>
 </section>

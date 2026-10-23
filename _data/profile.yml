@@ -3,42 +3,95 @@
 
 name: Harshaan Nihal Khan
 role: Software Engineer
-location: Udaipur, India
 email: harshaan.n.khan@gmail.com
 github: harshaanNihal
+linkedin: harshaannihal
 twitter: klassynihal
 
 hero:
-  eyebrow: Software Engineer in Udaipur, India
-  lead: I build web and mobile products with Ruby on Rails, React, Node and React Native. I care about UI effects, animation and interfaces that feel intuitive.
+  eyebrow: Software Engineer, open to new roles
+  lead: I build web and mobile products with Ruby on Rails, React, Node and React Native, most recently at Cisco Meraki. I care about UI effects, animation and interfaces that feel intuitive.
 
 about:
   paragraphs:
-    - I'm a software engineer, and I work across the stack with Ruby on Rails, React, Node.js, React Native and Next.js.
+    - I build web applications and distributed systems across the stack, mostly with Ruby on Rails, React and Node.js, and React Native for mobile. I've also led a team, mentored engineers and written about what I learn.
     - I have a serious passion for UI effects, animations and building intuitive, dynamic user experiences.
   facts:
-    - label: Based in
-      value: Udaipur, India
-    - label: Previously
-      links:
-        - text: Saeloun
-          url: https://www.saeloun.com
-        - text: BigBinary
-          url: https://www.bigbinary.com
+    - label: Open to
+      value: New roles
     - label: Alumnus of
       value: AltCampus
     - label: Writing
       links:
         - text: Medium
           url: https://medium.com/@klassynihal
+        - text: featured in Ruby Weekly
+          url: https://rubyweekly.com/issues/681
+    - label: Elsewhere
+      links:
+        - text: GitHub
+          url: https://github.com/harshaanNihal
+        - text: LinkedIn
+          url: https://www.linkedin.com/in/harshaannihal
+        - text: Twitter
+          url: https://twitter.com/klassynihal
 
+# Work history for the Experience section, newest first. Each position's `tech` lights those stars in
+# the skills sky, so spell every entry exactly as it appears under `skills`.
+experience:
+  - company: Cisco Meraki
+    start: 2024-07-01
+    end: 2026-02-01
+    positions:
+      - title: Software Engineer III
+        notes:
+          - Architected a cloud packet-capture (PCAP) service for Meraki switches, for real-time packet analysis.
+          - Built distributed systems that process high-volume network traffic data.
+          - Shipped full-stack features for the switches dashboard in React and Ruby on Rails, working with the hardware and firmware teams.
+        tech: [Ruby on Rails, React, Ruby, JavaScript]
+  - company: Saeloun
+    start: 2022-06-01
+    end: 2024-07-01
+    positions:
+      - title: Software Engineer
+        notes:
+          - Co-built logistics software for a cloud-kitchen startup's meal deliveries on Rails, Postgres, Redis, Sidekiq Pro and Heroku. It carried the company's expansion beyond California.
+          - Led the GraphQL backend and client API for a customer-facing React app (graphql-ruby, Apollo).
+          - Added end-to-end tests for critical workflows with Capybara and Cypress.
+        tech: [Ruby on Rails, React, GraphQL, Apollo Client, PostgreSQL, Redis, Sidekiq, Heroku, Cypress, Capybara, Ruby, JavaScript]
+  - company: BigBinary
+    start: 2019-09-01
+    end: 2022-05-01
+    positions:
+      - title: Software Engineer and Team Lead, on contract to Vineti
+        notes:
+          - Led the team delivering cell and gene therapy workflows for healthcare clients, configured per client in Rails and YAML.
+          - Built REST APIs and microservices, contract-tested with Pact.
+          - Mentored and onboarded engineers, and set up code review and TDD practices.
+        tech: [Ruby on Rails, Ruby, YAML, Pact]
+      - title: Mobile Developer, NeetoDesk
+        notes:
+          - Built NeetoDesk's mobile ticketing app from scratch in React Native, with peer-to-peer chat.
+          - Added filtered ticket views, automated email configuration and first-response-time reports.
+        tech: [React Native, JavaScript]
+
+# The skills sky, four groups: the first heads the left arc of the oval and the second the right; the
+# third and fourth sit below them. Keep group names short; they label the arc like a skill does.
 skills:
-  - group: Frontend
-    items: [React, Next.js, React Native, JavaScript, HTML5, CSS3 and Sass]
-  - group: Backend
-    items: [Ruby on Rails, Node.js, Express, MongoDB, Socket.IO]
+  - group: Languages
+    items: [Ruby, JavaScript, Scala, TypeScript, HTML/CSS, SQL, YAML]
+  - group: Frameworks
+    items: [Ruby on Rails, React, React Native, Node.js, Express.js, GraphQL, Apollo Client, Sidekiq]
   - group: Tooling
-    items: [Git and GitHub, Vercel, Photoshop]
+    items: [Git, Jenkins, Docker, Heroku, Pact, Cypress, Capybara]
+  - group: Data
+    items: [PostgreSQL, MySQL, MongoDB, Redis]
+
+# Press for a Medium story: a story whose URL contains `match` shows this link in its meta line.
+featured:
+  - match: dual-database-setup-in-rails
+    text: Featured in Ruby Weekly
+    url: https://rubyweekly.com/issues/681
 
 # Featured work. `image` is a path under assets/media without an extension (see tools/images.sh).
 # Use `art` for a text-only panel instead of a screenshot.

@@ -124,6 +124,94 @@
     });
   });
 
+  /* ---------- Skills sky ---------- */
+  /* Each role in Experience names the skills it used. The role being read (or hovered, or picked with a
+     pill) lights those stars, and one line joins them top to bottom into that role's own constellation.
+     The line waits, hidden, until the sky is first on screen, then draws itself in. */
+  var sky = document.querySelector('[data-skill-sky]');
+  if (sky) {
+    var field = sky.querySelector('.skill-sky__field');
+    var skyLine = sky.querySelector('.skill-sky__lines polyline');
+    var skyStars = [].slice.call(sky.querySelectorAll('[data-skill]'));
+    var skyRoles = [].slice.call(document.querySelectorAll('[data-role]'));
+    var pills = [].slice.call(sky.querySelectorAll('[data-show-role]'));
+    var activeRole = null;
+    var skySeen = !('IntersectionObserver' in window);
+
+    var joinStars = function (draw) {
+      var box = field.getBoundingClientRect();
+      var points = skyStars.filter(function (star) {
+        return star.classList.contains('is-lit');
+      }).map(function (star) {
+        /* The star sits on the label's inner edge, the one facing the middle of the oval. The line ends on
+           the side of the star that faces the middle, so a chord between two stars on one arc clears the
+           unlit stars between them. */
+        var r = star.getBoundingClientRect();
+        var left = star.classList.contains('is-left');
+        return { x: (left ? r.right + 6 : r.left - 6) - box.left, y: r.top + r.height / 2 - box.top };
+      }).sort(function (a, b) { return a.y - b.y || a.x - b.x; });
+      skyLine.ownerSVGElement.setAttribute('viewBox', '0 0 ' + box.width + ' ' + box.height);
+      skyLine.setAttribute('points', points.map(function (pt) { return pt.x.toFixed(1) + ',' + pt.y.toFixed(1); }).join(' '));
+      var length = points.length > 1 ? skyLine.getTotalLength() : 0;
+      var animate = draw && skySeen && !reduceMotion.matches;
+      skyLine.style.transition = 'none';
+      skyLine.style.strokeDasharray = length;
+      skyLine.style.strokeDashoffset = skySeen && !animate ? 0 : length;
+      if (animate) {
+        skyLine.getBoundingClientRect(); /* commit the hidden line before it draws */
+        skyLine.style.transition = '';
+        skyLine.style.strokeDashoffset = 0;
+      }
+    };
+
+    var lightRole = function (role) {
+      if (!role || role === activeRole) return;
+      activeRole = role;
+      var skills = role.getAttribute('data-skills').split(' ');
+      skyStars.forEach(function (star) {
+        star.classList.toggle('is-lit', skills.indexOf(star.getAttribute('data-skill')) > -1);
+      });
+      skyRoles.forEach(function (r) { r.classList.toggle('is-active', r === role); });
+      pills.forEach(function (pill) {
+        pill.setAttribute('aria-pressed', String(pill.getAttribute('data-show-role') === role.id));
+      });
+      joinStars(true);
+    };
+
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        lightRole(document.getElementById(pill.getAttribute('data-show-role')));
+      });
+    });
+    if (window.matchMedia('(hover: hover)').matches) {
+      skyRoles.forEach(function (role) {
+        role.addEventListener('pointerenter', function () { lightRole(role); });
+      });
+    }
+    lightRole(skyRoles[0]);
+
+    if (!skySeen) {
+      /* The role crossing a band just above the middle of the screen is the one being read. */
+      var readObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) lightRole(entry.target);
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      skyRoles.forEach(function (role) { readObserver.observe(role); });
+
+      var skyObserver = new IntersectionObserver(function (entries) {
+        if (!entries[entries.length - 1].isIntersecting) return;
+        skySeen = true;
+        skyObserver.disconnect();
+        joinStars(true);
+      }, { threshold: 0.35 });
+      skyObserver.observe(field);
+    }
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(function () { joinStars(false); }).observe(field);
+    }
+  }
+
   /* ---------- Moonlight on framed cards ---------- */
   /* A soft pool of light follows the pointer across a card or story (CSS draws it from --mx and --my). */
   if (window.matchMedia('(hover: hover)').matches) {

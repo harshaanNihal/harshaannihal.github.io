@@ -3,8 +3,8 @@ title: Harshaan Nihal Khan
 tagline: Software Engineer
 email: harshaan.n.khan@gmail.com
 description: >-
-  Software engineer in Udaipur, India. I build web and mobile products with
-  Ruby on Rails, React, Node and React Native. Selected work and writing.
+  Software engineer, most recently at Cisco Meraki, open to new roles. I build web
+  and mobile products with Ruby on Rails, React, Node and React Native. Selected work and writing.
 url: "https://harshaannihal.github.io"
 baseurl: ""
 timezone: Asia/Kolkata # post dates carry +0530; without this Pages renders them in UTC
@@ -19,6 +19,7 @@ social:
   name: Harshaan Nihal Khan
   links:
     - https://github.com/harshaanNihal
+    - https://www.linkedin.com/in/harshaannihal
     - https://twitter.com/klassynihal
 
 # The default share image. A post can set its own `image:` in front matter.

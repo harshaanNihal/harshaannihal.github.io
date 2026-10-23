@@ -2,7 +2,6 @@
 <section class="section section--alt" id="work" aria-labelledby="work-title">
   <div class="container">
     <header class="section__head reveal">
-      <p class="kicker">Selected work</p>
       <h2 id="work-title">Things I've built and shipped.</h2>
     </header>
     <div class="index">
@@ -37,6 +36,6 @@
       {%- endfor %}
     </ul>
     {%- capture repos_url %}https://github.com/{{ p.github }}?tab=repositories{% endcapture %}
-    <p class="section__more reveal">{% include btn.html href=repos_url label="More on GitHub" icon="arrow-up-right" variant="notch" %}</p>
+    <p class="section__more reveal"><a class="link-arrow" href="{{ repos_url }}">More on GitHub {% include icon.html name="arrow-up-right" px=16 %}</a></p>
   </div>
 </section>
