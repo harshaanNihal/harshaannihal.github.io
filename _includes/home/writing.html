@@ -38,6 +38,10 @@
         {%- endfor %}
       </ul>
     </div>
-    <p class="section__more reveal"><a class="btn btn--ghost" href="{{ medium.profile }}">{% include icon.html name="book-open" %} All stories on Medium {% include icon.html name="arrow-up-right" px=16 %}</a></p>
+    {%- assign blog_url = '/blog/' | relative_url %}
+    <div class="section__more section__actions reveal">
+      {% include btn.html href=blog_url label="Blog archive" icon="arrow-right" variant="notch" %}
+      {% include btn.html href=medium.profile label="All stories on Medium" icon="arrow-up-right" variant="ghost" %}
+    </div>
   </div>
 </section>
