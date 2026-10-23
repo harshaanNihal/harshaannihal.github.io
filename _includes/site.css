@@ -428,7 +428,8 @@ h2 {
   inset: -6%;
   z-index: -3;
   background: var(--wash, none) center / cover no-repeat, linear-gradient(160deg, #1b3a82, #0a1329);
-  filter: var(--wash-filter);
+  /* The blur melts the pixel grid of the stretched thumbnail, which shows on tall tablet screens. */
+  filter: var(--wash-filter) blur(12px);
   opacity: var(--wash-opacity);
 }
 
@@ -582,6 +583,34 @@ h2 {
   border-radius: 50%;
   box-shadow: inset -20px 6px 0 0 var(--gold-bright), 0 0 70px var(--halo);
   transform: rotate(-18deg);
+}
+
+/* The constellation. It lives inside .sky, so the order is structural: wash, scrim, sky (stars and
+   this canvas), then the content. The script reads the colors below, so each theme tunes them here. */
+.sky__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+  --c-star: var(--gold-bright);
+  --c-glow: var(--gold);
+  --c-line: #cfe2ff;
+  --c-line-a: 0.3;
+}
+
+.sky__canvas.is-on {
+  opacity: 1;
+}
+
+:root[data-theme="light"] .sky__canvas {
+  --c-star: var(--link);
+  --c-glow: var(--sky);
+  --c-line: var(--sky);
+  --c-line-a: 0.34;
 }
 
 .hero__inner {
