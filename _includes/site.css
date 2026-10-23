@@ -1549,3 +1549,315 @@ h2 {
     display: none;
   }
 }
+
+/* ---------- Blog ---------- */
+/* The index at /blog/, the post page, and the Writing section's archive link.
+   Theme tokens only, so night and day both work. */
+.section__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.blog,
+.post {
+  min-height: calc(100svh - var(--header-h) - 160px);
+}
+
+.blog {
+  position: relative;
+  padding: clamp(48px, 8vw, 96px) 0 clamp(64px, 9vw, 112px);
+}
+
+.blog__head {
+  max-width: 720px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.blog__head h1 {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.blog__head .lead {
+  max-width: 30em;
+  margin-top: 16px;
+}
+
+/* A painted star, like the ones over the hero. */
+.blog__halo {
+  position: absolute;
+  top: clamp(40px, 7vw, 84px);
+  right: 0;
+  width: clamp(96px, 14vw, 170px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--gold-bright) 0 8%, var(--gold) 9% 19%, transparent 20%),
+    repeating-radial-gradient(circle, var(--gold) 0 2px, transparent 2px 7px);
+  -webkit-mask: radial-gradient(circle, #000 0 60%, transparent 70%);
+  mask: radial-gradient(circle, #000 0 60%, transparent 70%);
+  filter: drop-shadow(0 0 18px var(--halo));
+  opacity: 0.75;
+  pointer-events: none;
+  animation: blog-halo 9s ease-in-out infinite alternate;
+}
+
+@keyframes blog-halo {
+  from {
+    transform: scale(0.94) rotate(0deg);
+  }
+  to {
+    transform: scale(1.06) rotate(14deg);
+  }
+}
+
+.blog-list {
+  display: grid;
+  gap: 24px;
+}
+
+.blog-list .story h2 {
+  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  line-height: 1.2;
+}
+
+.blog-list .story h2 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.blog-list .story h2 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.blog-list .story h2 a:hover {
+  color: var(--gold-text);
+}
+
+.source {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: 700 0.66rem var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.source--site {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--gold-ink);
+}
+
+.source--medium {
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+/* A post with no cover gets a small painted star where the picture would be. */
+.story__media--art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(80% 90% at 20% 0%, var(--line), transparent 70%),
+    linear-gradient(160deg, var(--surface), var(--bg-alt));
+}
+
+.story__media--art::before {
+  content: "";
+  position: absolute;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, var(--gold) 0 2px, transparent 2px 8px);
+  -webkit-mask: radial-gradient(circle, #000 0 55%, transparent 70%);
+  mask: radial-gradient(circle, #000 0 55%, transparent 70%);
+  opacity: 0.5;
+}
+
+.story__glyph {
+  position: relative;
+  display: grid;
+  color: var(--gold);
+  filter: drop-shadow(0 0 14px var(--halo));
+}
+
+.story__glyph .icon {
+  width: clamp(48px, 7vw, 72px);
+  height: auto;
+  fill: currentColor;
+  fill-opacity: 0.18;
+  stroke-width: 1.4;
+}
+
+/* Above the stretched title link, so it stays clickable. */
+.story__alt {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9rem;
+}
+
+.story__alt a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.story__alt a:hover {
+  color: var(--link);
+}
+
+.blog__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(32px, 5vw, 48px);
+}
+
+/* Post page */
+.post__head h1,
+.blog-list .story h2 {
+  text-wrap: balance;
+}
+
+.post-note {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+  margin-top: 16px;
+  padding: 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.post-note a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.post__cover {
+  margin: 0 0 clamp(28px, 5vw, 44px);
+  overflow: hidden;
+  border: 1px solid var(--frame);
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow);
+}
+
+.post__cover img {
+  width: 100%;
+}
+
+.post-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(40px, 6vw, 64px);
+}
+
+.post-nav__link {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.25s var(--ease), border-color 0.25s;
+}
+
+.post-nav__link:hover {
+  transform: translateY(-3px);
+  border-color: var(--frame);
+}
+
+.post-nav__link--older {
+  grid-column: 1;
+}
+
+.post-nav__link--newer {
+  grid-column: 2;
+  justify-items: end;
+  text-align: right;
+}
+
+.post-nav__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-text);
+  font: 600 0.7rem var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.post-nav__link--older .icon {
+  transform: rotate(180deg);
+}
+
+.post-nav__title {
+  font: 400 1.25rem/1.25 var(--font-display);
+}
+
+.post__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link .icon {
+  transform: rotate(180deg);
+  transition: transform 0.2s var(--ease);
+}
+
+.back-link:hover .icon {
+  transform: translateX(-3px) rotate(180deg);
+}
+
+@media (max-width: 640px) {
+  .blog__halo {
+    display: none;
+  }
+
+  .post-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .post-nav__link--older,
+  .post-nav__link--newer {
+    grid-column: 1;
+    justify-items: start;
+    text-align: left;
+  }
+}
