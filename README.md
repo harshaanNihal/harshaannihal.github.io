@@ -31,6 +31,7 @@ Originals live in `_src/`, which never publishes. `tools/images.sh` rebuilds eve
 - `_src/hero.jpg` becomes `assets/media/hero-480`, `hero-720` and `hero-1152`, each as AVIF with a JPEG fallback.
 - `_src/sky.jpg` is the top band of the portrait. It becomes the small inline wash behind the hero, in `_includes/hero-wash.txt`.
 - `_src/work/NAME.jpg` becomes `assets/media/work/NAME.avif` and `.jpg` at 720 px wide.
+- `_src/work/miru.jpg` (a capture of the public miru.so page) also becomes `work/miru-1280`, because the featured project shows wider and 2x screens need it.
 
 Add a project screenshot by dropping a 1200 by 750 JPEG in `_src/work/`, running the script, and pointing an entry in `profile.yml` at `work/NAME`.
 
@@ -42,12 +43,14 @@ Add a project screenshot by dropping a 1200 by 750 JPEG in `_src/work/`, running
 | `_includes/home/` | One file per home page section |
 | `_includes/site.css` | All styles, inlined into every page. Tokens for the two themes sit at the top |
 | `_includes/site.js` | Theme toggle, mobile menu, scroll reveal, copy-email and the hero constellation, inlined into every page |
-| `_includes/` | `head`, `header`, `footer`, `picture`, the `icon` helper and `btn` (the button link, see below) |
+| `_includes/` | `head`, `header`, `footer`, `picture`, the `icon` helper, `btn` (the button link, see below), `email-cta` (the address as a notch button plus Copy) and `sign-off` (the end of the blog and of every post) |
 | `tools/og.html` | Template for the social share image |
 
 ## The notch button
 
-`{% include btn.html href="#work" label="See my work" icon="arrow-right" variant="notch" %}` draws a bordered button whose border has two gaps. On hover or keyboard focus the gaps slide to the opposite ends, the border turns crimson and the arrow turns a quarter. The border is a clipped pseudo-element, so the gaps are real holes. Other variants are `primary` and `ghost`.
+`{% include btn.html href="mailto:..." label="Email me" icon="arrow-right" variant="notch" %}` draws a bordered button whose border has two gaps. On hover or keyboard focus the gaps slide to the opposite ends, the border turns crimson and the arrow turns a quarter. The border is a clipped pseudo-element, so the gaps are real holes. Other variants are `primary` and `ghost`.
+
+The notch is kept for the one action, emailing, so it always means "write to me". Other links on the home page, the blog and posts are ghost buttons or text links. `{% include email-cta.html %}` draws it with the address as the label and a Copy button beside it.
 
 ## Run locally
 

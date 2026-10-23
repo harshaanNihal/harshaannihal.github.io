@@ -6,6 +6,7 @@ layout: default
   and stories in _data/medium.yml (on Medium). A Medium story that a local post points at with
   `canonical_url` is shown once, as the local post. Each entry gets a sortable key, the keys are
   sorted as strings, and the entry is looked up again by source (p or m) and index when rendered.
+  The newest entry gets a card with its cover; the rest are a compact list. The page ends with the sign-off.
 {%- endcomment -%}
 {%- assign medium = site.data.medium -%}
 {%- assign keys = '' -%}
@@ -24,7 +25,6 @@ layout: default
 <div class="blog container">
   <header class="blog__head">
     <span class="blog__halo" aria-hidden="true"></span>
-    <p class="kicker">Blog</p>
     <h1>Everything I have written.</h1>
     {%- if page.lead %}
     <p class="lead">{{ page.lead }}</p>
@@ -53,11 +53,6 @@ layout: default
         {%- assign excerpt = post.excerpt | strip_html | newline_to_br | replace: '<br />', ' ' | strip_newlines | strip | truncatewords: 40 -%}
       {%- endif -%}
       {%- assign cover = post.cover | default: medium_twin.cover -%}
-      {%- if post.tags.size > 0 -%}
-        {%- assign tags = post.tags -%}
-      {%- else -%}
-        {%- assign tags = medium_twin.tags -%}
-      {%- endif -%}
     {%- else -%}
       {%- assign story = medium.posts[index] -%}
       {%- assign onsite = false -%}
@@ -68,43 +63,49 @@ layout: default
       {%- assign minutes = story.minutes -%}
       {%- assign excerpt = story.excerpt -%}
       {%- assign cover = story.cover -%}
-      {%- assign tags = story.tags -%}
     {%- endif %}
-    <li class="reveal">
-      <article class="story story--feature">
+    {%- capture meta -%}
+      {%- if onsite %}<span class="source source--site">On this site</span>{% else %}<span class="source source--medium">On Medium</span>{% endif -%}
+      <time datetime="{{ date | date: '%Y-%m-%d' }}">{{ date | date: "%b %-d, %Y" }}</time>
+      <span>{{ minutes }} min read</span>
+    {%- endcapture -%}
+    {%- capture more -%}
+      {%- if onsite %}Read the post {% include icon.html name="arrow-right" px=16 %}{% else %}Read on Medium {% include icon.html name="arrow-up-right" px=16 %}{% endif -%}
+    {%- endcapture -%}
+    {%- if forloop.first %}
+    <li class="blog-list__lead">
+      <article class="story{% if cover %} story--feature{% endif %}">
         {%- if cover %}
         <div class="story__media">{% include picture.html src=cover alt="" w=720 h=405 %}</div>
-        {%- else %}
-        <div class="story__media story__media--art" aria-hidden="true"><span class="story__glyph">{% include icon.html name="star" px=64 %}</span></div>
         {%- endif %}
         <div class="story__body">
-          <p class="story__meta">
-            {%- if onsite %}<span class="source source--site">On this site</span>{% else %}<span class="source source--medium">On Medium</span>{% endif -%}
-            <time datetime="{{ date | date: '%Y-%m-%d' }}">{{ date | date: "%b %-d, %Y" }}</time>
-            <span>{{ minutes }} min read</span>
-          </p>
+          <p class="story__meta">{{ meta }}</p>
           <h2><a href="{{ href }}">{{ title | escape }}</a></h2>
           {%- if excerpt != '' %}
           <p class="story__excerpt">{{ excerpt }}</p>
           {%- endif %}
-          {%- if tags.size > 0 %}
-          <ul class="chips">{% for tag in tags %}<li class="chip">{{ tag }}</li>{% endfor %}</ul>
-          {%- endif %}
-          {%- if onsite %}
-          <p class="story__more">Read the post {% include icon.html name="arrow-right" px=16 %}</p>
-          {%- else %}
-          <p class="story__more">Read on Medium {% include icon.html name="arrow-up-right" px=16 %}</p>
-          {%- endif %}
+          <p class="story__more">{{ more }}</p>
           {%- if alt_href %}
           <p class="story__alt"><a href="{{ alt_href }}">Also on Medium {% include icon.html name="arrow-up-right" px=14 %}</a></p>
           {%- endif %}
         </div>
       </article>
     </li>
+    {%- else %}
+    <li class="entry">
+      <p class="entry__meta">{{ meta }}</p>
+      <h2 class="entry__title"><a href="{{ href }}">{{ title | escape }}</a></h2>
+      {%- if excerpt != '' %}
+      <p class="entry__excerpt">{{ excerpt }}</p>
+      {%- endif %}
+      <p class="entry__more"><span class="entry__go">{{ more }}</span>
+        {%- if alt_href %}<a class="entry__alt" href="{{ alt_href }}">Also on Medium {% include icon.html name="arrow-up-right" px=14 %}</a>{% endif -%}
+      </p>
+    </li>
+    {%- endif %}
     {%- endfor %}
   </ul>
 
-  <div class="blog__foot">
-    {% include btn.html href=medium.profile label="All stories on Medium" icon="arrow-up-right" variant="ghost" %}
-  </div>
+  <p class="blog__foot"><a class="link-arrow" href="{{ medium.profile }}">All stories on Medium {% include icon.html name="arrow-up-right" px=16 %}</a></p>
+  {% include sign-off.html %}
 </div>

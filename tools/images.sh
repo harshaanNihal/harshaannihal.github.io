@@ -23,6 +23,8 @@ for src in _src/work/*.jpg; do
   name=$(basename "$src" .jpg)
   encode "$src" "$out/work/$name" 720 50 70
 done
+# The featured project shows up to about 640 CSS px wide, so it also gets a 1280 px copy for 2x screens.
+encode _src/work/miru.jpg "$out/work/miru-1280" 1280 50 70
 
 # The wash is only the sky (_src/sky.jpg is the top 16:9 band of hero.jpg), so the face and shirt do not muddy it.
 tmp=$(mktemp -t wash).jpg

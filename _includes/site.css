@@ -239,25 +239,6 @@ a:hover {
   margin-top: 36px;
 }
 
-.kicker {
-  margin-bottom: 12px;
-  color: var(--gold-text);
-  font: 600 0.76rem var(--font-body);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.kicker::before {
-  content: "\2726";
-  margin-right: 10px;
-  color: var(--gold);
-}
-
-.kicker a {
-  color: inherit;
-  text-decoration: none;
-}
-
 /* Polya has no lowercase and no bold, so headings are capitals with synthesis off. Headings stay at 1.4rem
    or more. Below that the mesh merges into plain bold capitals, which is fine for the brand mark only. */
 h1,
@@ -773,23 +754,6 @@ h2 {
   padding: clamp(40px, 7vw, 88px) 0 clamp(72px, 10vw, 120px);
 }
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-  padding: 7px 16px 7px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--glass);
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-.pill .icon {
-  color: var(--gold);
-}
-
 .hero__title {
   position: relative;
   isolation: isolate;
@@ -823,6 +787,11 @@ h2 {
   opacity: 0.88;
 }
 
+/* Who he is, first, in the lead's own line. */
+.lead__role {
+  font-weight: 600;
+}
+
 .hero__cta {
   display: flex;
   flex-wrap: wrap;
@@ -830,10 +799,18 @@ h2 {
   margin: 32px 0 28px;
 }
 
+/* A grid, so the plaque stays centered under the frame even when it is wider than a phone-sized frame. */
 .portrait {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
   justify-self: center;
   width: min(420px, 78vw);
+}
+
+.portrait__frame {
+  justify-self: stretch;
 }
 
 /* The portrait hangs like a canvas in a gold arched frame. */
@@ -853,8 +830,9 @@ h2 {
 
 .plaque {
   position: relative;
-  display: table;
-  margin: -14px auto 0;
+  width: max-content;
+  margin: -14px 0 0;
+  white-space: nowrap;
   padding: 6px 16px;
   border: 1px solid var(--frame);
   border-radius: 4px;
@@ -968,10 +946,10 @@ h2 {
   background: var(--surface);
 }
 
-/* ---------- Cards: framed canvases ---------- */
-.cards {
+/* ---------- Work: one featured project, the rest in a row under it ---------- */
+.work {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
 
@@ -986,9 +964,13 @@ h2 {
   transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
 }
 
+.card:hover,
+.card:focus-within {
+  border-color: var(--frame);
+}
+
 .card:hover {
   transform: translateY(-6px);
-  border-color: var(--frame);
   box-shadow: var(--shadow);
 }
 
@@ -1049,16 +1031,35 @@ h2 {
   padding: 20px 24px 24px;
 }
 
-.card__kicker {
-  color: var(--gold-text);
-  font: 600 0.7rem var(--font-body);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.card__meta {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.card__meta,
+.card__text {
+  text-wrap: pretty;
 }
 
 .card h3 {
   font-size: 1.5rem;
   line-height: 1.2;
+}
+
+.card h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* The title links to the live app and covers the whole card, so the card is one big target. */
+.card h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.card:hover h3 a {
+  color: var(--gold-text);
 }
 
 .card__text {
@@ -1068,9 +1069,91 @@ h2 {
 .card__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 20px;
+  gap: 8px 24px;
   margin-top: auto;
   padding-top: 8px;
+  font-weight: 600;
+}
+
+.card__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--link);
+}
+
+/* Above the stretched title link, so it stays its own target. */
+.card__alt {
+  position: relative;
+  z-index: 1;
+}
+
+.card--feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+.card--feature .card__media {
+  margin: 12px;
+}
+
+.card--feature .card__body {
+  gap: 14px;
+  padding: 32px 40px 32px 20px;
+}
+
+.card--feature h3 {
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+}
+
+.card--feature .card__text {
+  font-size: 1.05rem;
+}
+
+/* The smaller projects sit side by side, screenshot beside the text. */
+@media (min-width: 861px) {
+  .card:not(.card--feature) {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+
+  .card:not(.card--feature) .card__media {
+    margin: 10px 0 10px 10px;
+    aspect-ratio: auto;
+    min-height: 180px;
+  }
+
+  /* A tall crop of a wide screenshot: keep its top-left corner, where the site's header and heading are. */
+  .card:not(.card--feature) .card__media img {
+    position: absolute;
+    inset: 0;
+    object-position: left top;
+  }
+
+  .card:not(.card--feature) .card__body {
+    padding: 20px 22px 22px 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .work,
+  .card--feature {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card--feature .card__media {
+    margin: 10px 10px 0;
+  }
+
+  .card--feature .card__body {
+    padding: 20px 24px 24px;
+  }
+
+  .card:not(.card--feature) .card__media {
+    aspect-ratio: 2 / 1;
+  }
 }
 
 .link-arrow {
@@ -1089,15 +1172,16 @@ h2 {
   transform: translate(2px, -2px);
 }
 
-/* ---------- More builds ---------- */
+/* ---------- More builds: a plain list under the cards, ruled rather than boxed ---------- */
 .rows {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr));
-  gap: 16px;
+  column-gap: 40px;
 }
 
 .rows > li {
   display: flex;
+  border-top: 1px solid var(--line);
 }
 
 .row__link {
@@ -1105,19 +1189,10 @@ h2 {
   flex: 1;
   grid-template-columns: 1fr auto;
   align-content: start;
-  gap: 6px;
-  padding: 18px 22px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
+  gap: 6px 16px;
+  padding: 18px 0 20px;
   color: var(--text);
   text-decoration: none;
-  transition: transform 0.25s var(--ease), border-color 0.25s;
-}
-
-.row__link:hover {
-  transform: translateY(-3px);
-  border-color: var(--frame);
 }
 
 .row__title {
@@ -1125,6 +1200,11 @@ h2 {
   align-items: center;
   gap: 8px;
   font-weight: 600;
+  transition: color 0.2s;
+}
+
+.row__link:hover .row__title {
+  color: var(--gold-text);
 }
 
 .row__text {
@@ -1247,9 +1327,18 @@ h2 {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
 }
 
+/* The cover fills the card's height instead of floating between empty bands; the left edge (a chart's axis) stays. */
 .story--feature .story__media {
-  align-self: center;
-  aspect-ratio: 2 / 1;
+  position: relative;
+  align-self: stretch;
+  aspect-ratio: auto;
+  min-height: 240px;
+}
+
+.story--feature .story__media img {
+  position: absolute;
+  inset: 0;
+  object-position: left center;
 }
 
 .story--feature .story__body {
@@ -1267,25 +1356,45 @@ h2 {
   gap: 24px;
 }
 
-/* ---------- Studies ---------- */
+/* ---------- Studies: the oldest work, kept compact ---------- */
+.studies {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 32px clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+
+.studies__links {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  margin-top: 24px;
+}
+
 .shots {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px 16px;
 }
 
 .shot {
-  position: relative;
+  display: grid;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.shot__img {
   display: block;
   aspect-ratio: 16 / 10;
-  border: 1px solid var(--frame);
-  border-radius: 14px;
-  background: var(--surface);
   overflow: hidden;
+  border: 1px solid var(--frame);
+  border-radius: 10px;
+  background: var(--surface);
   transition: box-shadow 0.3s, transform 0.3s var(--ease);
 }
 
-.shot img {
+.shot__img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1293,38 +1402,96 @@ h2 {
   transition: transform 0.6s var(--ease);
 }
 
+/* The name sits under the picture, never on it. */
 .shot__caption {
-  position: absolute;
-  inset: auto 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 36px 16px 14px;
-  background: linear-gradient(transparent, rgba(5, 9, 22, 0.9));
-  color: #fff;
+  font-size: 0.92rem;
   font-weight: 600;
+  line-height: 1.35;
+  transition: color 0.2s;
 }
 
-.shot:hover {
+/* Inline, so the arrow follows the last word when a name wraps. */
+.shot__caption .icon {
+  display: inline-block;
+  margin-left: 2px;
+  vertical-align: -2px;
+}
+
+.shot:hover .shot__img {
   transform: translateY(-4px);
   box-shadow: var(--shadow);
 }
 
-.shot:hover img {
+.shot:hover .shot__img img {
   transform: scale(1.06);
 }
 
-.studies__links {
+.shot:hover .shot__caption {
+  color: var(--gold-text);
+}
+
+@media (max-width: 960px) {
+  .studies {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .shots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 12px;
+  }
+}
+
+/* ---------- The ask: one line and the address, where the reader decides ---------- */
+.ask {
+  position: relative;
+  padding: clamp(56px, 8vw, 88px) 0;
+}
+
+.ask__inner {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 32px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 48px;
+}
+
+.ask__text {
+  flex: 1 1 340px;
+}
+
+.ask .lead {
+  margin-top: 10px;
+}
+
+/* The address as the notch button, with Copy beside it. Used by the ask, Contact, the blog and posts. */
+.mail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: 100%;
+}
+
+.mail-actions .btn {
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+/* The email address stays in its own case, so it reads and copies cleanly. */
+.mail-actions .btn--notch {
+  text-align: center;
+}
+
+.mail-actions .btn--notch .btn__label {
+  font-size: clamp(0.82rem, 3.6vw, 0.95rem);
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 /* ---------- Contact ---------- */
 .contact {
-  padding-top: 0;
+  padding-top: clamp(48px, 7vw, 80px);
 }
 
 .contact__panel {
@@ -1348,29 +1515,9 @@ h2 {
   max-width: 30em;
 }
 
-.contact__actions {
-  display: flex;
-  flex-wrap: wrap;
+.contact__panel .mail-actions {
   justify-content: center;
-  gap: 14px;
-  max-width: 100%;
   margin: 8px 0;
-}
-
-.contact__actions .btn {
-  overflow-wrap: anywhere;
-  text-align: left;
-}
-
-/* The email address stays in its own case, so it reads and copies cleanly. */
-.contact__actions .btn--notch {
-  text-align: center;
-}
-
-.contact__actions .btn--notch .btn__label {
-  font-size: clamp(0.82rem, 3.6vw, 0.95rem);
-  letter-spacing: 0.04em;
-  text-transform: none;
 }
 
 /* ---------- Footer ---------- */
@@ -1643,10 +1790,16 @@ h2 {
     grid-template-columns: 1fr;
   }
 
+  /* Portrait first, but small enough that the name and the email button share the first phone screen. */
   .portrait {
     order: -1;
-    width: min(300px, 70vw);
+    width: min(240px, 64vw);
     justify-self: start;
+  }
+
+  .plaque {
+    padding: 6px 10px;
+    letter-spacing: 0.06em;
   }
 
   .halo--c,
@@ -1676,6 +1829,7 @@ h2 {
 
   .story--feature .story__media {
     aspect-ratio: 16 / 9;
+    min-height: 0;
   }
 
   .story--feature .story__body {
@@ -1730,11 +1884,6 @@ h2 {
 }
 
 @media (max-width: 560px) {
-  .plaque {
-    padding: 6px 10px;
-    letter-spacing: 0.1em;
-  }
-
   .facts__row {
     grid-template-columns: 1fr;
     gap: 2px;
@@ -1752,6 +1901,15 @@ h2 {
   .scroll-cue {
     display: none;
   }
+
+  /* Email and See my work stay on one row down to 390 px. */
+  .hero__cta {
+    gap: 10px;
+  }
+
+  .hero__cta .btn--ghost {
+    padding-inline: 18px;
+  }
 }
 
 /* ---------- Blog ---------- */
@@ -1760,7 +1918,7 @@ h2 {
 .section__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 12px 28px;
 }
 
 .blog,
@@ -1818,9 +1976,110 @@ h2 {
   }
 }
 
-.blog-list {
+/* The newest entry leads with its cover, then a compact list: a few entries per screen. */
+.blog-list__lead {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.entry {
+  position: relative;
   display: grid;
-  gap: 24px;
+  gap: 8px;
+  padding: 22px 0 24px;
+  border-top: 1px solid var(--line);
+}
+
+.entry:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.entry__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.entry__title {
+  font-size: clamp(1.4rem, 2.4vw, 1.6rem);
+  line-height: 1.25;
+}
+
+.entry__title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* The title link covers the whole row. */
+.entry__title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.entry:hover .entry__title a {
+  color: var(--gold-text);
+}
+
+.entry__excerpt {
+  display: -webkit-box;
+  max-width: 68ch;
+  overflow: hidden;
+  color: var(--muted);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.entry__more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 24px;
+  font-weight: 600;
+}
+
+.entry__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--link);
+}
+
+.entry__alt {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.entry__alt:hover {
+  color: var(--link);
+}
+
+/* Wide screens: an index, with the date and source in their own column. */
+@media (min-width: 720px) {
+  .entry {
+    grid-template-columns: 10rem minmax(0, 1fr);
+    column-gap: 32px;
+  }
+
+  .entry__meta {
+    grid-row: 1 / span 3;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-top: 6px;
+  }
+
+  .entry > :not(.entry__meta) {
+    grid-column: 2;
+  }
 }
 
 .blog-list .story h2 {
@@ -1865,43 +2124,6 @@ h2 {
   color: var(--muted);
 }
 
-/* A post with no cover gets a small painted star where the picture would be. */
-.story__media--art {
-  position: relative;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(80% 90% at 20% 0%, var(--line), transparent 70%),
-    linear-gradient(160deg, var(--surface), var(--bg-alt));
-}
-
-.story__media--art::before {
-  content: "";
-  position: absolute;
-  width: 46%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: repeating-radial-gradient(circle, var(--gold) 0 2px, transparent 2px 8px);
-  -webkit-mask: radial-gradient(circle, #000 0 55%, transparent 70%);
-  mask: radial-gradient(circle, #000 0 55%, transparent 70%);
-  opacity: 0.5;
-}
-
-.story__glyph {
-  position: relative;
-  display: grid;
-  color: var(--gold);
-  filter: drop-shadow(0 0 14px var(--halo));
-}
-
-.story__glyph .icon {
-  width: clamp(48px, 7vw, 72px);
-  height: auto;
-  fill: currentColor;
-  fill-opacity: 0.18;
-  stroke-width: 1.4;
-}
-
 /* Above the stretched title link, so it stays clickable. */
 .story__alt {
   position: relative;
@@ -1922,10 +2144,58 @@ h2 {
 }
 
 .blog__foot {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: clamp(32px, 5vw, 48px);
+  margin-top: 24px;
+}
+
+/* The end of the blog and of every post: the author, framed like the portrait, and the address. */
+.sign-off {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 20px 24px;
+  margin-top: clamp(48px, 7vw, 72px);
+  padding: clamp(22px, 4vw, 36px);
+  border: 1px solid var(--frame);
+  border-radius: calc(var(--radius) * 1.5);
+  background: var(--surface);
+}
+
+.sign-off__portrait {
+  width: clamp(64px, 12vw, 88px);
+  padding: 4px;
+  border-radius: 50% 50% 10px 10px / 37.5% 37.5% 10px 10px;
+  background: linear-gradient(160deg, #ffe9a3, #d9962b 52%, #7a4e08);
+}
+
+.sign-off__portrait img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 50% 50% 7px 7px / 37.5% 37.5% 7px 7px;
+}
+
+.sign-off h2 {
+  font-size: clamp(1.4rem, 3vw, 1.7rem);
+  line-height: 1.15;
+}
+
+.sign-off__text p {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.sign-off .mail-actions {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 640px) {
+  .sign-off .mail-actions {
+    grid-column: 2;
+  }
+}
+
+.crumb {
+  margin-bottom: 18px;
 }
 
 /* Post page */
@@ -1946,6 +2216,10 @@ h2 {
   background: var(--surface);
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.post__foot .post-note {
+  margin-top: 0;
 }
 
 .post-note a {

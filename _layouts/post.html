@@ -15,7 +15,7 @@ layout: default
 {%- assign blog_url = '/blog/' | relative_url -%}
 <article class="page post container container--narrow" itemscope itemtype="https://schema.org/BlogPosting">
   <header class="page__head post__head">
-    <p class="kicker"><a href="{{ blog_url }}">Blog</a></p>
+    <p class="crumb"><a class="back-link" href="{{ blog_url }}">{% include icon.html name="arrow-right" px=16 %} Blog</a></p>
     <h1 itemprop="headline">{{ page.title | escape }}</h1>
     {%- if page.description %}
     <p class="lead" itemprop="description">{{ page.description }}</p>
@@ -25,12 +25,6 @@ layout: default
       <span aria-hidden="true">·</span>
       <span>{{ minutes }} min read</span>
     </p>
-    {%- if page.canonical_url %}
-    <p class="post-note">
-      {%- if page.canonical_url contains 'medium.com' %}Also published on Medium.{% else %}Originally published elsewhere.{% endif %}
-      <a href="{{ page.canonical_url }}" itemprop="sameAs">Read it there {% include icon.html name="arrow-up-right" px=14 %}</a>
-    </p>
-    {%- endif %}
   </header>
   {%- if cover %}
   <figure class="post__cover">
@@ -40,6 +34,7 @@ layout: default
   <div class="prose" itemprop="articleBody">
     {{ content }}
   </div>
+  {% include sign-off.html %}
   {%- if page.previous or page.next %}
   <nav class="post-nav" aria-label="More posts">
     {%- if page.previous %}
@@ -59,7 +54,10 @@ layout: default
   <footer class="post__foot">
     <a class="back-link" href="{{ blog_url }}">{% include icon.html name="arrow-right" px=18 %} Back to the blog</a>
     {%- if page.canonical_url %}
-    {% include btn.html href=page.canonical_url label="Read it on Medium" icon="arrow-up-right" variant="ghost" %}
+    <p class="post-note">
+      {%- if page.canonical_url contains 'medium.com' %}Also published on Medium.{% else %}Originally published elsewhere.{% endif %}
+      <a href="{{ page.canonical_url }}" itemprop="sameAs">Read it there {% include icon.html name="arrow-up-right" px=14 %}</a>
+    </p>
     {%- endif %}
   </footer>
 </article>

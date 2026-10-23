@@ -14,9 +14,7 @@ hero:
 
 about:
   paragraphs:
-    - I'm a software engineer based in Udaipur, India. I work across the stack with Ruby on Rails, React, Node.js, React Native and Next.js.
-    - I've shipped features in Miru, Saeloun's open source time tracking and invoicing app, spanning invoicing, team management and email flows.
-    - I write about what I learn on Medium, from speeding up a slow Rails job to the CSS box model.
+    - I'm a software engineer, and I work across the stack with Ruby on Rails, React, Node.js, React Native and Next.js.
     - I have a serious passion for UI effects, animations and building intuitive, dynamic user experiences.
   facts:
     - label: Based in
@@ -43,11 +41,13 @@ skills:
     items: [Git and GitHub, Vercel, Photoshop]
 
 # Featured work. `image` is a path under assets/media without an extension (see tools/images.sh).
-# Use `art` for a text-only panel instead of a screenshot.
+# Use `art` for a text-only panel instead of a screenshot. The first project is the featured one and gets
+# the wide card; if a NAME-1280 copy of its screenshot exists, 2x screens get that.
 projects:
   - title: Miru
     kicker: Open source
-    art: Miru
+    image: work/miru
+    alt: The Miru dashboard on miru.so, with time tracking, clients, team, invoices and payments in the sidebar
     blurb: Time tracking, invoicing and employee benefits, built with Ruby on Rails and React. I shipped invoicing, team management and email reminder features.
     tech: [Ruby on Rails, React]
     links:

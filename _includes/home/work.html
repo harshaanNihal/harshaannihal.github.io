@@ -1,28 +1,45 @@
 {%- assign p = site.data.profile -%}
+{%- comment -%}
+  The first project leads in a wide card; the rest sit in a smaller row under it. Every card is one
+  target: the title links to the live app and stretches over the card, and the Code link sits above it.
+{%- endcomment -%}
 <section class="section section--alt" id="work" aria-labelledby="work-title">
   <div class="container">
     <header class="section__head reveal">
-      <p class="kicker">Selected work</p>
       <h2 id="work-title">Things I've built and shipped.</h2>
     </header>
-    <div class="cards">
+    <div class="work">
       {%- for project in p.projects %}
-      <article class="card reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
+      {%- assign live = project.links | first -%}
+      {%- assign featured = forloop.first -%}
+      {%- assign wide = nil %}
+      <article class="card{% if featured %} card--feature{% endif %} reveal" style="--d:{{ forloop.index0 | times: 90 }}ms">
         {%- if project.image %}
-        <div class="card__media">{% include picture.html src=project.image alt=project.alt w=720 h=450 %}</div>
+        <div class="card__media">
+          {%- if featured -%}
+            {%- assign wide_path = '/assets/media/' | append: project.image | append: '-1280.avif' -%}
+            {%- assign wide = site.static_files | where: 'path', wide_path | first -%}
+          {%- endif -%}
+          {%- if wide %}
+          {%- assign base = '/assets/media/' | append: project.image -%}
+          <picture><source type="image/avif" srcset="{{ base | append: '.avif' | relative_url }} 720w, {{ base | append: '-1280.avif' | relative_url }} 1280w" sizes="(max-width: 860px) calc(100vw - 62px), 640px"><img src="{{ base | append: '.jpg' | relative_url }}" srcset="{{ base | append: '.jpg' | relative_url }} 720w, {{ base | append: '-1280.jpg' | relative_url }} 1280w" sizes="(max-width: 860px) calc(100vw - 62px), 640px" width="720" height="450" alt="{{ project.alt }}" loading="lazy" decoding="async"></picture>
+          {%- else %}
+          {% include picture.html src=project.image alt=project.alt w=720 h=450 %}
+          {%- endif %}
+        </div>
         {%- elsif project.art %}
         <div class="card__media card__media--art" aria-hidden="true"><span class="art__word">{{ project.art }}</span></div>
         {%- endif %}
         <div class="card__body">
-          <p class="card__kicker">{{ project.kicker }}</p>
-          <h3>{{ project.title }}</h3>
+          <p class="card__meta">{{ project.kicker }}<span aria-hidden="true"> · </span>{{ project.tech | join: ', ' }}</p>
+          <h3><a href="{{ live.url }}">{{ project.title }}</a></h3>
           <p class="card__text">{{ project.blurb }}</p>
-          <ul class="chips">{% for t in project.tech %}<li class="chip">{{ t }}</li>{% endfor %}</ul>
-          <ul class="card__links">
-            {%- for link in project.links %}
-            <li><a class="link-arrow" href="{{ link.url }}">{{ link.text }} {% include icon.html name="arrow-up-right" px=16 %}</a></li>
+          <p class="card__links">
+            <span class="card__go">{{ live.text }} {% include icon.html name="arrow-up-right" px=16 %}</span>
+            {%- for link in project.links offset: 1 %}
+            <a class="card__alt link-arrow" href="{{ link.url }}">{{ link.text }} {% include icon.html name="arrow-up-right" px=16 %}</a>
             {%- endfor %}
-          </ul>
+          </p>
         </div>
       </article>
       {%- endfor %}
@@ -41,6 +58,6 @@
       {%- endfor %}
     </ul>
     {%- capture repos_url %}https://github.com/{{ p.github }}?tab=repositories{% endcapture %}
-    <p class="section__more reveal">{% include btn.html href=repos_url label="More on GitHub" icon="arrow-up-right" variant="notch" %}</p>
+    <p class="section__more reveal"><a class="link-arrow" href="{{ repos_url }}">More on GitHub {% include icon.html name="arrow-up-right" px=16 %}</a></p>
   </div>
 </section>

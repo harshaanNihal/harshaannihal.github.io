@@ -3,7 +3,6 @@
 <section class="section" id="writing" aria-labelledby="writing-title">
   <div class="container">
     <header class="section__head reveal">
-      <p class="kicker">Writing</p>
       <h2 id="writing-title">Notes from Medium.</h2>
       <p class="section__lead">What I learn, written down. From making a slow Rails job fast to the CSS box model.</p>
     </header>
@@ -39,9 +38,9 @@
       </ul>
     </div>
     {%- assign blog_url = '/blog/' | relative_url %}
-    <div class="section__more section__actions reveal">
-      {% include btn.html href=blog_url label="Blog archive" icon="arrow-right" variant="notch" %}
-      {% include btn.html href=medium.profile label="All stories on Medium" icon="arrow-up-right" variant="ghost" %}
-    </div>
+    <p class="section__more section__actions reveal">
+      <a class="link-arrow" href="{{ blog_url }}">Blog archive {% include icon.html name="arrow-right" px=16 %}</a>
+      <a class="link-arrow" href="{{ medium.profile }}">All stories on Medium {% include icon.html name="arrow-up-right" px=16 %}</a>
+    </p>
   </div>
 </section>
