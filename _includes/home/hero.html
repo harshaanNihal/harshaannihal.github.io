@@ -1,13 +1,13 @@
 {%- assign p = site.data.profile -%}
-<section class="hero" id="top" aria-labelledby="hero-title">
+<section class="hero" id="top" aria-labelledby="hero-title" data-sky-host>
   <div class="hero__wash" aria-hidden="true"></div>
+  {% include sky-defs.html %}
   <div class="sky" aria-hidden="true">
     <span class="stars"></span>
-    <canvas class="sky__canvas" data-constellation aria-hidden="true"></canvas>
-    <span class="halo halo--a"></span>
-    <span class="halo halo--b"></span>
-    <span class="halo halo--c"></span>
-    <span class="moon"></span>
+    <canvas class="sky__canvas" data-constellation></canvas>
+    {% include swirl.html id="hero" %}
+    {% include pstar.html class="pstar--b" %}
+    <span class="moon">{% include pstar.html class="pstar--moon" %}<span class="moon__crescent"></span></span>
   </div>
   <div class="container hero__inner">
     <div class="hero__copy">

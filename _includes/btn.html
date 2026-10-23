@@ -4,4 +4,4 @@
   icon: an icon.html name, optional. Pass ext="true" to open in a new tab.
   The label is a flex item that wraps, so a long label never overflows at 320px.
 {%- endcomment -%}
-<a class="btn btn--{{ include.variant | default: 'notch' }}" href="{{ include.href }}"{% if include.ext %} target="_blank" rel="noopener"{% endif %}><span class="btn__label">{{ include.label }}</span>{% if include.icon %}<span class="btn__icon">{% include icon.html name=include.icon px=18 %}</span>{% endif %}</a>
+<a class="btn btn--{{ include.variant | default: 'notch' }}" href="{{ include.href }}"{% if include.ext %} target="_blank" rel="noopener"{% endif %}><span class="btn__label">{{ include.label }}</span>{% if include.icon %}<span class="btn__icon btn__icon--{{ include.icon }}">{% include icon.html name=include.icon px=18 %}</span>{% endif %}</a>

@@ -19,9 +19,11 @@
       </ul>
     </nav>
     <div class="site-header__tools">
-      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to day theme" aria-pressed="false">
-        <span class="theme-icon theme-icon--sun">{% include icon.html name="sun" %}</span>
-        <span class="theme-icon theme-icon--moon">{% include icon.html name="moon" %}</span>
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Switch to day theme" aria-pressed="false">
+        <span class="theme-dial" aria-hidden="true">
+          <span class="theme-icon theme-icon--sun">{% include icon.html name="sun" %}</span>
+          <span class="theme-icon theme-icon--moon">{% include icon.html name="moon" %}</span>
+        </span>
       </button>
       <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle__open">{% include icon.html name="menu" %}</span>

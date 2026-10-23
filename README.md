@@ -44,6 +44,7 @@ Add a project screenshot by dropping a 1200 by 750 JPEG in `_src/work/`, running
 | `_includes/site.css` | All styles, inlined into every page. Tokens for the two themes sit at the top |
 | `_includes/site.js` | Theme toggle, mobile menu, scroll reveal, copy-email and the hero constellation, inlined into every page |
 | `_includes/` | `head`, `header`, `footer`, `picture`, the `icon` helper, `btn` (the button link, see below), `email-cta` (the address as a notch button plus Copy) and `sign-off` (the end of the blog and of every post) |
+| `_includes/sky-defs.html` | The painted sky's brushwork (star halos and the swirl) as SVG symbols, written by `tools/painted-sky.mjs`. `pstar.html` and `swirl.html` place them |
 | `tools/og.html` | Template for the social share image |
 
 ## The notch button
@@ -63,10 +64,10 @@ Then open http://localhost:4000/. The Gemfile pins the `github-pages` gem, so lo
 
 ## Performance notes
 
-Looks come first here, and the numbers are still good. Measured on this build with Lighthouse: mobile 98 performance, desktop 100, and 100 for accessibility, best practices and SEO on both. Layout shift is 0.
+Looks come first here, and the numbers are still good. Measured on this build with Lighthouse: mobile 97 performance, desktop 100, and 100 for accessibility, best practices and SEO on both. Layout shift is 0.
 
 - A first visit on a phone is 4 requests and about 190 KB: the page, the Polya font (70 KB), and the hero portrait as AVIF (100 KB).
 - CSS and JavaScript are inlined, the body text uses the system font, and there are no third-party requests.
-- The hero background is a small inline copy of the painting, stretched and softened. The constellation is one canvas that pauses when it is off screen and stops for reduced motion.
+- The hero background is a small inline copy of the painting, stretched and softened. The hero and the contact each have a constellation canvas that pauses when it is off screen and stops for reduced motion. The painted stars turn on the compositor and rest while their section is off screen.
 - Content is readable with JavaScript off, and animation stops when the system asks for reduced motion.
 - The share image `assets/media/og.jpg` comes from `tools/og.html`. The header of that file has the render commands.
