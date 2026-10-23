@@ -307,6 +307,25 @@ h2 {
   line-height: 1.6;
 }
 
+.kicker {
+  margin-bottom: 12px;
+  color: var(--gold-text);
+  font: 600 0.76rem var(--font-body);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.kicker::before {
+  content: "\2726";
+  margin-right: 10px;
+  color: var(--gold);
+}
+
+.kicker a {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* ---------- Header ---------- */
 .site-header {
   position: sticky;
@@ -1230,10 +1249,10 @@ h2 {
   background: var(--surface);
 }
 
-/* ---------- Work: one featured project, the rest in a row under it ---------- */
-.work {
+/* ---------- Cards: framed canvases ---------- */
+.cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
   gap: 24px;
 }
 
@@ -1249,13 +1268,10 @@ h2 {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.card:hover,
-.card:focus-within {
-  border-color: var(--frame);
-}
-
+/* A card is not a link, so it does not lift. It is framed work in a gallery: the frame turns gold
+   and a pool of moonlight follows the pointer across it. Stories, which are links, also lift. */
 .card:hover {
-  transform: translateY(-6px);
+  border-color: var(--frame);
   box-shadow: var(--shadow);
 }
 
@@ -1345,35 +1361,16 @@ h2 {
   padding: 20px 24px 24px;
 }
 
-.card__meta {
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-.card__meta,
-.card__text {
-  text-wrap: pretty;
+.card__kicker {
+  color: var(--gold-text);
+  font: 600 0.7rem var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .card h3 {
   font-size: 1.5rem;
   line-height: 1.2;
-}
-
-.card h3 a {
-  color: var(--text);
-  text-decoration: none;
-}
-
-/* The title links to the live app and covers the whole card, so the card is one big target. */
-.card h3 a::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.card:hover h3 a {
-  color: var(--gold-text);
 }
 
 .card__text {
@@ -1383,91 +1380,9 @@ h2 {
 .card__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 8px 20px;
   margin-top: auto;
   padding-top: 8px;
-  font-weight: 600;
-}
-
-.card__go {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--link);
-}
-
-/* Above the stretched title link, so it stays its own target. */
-.card__alt {
-  position: relative;
-  z-index: 1;
-}
-
-.card--feature {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  align-items: center;
-}
-
-.card--feature .card__media {
-  margin: 12px;
-}
-
-.card--feature .card__body {
-  gap: 14px;
-  padding: 32px 40px 32px 20px;
-}
-
-.card--feature h3 {
-  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
-}
-
-.card--feature .card__text {
-  font-size: 1.05rem;
-}
-
-/* The smaller projects sit side by side, screenshot beside the text. */
-@media (min-width: 861px) {
-  .card:not(.card--feature) {
-    display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  }
-
-  .card:not(.card--feature) .card__media {
-    margin: 10px 0 10px 10px;
-    aspect-ratio: auto;
-    min-height: 180px;
-  }
-
-  /* A tall crop of a wide screenshot: keep its top-left corner, where the site's header and heading are. */
-  .card:not(.card--feature) .card__media img {
-    position: absolute;
-    inset: 0;
-    object-position: left top;
-  }
-
-  .card:not(.card--feature) .card__body {
-    padding: 20px 22px 22px 20px;
-  }
-}
-
-@media (max-width: 860px) {
-  .work,
-  .card--feature {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .card--feature .card__media {
-    margin: 10px 10px 0;
-  }
-
-  .card--feature .card__body {
-    padding: 20px 24px 24px;
-  }
-
-  .card:not(.card--feature) .card__media {
-    aspect-ratio: 2 / 1;
-  }
 }
 
 .link-arrow {
@@ -1486,16 +1401,15 @@ h2 {
   transform: translate(2px, -2px);
 }
 
-/* ---------- More builds: a plain list under the cards, ruled rather than boxed ---------- */
+/* ---------- More builds ---------- */
 .rows {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 480px), 1fr));
-  column-gap: 40px;
+  gap: 16px;
 }
 
 .rows > li {
   display: flex;
-  border-top: 1px solid var(--line);
 }
 
 .row__link {
@@ -1503,10 +1417,19 @@ h2 {
   flex: 1;
   grid-template-columns: 1fr auto;
   align-content: start;
-  gap: 6px 16px;
-  padding: 18px 0 20px;
+  gap: 6px;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
   color: var(--text);
   text-decoration: none;
+  transition: transform 0.25s var(--ease), border-color 0.25s;
+}
+
+.row__link:hover {
+  transform: translateY(-3px);
+  border-color: var(--frame);
 }
 
 .row__title {
@@ -1514,11 +1437,6 @@ h2 {
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  transition: color 0.2s;
-}
-
-.row__link:hover .row__title {
-  color: var(--gold-text);
 }
 
 .row__text {

@@ -41,13 +41,11 @@ skills:
     items: [Git and GitHub, Vercel, Photoshop]
 
 # Featured work. `image` is a path under assets/media without an extension (see tools/images.sh).
-# Use `art` for a text-only panel instead of a screenshot. The first project is the featured one and gets
-# the wide card; if a NAME-1280 copy of its screenshot exists, 2x screens get that.
+# Use `art` for a text-only panel instead of a screenshot.
 projects:
   - title: Miru
     kicker: Open source
-    image: work/miru
-    alt: The Miru dashboard on miru.so, with time tracking, clients, team, invoices and payments in the sidebar
+    art: Miru
     blurb: Time tracking, invoicing and employee benefits, built with Ruby on Rails and React. I shipped invoicing, team management and email reminder features.
     tech: [Ruby on Rails, React]
     links:
