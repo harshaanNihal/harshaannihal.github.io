@@ -28,6 +28,9 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
+        env:
+          # The API's address, once it exists (api/README.md). Without it the site builds without the form and counter.
+          PUBLIC_API_URL: ${{ vars.API_URL }}
       - if: github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v5
         with:

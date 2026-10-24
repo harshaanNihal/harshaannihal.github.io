@@ -1,0 +1,9 @@
+---
+/* Where a message that couldn't be sent, without JavaScript, lands. */
+import Page from '../../../layouts/Page.astro';
+import { profile } from '../../../lib/data';
+---
+<Page title="Not sent" lead="Your message couldn't be sent just now." path="/contact/error/">
+  <p>Please email me instead, at <a href={`mailto:${profile.email}`}>{profile.email}</a>. If you sent several messages in a short time, you can also try again in an hour.</p>
+  <p><a class="link-arrow" href="/#contact">Back to the form</a></p>
+</Page>

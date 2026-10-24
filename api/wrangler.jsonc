@@ -1,0 +1,25 @@
+// The portfolio's API: the contact form and the cookieless analytics, on Cloudflare Workers (free plan).
+// The ids below are placeholders until the database and namespace exist; see api/README.md for the setup.
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "portfolio-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "kv_namespaces": [{ "binding": "KV", "id": "00000000000000000000000000000000" }],
+  /* Just after midnight UTC: roll up yesterday and delete what has aged out. Monday 03:30 UTC (09:00 in India):
+     the weekly digest. */
+  "triggers": { "crons": ["10 0 * * *", "30 3 * * 1"] },
+  "vars": {
+    "SITE_ORIGIN": "https://harshaannihal.github.io",
+    "DEV_ORIGINS": "http://localhost:4800",
+    "MAIL_FROM": "Portfolio <onboarding@resend.dev>"
+  }
+}

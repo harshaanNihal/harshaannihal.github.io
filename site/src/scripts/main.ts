@@ -1,7 +1,9 @@
 // Portfolio behavior, one module per feature. Every feature is optional: the page reads fine without any of it.
 import { initCalendar } from './calendar';
+import { initBeacon } from './beacon';
 import { initCases } from './cases';
 import { initConstellations } from './constellation';
+import { initContactForm } from './contact-form';
 import { initCopyEmail } from './copy-email';
 import { initFileView } from './file-view';
 import { initMenu } from './menu';
@@ -24,6 +26,8 @@ initSkyRooms();
 initConstellations();
 initCalendar();
 initFileView();
+initContactForm();
+initBeacon();
 
 /* For anyone who opens the console. */
 const email = document.querySelector<HTMLAnchorElement>('a[href^="mailto:"]')?.href.slice('mailto:'.length);

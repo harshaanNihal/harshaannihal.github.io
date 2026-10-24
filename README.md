@@ -1,6 +1,6 @@
 # harshaannihal.github.io
 
-Portfolio of Harshaan Nihal Khan, built with [Astro](https://astro.build/) and TypeScript and served by GitHub Pages. The design takes its cues from the portrait on the home page: Van Gogh's *The Starry Night*, in a night theme and a day theme. Headings are set in Polya, a wireframe display face. The hero has a constellation of floating stars that sits behind the text and the portrait.
+Portfolio of Harshaan Nihal Khan, built with [Astro](https://astro.build/) and TypeScript and served by GitHub Pages, with a small API on Cloudflare Workers for the contact form and a visit counter that uses no cookies. The design takes its cues from the portrait on the home page: Van Gogh's *The Starry Night*, in a night theme and a day theme. Headings are set in Polya, a wireframe display face. The hero has a constellation of floating stars that sits behind the text and the portrait.
 
 **Live:** https://harshaannihal.github.io/
 
@@ -14,13 +14,18 @@ npm run dev        # http://localhost:4800, reloads as you edit
 npm run check      # type-checks the components, scripts and data
 npm run build      # writes the static site to site/dist
 npm run preview    # serves site/dist on http://localhost:4800
+npm test           # the API's tests
 ```
 
-The site lives in `site/`. The root `package.json` is an npm workspace, so the commands run from the repository root.
+The site lives in `site/`, the API in `api/`, and what they send each other in `packages/contract/`. The root `package.json` is an npm workspace, so the commands run from the repository root.
+
+## The API
+
+`api/` is a Cloudflare Worker behind the contact form and the visit counter: messages are stored and emailed to the owner, and visits are counted without cookies, IP addresses or tracking across days. The site builds without it, and gains the form and the counter once `PUBLIC_API_URL` is set (the `API_URL` repository variable in CI). Setting it up, working on it and querying it are in [`api/README.md`](api/README.md). What visitors are told is on [/privacy/](https://harshaannihal.github.io/privacy/).
 
 ## Deploy
 
-Pushing to `master` runs `.github/workflows/site.yml`: it type-checks, builds, and publishes `site/dist` to GitHub Pages. Pull requests are checked and built but not published. Pages must be set to deploy from GitHub Actions (Settings, Pages, Build and deployment, Source).
+Pushing to `master` runs `.github/workflows/site.yml`: it type-checks, builds, and publishes `site/dist` to GitHub Pages. Pull requests are checked and built but not published. Changes to the API run `.github/workflows/api.yml`, which tests it and, once it is set up, deploys it. Pages must be set to deploy from GitHub Actions (Settings, Pages, Build and deployment, Source).
 
 ## Edit the content
 
@@ -69,6 +74,8 @@ Add an experiment preview by dropping a 1120 by 700 JPEG in `site/src/originals/
 | `site/src/scripts/` | The behaviour, one TypeScript module per feature: theme, menu, reveal, nav spy, case links, copy email, skills sky, moonlight, sky rooms, constellation, calendar, file view. `main.ts` starts them |
 | `site/src/styles/site.css` | All styles, inlined into every page. Tokens for the two themes sit at the top |
 | `site/src/lib/` | Build-time code: `data.ts` (the data files and their schemas), `painted-sky.ts` (the sky's brushwork, seeded), `wash.ts`, `excerpts.ts`, `posts.ts`, `format.ts`, `code-theme.ts` (code highlighting) and `site.ts` (the site's address and share defaults) |
+| `api/` | The Worker: the contact and event endpoints, the cron jobs, the D1 schema and the tests (see `api/README.md`) |
+| `packages/contract/` | The shapes of a contact message and a page event, with Zod, shared by the form, the beacon and the API |
 | `site/tools/` | Scripts you run by hand: the Medium and GitHub refreshes, `images.sh`, `font.sh`, and `og.html`, the template for the social share image |
 
 ## The notch button
@@ -82,7 +89,7 @@ The notch is kept for the one action, emailing, so it always means "write to me"
 Looks come first here, and the numbers are still good. Measured with Lighthouse on mobile, served gzipped as GitHub Pages does: 100 for performance, accessibility, best practices and SEO, with LCP at 1.8 s and layout shift at 0.
 
 - A first visit on a phone is 6 requests and about 160 KB: the page with its inlined stylesheet, the behaviour script, the Polya font, the hero portrait as AVIF and the favicon. The experiment previews and the Medium covers load lazily, further down.
-- The body text uses the system font, and there are no third-party requests.
+- The body text uses the system font, and there are no third-party requests. With the API on, each page also sends one small beacon to it, after the page has loaded.
 - The hero background is a small inline copy of the painting, mapped to one hue and softened. The hero and the contact each have a constellation canvas that pauses when it is off screen and stops for reduced motion. The painted stars turn on the compositor and rest while their section is off screen.
 - Content is readable with JavaScript off, and animation stops when the system asks for reduced motion. Without JavaScript the case studies still open (they are `details` elements) and the experiments read one after another instead of as tabs.
 - The contribution calendar is plain HTML from `site/src/data/github.yml`, so visitors never wait on GitHub.

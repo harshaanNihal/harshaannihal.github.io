@@ -1,6 +1,7 @@
 ---
 import { medium, profile as p } from '../../lib/data';
 import Btn from '../Btn.astro';
+import ContactForm from '../ContactForm.astro';
 import Icon from '../Icon.astro';
 import Pstar from '../Pstar.astro';
 import Swirl from '../Swirl.astro';
@@ -32,5 +33,6 @@ import Swirl from '../Swirl.astro';
       <li><a class="icon-btn" href={medium.profile} aria-label="Medium"><Icon name="book-open" /></a></li>
       <li><a class="icon-btn" href={`https://twitter.com/${p.twitter}`} aria-label="Twitter"><Icon name="twitter" /></a></li>
     </ul>
+    <ContactForm />
   </div>
 </section>

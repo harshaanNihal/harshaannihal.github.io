@@ -1,0 +1,64 @@
+---
+/* What the site collects, in plain words, and the switch to stop being counted. Keep it in step with
+   api/src/events.ts and api/src/cron.ts: if those change what is stored or for how long, this page changes too. */
+import Page from '../../layouts/Page.astro';
+import { apiUrl } from '../../lib/api';
+import { profile } from '../../lib/data';
+---
+<Page title="Privacy" lead="No cookies, no tracking across sites, and nothing stored on your device to recognise you." path="/privacy/">
+  {!apiUrl && <p><strong>The visit counter described below isn't switched on yet.</strong></p>}
+
+  <h2>What a visit counts</h2>
+  <p>When you open a page, a small script sends one note to this site's own server:</p>
+  <ul>
+    <li>the page, and the site that linked you here (only its address, such as linkedin.com)</li>
+    <li>campaign or ref tags in the link, if it has any</li>
+    <li>your country, which the server reads from your IP address without storing the address</li>
+    <li>your device type, browser and system (such as "phone, Safari, iOS"), your language and a rough screen size</li>
+    <li>the name of the network you're on, but only if it belongs to a business or an institution; home and mobile providers aren't named</li>
+    <li>how long the page was open, and a few clicks: opening a case study, copying or clicking my email address, sending the form, following a link to another site, and switching the theme</li>
+  </ul>
+
+  <h2>Telling visitors apart, for one day</h2>
+  <p>To count unique visitors, the server mixes your IP address and browser with a random value that it deletes at the end of each day, and keeps only the scrambled result. So I can see that one person read three pages today, but I can't recognise you tomorrow, and nothing traces a visit back to you.</p>
+
+  <h2>What isn't collected</h2>
+  <p>No cookies. No fingerprinting. No IP addresses stored. No advertising, no tracking across other sites, and nothing sold or shared. If your browser sends Global Privacy Control or Do Not Track, nothing is counted at all.</p>
+
+  <h2>How long it's kept</h2>
+  <p>Individual visits are deleted after 30 days. Daily totals are kept for 25 months, and network names in them for 12.</p>
+
+  <h2>The contact form</h2>
+  <p>A message sends your name, your email address, what you wrote and your country. It's used only to reply to you: it goes to my inbox through Resend, an email service, and is kept on the server for 90 days in case an email goes missing. To have a message deleted, email me at <a href={`mailto:${profile.email}`}>{profile.email}</a>.</p>
+
+  <h2>Who runs what</h2>
+  <p>The pages are hosted by GitHub Pages, which keeps its own security logs. The counter and the form run on Cloudflare Workers. Both process data only to provide the service.</p>
+
+  <h2 id="opt-out">Don't count my visits</h2>
+  <p data-count-state>Counting needs JavaScript, so with it off nothing is counted.</p>
+  <p><button class="btn btn--ghost" type="button" data-count-toggle hidden>Don't count my visits</button></p>
+  <p class="post-note">The choice is kept in this browser only, so it applies to this browser.</p>
+</Page>
+
+<script>
+  import { counting, OPT_OUT_KEY } from '../../scripts/beacon';
+
+  const state = document.querySelector('[data-count-state]')!;
+  const toggle = document.querySelector<HTMLButtonElement>('[data-count-toggle]')!;
+  const render = () => {
+    const optedOut = (() => { try { return localStorage.getItem(OPT_OUT_KEY) === 'no'; } catch { return false; } })();
+    state.textContent = optedOut
+      ? 'Your visits from this browser are not counted.'
+      : counting() ? 'Your visits from this browser are counted as described above.' : 'Your browser asks not to be tracked, or the counter is off, so your visits are not counted.';
+    toggle.textContent = optedOut ? 'Count my visits again' : "Don't count my visits";
+    toggle.hidden = false;
+  };
+  toggle.addEventListener('click', () => {
+    try {
+      if (localStorage.getItem(OPT_OUT_KEY) === 'no') localStorage.removeItem(OPT_OUT_KEY);
+      else localStorage.setItem(OPT_OUT_KEY, 'no');
+    } catch { /* private mode keeps nothing; there is nothing to change */ }
+    render();
+  });
+  render();
+</script>

@@ -5,3 +5,6 @@ Gemfile.lock
 node_modules/
 site/dist/
 site/.astro/
+api/.dev.vars
+api/.wrangler/
+api/worker-configuration.d.ts

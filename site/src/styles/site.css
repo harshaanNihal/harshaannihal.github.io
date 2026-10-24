@@ -2758,6 +2758,119 @@ html:not(.js) .experiment + .experiment {
   justify-content: center;
 }
 
+/* The contact form, under the email actions for anyone who'd rather not open a mail app. A card, so it reads
+   on the painted sky; labels sit above their fields. */
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+  width: min(100%, 560px);
+  margin-top: 18px;
+  padding: clamp(18px, 3vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  text-align: left;
+}
+
+.contact-form__title {
+  grid-column: 1 / -1;
+  font-size: 1.4rem;
+}
+
+.contact-form__row {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.contact-form__row--wide,
+.contact-form__foot,
+.contact-form__note {
+  grid-column: 1 / -1;
+}
+
+.contact-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  caret-color: var(--gold);
+  transition: border-color 0.2s;
+}
+
+.contact-form textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.contact-form input:hover,
+.contact-form textarea:hover {
+  border-color: var(--frame);
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  border-color: var(--gold);
+  outline-offset: 1px;
+}
+
+/* Only after the visitor has tried: a field left wrong edges in the red that reads as text. */
+.contact-form :user-invalid {
+  border-color: var(--tok-tag);
+}
+
+.contact-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+
+.contact-form__send[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.contact-form__status {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.contact-form[data-outcome="sent"] .contact-form__status {
+  color: var(--gold-text);
+}
+
+.contact-form[data-outcome="invalid"] .contact-form__status,
+.contact-form[data-outcome="limited"] .contact-form__status,
+.contact-form[data-outcome="error"] .contact-form__status {
+  color: var(--tok-tag);
+}
+
+.contact-form__note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.ask__form {
+  margin-top: 10px;
+}
+
+@media (max-width: 560px) {
+  .contact-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--line);

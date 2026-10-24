@@ -3,12 +3,16 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "site"
+    "site",
+    "api",
+    "packages/*"
   ],
   "scripts": {
     "dev": "npm run dev -w site",
+    "dev:api": "npm run dev -w api",
     "build": "npm run build -w site",
     "preview": "npm run preview -w site",
-    "check": "npm run check -w site"
+    "check": "npm run check -w site && npm run check -w api",
+    "test": "npm test -w api"
   }
 }
