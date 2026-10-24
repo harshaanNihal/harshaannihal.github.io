@@ -1,0 +1,90 @@
+---
+/* Code, read the way GitHub shows it: the year of contributions (src/data/github.yml, refreshed by
+   tools/update-github.py), this site's own experiments as a file view where each one sits beside the real code
+   behind it (cut from the source at build time by src/lib/excerpts.ts), and the side-project repositories as
+   plain rows. The experiments are tabs with JavaScript; without it they read one after another. */
+import { codeToHtml } from 'shiki';
+import { codeTheme, codeTransformers } from '../../lib/code-theme';
+import { github as gh, profile as p } from '../../lib/data';
+import { excerpts } from '../../lib/excerpts';
+import { isoDay } from '../../lib/format';
+import Btn from '../Btn.astro';
+import Icon from '../Icon.astro';
+import Picture from '../Picture.astro';
+import Repo from '../Repo.astro';
+
+const experiments = await Promise.all(p.site_experiments.map(async (x) => {
+  const src = excerpts[x.excerpt];
+  if (!src) throw new Error(`site_experiments: no excerpt named "${x.excerpt}" in src/lib/excerpts.ts`);
+  const html = await codeToHtml(src.code, { lang: x.lang, theme: codeTheme, transformers: codeTransformers });
+  return { ...x, src, html, name: src.file.split('/').pop() };
+}));
+const more = p.repos.length - p.repos_show;
+const repoUrl = `https://github.com/${p.github}/${p.github.toLowerCase()}.github.io/blob/master`;
+---
+<section class="section" id="code" aria-labelledby="code-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <h2 id="code-title">Code, in the open.</h2>
+      <p class="section__lead">The effects on this site, each beside the code that draws it, and the side projects I've put on GitHub.</p>
+    </header>
+
+    <div class="gh reveal">
+      <p class="gh__head"><a class="gh__handle" href={`https://github.com/${gh.handle}`}>@{gh.handle}</a> <span><strong>{gh.total} contributions</strong> in the last year</span></p>
+      <div class="gh__cal" data-calendar data-start={isoDay(gh.start)} aria-hidden="true">
+        <div class="gh__months" style={`--weeks:${gh.weeks.length}`}>{gh.months.map((m) => <span style={`--w:${m.week}`}>{m.label}</span>)}</div>
+        <div class="gh__days"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+        <div class="gh__grid">{gh.weeks.map((w) => <span class="gh__week" data-c={w.c}>{[...w.l].map((l) => <i class={`l${l}`}></i>)}</span>)}</div>
+      </div>
+      <p class="gh__legend" aria-hidden="true">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More</p>
+      <div class="visually-hidden">
+      <table>
+        <caption>{gh.total} contributions on GitHub in the last year, by month</caption>
+        <thead><tr><th scope="col">Month</th><th scope="col">Contributions</th><th scope="col">Days with contributions</th></tr></thead>
+        <tbody>
+          {gh.monthly.map((m) => <tr><th scope="row">{m.month}</th><td>{m.total}</td><td>{m.days}</td></tr>)}
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <h3 class="subhead reveal" id="experiments-title">Experiments on this site</h3>
+    <div class="repo-view reveal" data-repo-view>
+      <div class="repo-view__files" role="tablist" aria-labelledby="experiments-title">
+        {experiments.map((x, i) => (
+          <button class="repo-view__file" type="button" role="tab" id={`tab-${x.id}`} aria-controls={`exp-${x.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? undefined : -1}>
+            <Icon name="code" px={16} /><span class="repo-view__name">{x.title}</span><span class="repo-view__path">{x.name}</span>
+          </button>
+        ))}
+      </div>
+      {experiments.map((x, i) => (
+        <div class={`experiment${i === 0 ? ' is-shown' : ''}`} id={`exp-${x.id}`} role="tabpanel" aria-labelledby={`tab-${x.id}`}>
+          <p class="experiment__path"><a href={`${repoUrl}/${x.src.file}#L${x.src.from}-L${x.src.to}`}>{x.src.file}</a> <span>lines {x.src.from}–{x.src.to}</span></p>
+          <div class="experiment__preview">
+            {x.image && <Picture src={x.image} alt={x.alt ?? ''} w={720} h={450} />}
+            {!x.image && x.live === 'notch' && (
+              <div class="experiment__live"><Btn href={`mailto:${p.email}`} label="Email me" icon="arrow-right" /><p>Hover it, or tab to it.</p></div>
+            )}
+          </div>
+          <div class="experiment__code" tabindex="0" role="region" aria-label={`${x.src.file}, lines ${x.src.from} to ${x.src.to}`} set:html={x.html} />
+          <div class="experiment__about">
+            <h4 class="experiment__title">{x.title}</h4>
+            <p>{x.text}</p>
+            <ul class="experiment__tags">{x.tags.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <h3 class="subhead reveal">Side projects on GitHub</h3>
+    <ul class="repos reveal">
+      {p.repos.slice(0, p.repos_show).map((r) => <Repo repo={r} />)}
+    </ul>
+    <details class="repos__more reveal">
+      <summary class="case__toggle"><span class="case__open">Show {more} more</span><span class="case__close">Show fewer</span> <Icon name="arrow-down" px={16} /></summary>
+      <ul class="repos">
+        {p.repos.slice(p.repos_show).map((r) => <Repo repo={r} />)}
+      </ul>
+    </details>
+  </div>
+</section>

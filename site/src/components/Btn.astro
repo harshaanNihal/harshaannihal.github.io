@@ -1,0 +1,18 @@
+---
+/* A button link. The notch variant (the default) is bordered, with sliding corner notches; ghost is a quiet pill;
+   primary is the legacy gold pill, kept for the 404 page. The label is a flex item that wraps, so a long label
+   never overflows at 320px, and may carry markup such as <wbr>. */
+import Icon, { type IconName } from './Icon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  icon?: IconName;
+  variant?: 'notch' | 'primary' | 'ghost';
+  /** Open in a new tab. */
+  ext?: boolean;
+}
+
+const { href, label, icon, variant = 'notch', ext = false } = Astro.props;
+---
+<a class={`btn btn--${variant}`} href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}><span class="btn__label" set:html={label} />{icon && <span class={`btn__icon btn__icon--${icon}`}><Icon name={icon} px={18} /></span>}</a>

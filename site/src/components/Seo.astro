@@ -1,0 +1,60 @@
+---
+/* The title, description, canonical link, share tags and structured data, as jekyll-seo-tag wrote them, so
+   search results and link previews stay the same. */
+import { smartQuotes } from '../lib/format';
+import { absolute, site } from '../lib/site';
+
+interface Props {
+  /** The page's own title. The home page has none and is titled "name | tagline". */
+  title?: string;
+  description?: string;
+  /** The page's path on this site, for its canonical address. */
+  path: string;
+  /** A canonical address elsewhere, such as the Medium original of a republished post. */
+  canonical?: string;
+  image?: string;
+  /** A blog post: its publish and change times, as ISO strings with the offset. */
+  article?: { published: string; modified: string };
+  /** The home page describes the website itself. */
+  home?: boolean;
+}
+
+const { title, description = site.description, path, canonical: elsewhere, image = site.image, article, home = false } = Astro.props;
+const headline = title ? smartQuotes(title) : site.title;
+const fullTitle = title ? `${headline} | ${site.title}` : `${site.title} | ${site.tagline}`;
+const canonical = elsewhere ?? absolute(path);
+const imageUrl = absolute(image);
+
+const ld = article
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      dateModified: article.modified,
+      datePublished: article.published,
+      description,
+      headline,
+      image: imageUrl,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+      url: canonical,
+    }
+  : home
+    ? { '@context': 'https://schema.org', '@type': 'WebSite', description, headline, image: imageUrl, name: site.title, sameAs: site.sameAs, url: canonical }
+    : { '@context': 'https://schema.org', '@type': 'WebPage', description, headline, image: imageUrl, url: canonical };
+---
+<title>{fullTitle}</title>
+<meta property="og:title" content={headline} />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content={description} />
+<meta name="twitter:description" property="og:description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.title} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:type" content={article ? 'article' : 'website'} />
+{article && <meta property="article:published_time" content={article.published} />}
+{article && <meta property="article:modified_time" content={article.modified} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:title" content={headline} />
+<meta name="twitter:site" content={site.twitter} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />

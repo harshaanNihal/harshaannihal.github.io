@@ -1,0 +1,17 @@
+---
+import { medium, profile } from '../lib/data';
+---
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p>&copy; {new Date().getFullYear()} {profile.name}</p>
+    <ul class="site-footer__links">
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href={`https://github.com/${profile.github}`}>GitHub</a></li>
+      <li><a href={`https://www.linkedin.com/in/${profile.linkedin}`}>LinkedIn</a></li>
+      <li><a href={medium.profile}>Medium</a></li>
+      <li><a href={`https://twitter.com/${profile.twitter}`}>Twitter</a></li>
+      <li><a href={`mailto:${profile.email}`}>Email</a></li>
+    </ul>
+    <p class="site-footer__note">Built with Astro and hosted on GitHub Pages. <a href={`https://github.com/${profile.github}/${profile.github.toLowerCase()}.github.io`}>Source</a></p>
+  </div>
+</footer>

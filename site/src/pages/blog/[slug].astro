@@ -1,0 +1,75 @@
+---
+/* A post. One that points at a Medium story with canonical_url borrows that story's cover, unless it sets its own
+   cover; a post with neither gets a header and no picture. */
+import { render } from 'astro:content';
+import Icon from '../../components/Icon.astro';
+import SignOff from '../../components/SignOff.astro';
+import Base from '../../layouts/Base.astro';
+import { longDate, xmlSchema } from '../../lib/format';
+import { leadOf, minutesOf, postsByDate, twinOf, type Post } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await postsByDate();
+  return posts.map((post, i) => ({ params: { slug: post.id }, props: { post, previous: posts[i - 1], next: posts[i + 1] } }));
+}
+
+interface Props {
+  post: Post;
+  previous?: Post;
+  next?: Post;
+}
+
+const { post, previous, next } = Astro.props;
+const { Content } = await render(post);
+const { title, description, canonical_url: canonical, image, date } = post.data;
+const cover = post.data.cover ?? twinOf(post)?.cover;
+const stamp = xmlSchema(date);
+---
+<Base seo={{ title, description: description ?? leadOf(post), path: `/blog/${post.id}`, canonical, image, article: { published: stamp, modified: stamp } }} current="blog">
+  <article class="page post container container--narrow" itemscope itemtype="https://schema.org/BlogPosting">
+    <header class="page__head post__head">
+      <p class="crumb"><a class="back-link" href="/blog/"><Icon name="arrow-right" px={16} /> Blog</a></p>
+      <h1 itemprop="headline">{title}</h1>
+      {description && <p class="lead" itemprop="description">{description}</p>}
+      <p class="post-meta">
+        <time datetime={stamp} itemprop="datePublished">{longDate(date)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{minutesOf(post)} min read</span>
+      </p>
+    </header>
+    {cover && (
+      <figure class="post__cover">
+        <picture><source type="image/avif" srcset={`/assets/media/${cover}.avif`} /><img src={`/assets/media/${cover}.jpg`} width="720" height="405" alt="" decoding="async" fetchpriority="high" /></picture>
+      </figure>
+    )}
+    <div class="prose" itemprop="articleBody">
+      <Content />
+    </div>
+    <SignOff />
+    {(previous || next) && (
+      <nav class="post-nav" aria-label="More posts">
+        {previous && (
+          <a class="post-nav__link post-nav__link--older" href={`/blog/${previous.id}`} rel="prev">
+            <span class="post-nav__label"><Icon name="arrow-right" px={16} /> Older post</span>
+            <span class="post-nav__title">{previous.data.title}</span>
+          </a>
+        )}
+        {next && (
+          <a class="post-nav__link post-nav__link--newer" href={`/blog/${next.id}`} rel="next">
+            <span class="post-nav__label">Newer post <Icon name="arrow-right" px={16} /></span>
+            <span class="post-nav__title">{next.data.title}</span>
+          </a>
+        )}
+      </nav>
+    )}
+    <footer class="post__foot">
+      <a class="back-link" href="/blog/"><Icon name="arrow-right" px={18} /> Back to the blog</a>
+      {canonical && (
+        <p class="post-note">
+          {canonical.includes('medium.com') ? 'Also published on Medium.' : 'Originally published elsewhere.'}
+          <a href={canonical} itemprop="sameAs">Read it there <Icon name="arrow-up-right" px={14} /></a>
+        </p>
+      )}
+    </footer>
+  </article>
+</Base>

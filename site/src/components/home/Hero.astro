@@ -1,0 +1,45 @@
+---
+import { medium, profile as p } from '../../lib/data';
+import Btn from '../Btn.astro';
+import Icon from '../Icon.astro';
+import Pstar from '../Pstar.astro';
+import SkyDefs from '../SkyDefs.astro';
+import Swirl from '../Swirl.astro';
+---
+<section class="hero" id="top" aria-labelledby="hero-title" data-sky-host>
+  <div class="hero__wash" aria-hidden="true"></div>
+  <SkyDefs />
+  <div class="sky" aria-hidden="true">
+    <span class="stars"></span>
+    <canvas class="sky__canvas" data-constellation></canvas>
+    <Swirl id="hero" />
+    <Pstar class="pstar--b" />
+    <span class="moon"><Pstar class="pstar--moon" /><span class="moon__crescent"></span></span>
+  </div>
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <h1 class="hero__title reveal" id="hero-title" style="--d:60ms">Hi, I'm <span class="name">{p.name}</span></h1>
+      <p class="lead reveal" style="--d:120ms"><strong class="lead__role">{p.hero.eyebrow}.</strong> {p.hero.lead}</p>
+      <div class="hero__cta reveal" style="--d:180ms">
+        <Btn href={`mailto:${p.email}`} label="Email me" icon="arrow-right" />
+        <Btn href="#work" label="See my work" variant="ghost" />
+      </div>
+      <ul class="social reveal" style="--d:240ms" aria-label="Find me online">
+        <li><a class="icon-btn" href={`https://github.com/${p.github}`} aria-label="GitHub"><Icon name="github" /></a></li>
+        <li><a class="icon-btn" href={`https://www.linkedin.com/in/${p.linkedin}`} aria-label="LinkedIn"><Icon name="linkedin" /></a></li>
+        <li><a class="icon-btn" href={medium.profile} aria-label="Medium"><Icon name="book-open" /></a></li>
+        <li><a class="icon-btn" href={`https://twitter.com/${p.twitter}`} aria-label="Twitter"><Icon name="twitter" /></a></li>
+      </ul>
+    </div>
+    <figure class="portrait">
+      <div class="portrait__frame">
+        <picture>
+          <source type="image/avif" srcset="/assets/media/hero-480.avif 480w, /assets/media/hero-720.avif 720w, /assets/media/hero-1152.avif 1152w" sizes="(max-width: 960px) 240px, 420px" />
+          <img src="/assets/media/hero-720.jpg" srcset="/assets/media/hero-480.jpg 480w, /assets/media/hero-720.jpg 720w, /assets/media/hero-1152.jpg 1152w" sizes="(max-width: 960px) 240px, 420px" width="720" height="960" alt={`Portrait of ${p.name} in sunglasses, in front of Van Gogh's The Starry Night`} fetchpriority="high" decoding="async" />
+        </picture>
+      </div>
+      <figcaption class="plaque">Portrait with The Starry Night</figcaption>
+    </figure>
+  </div>
+  <a class="scroll-cue" href="#experience" aria-label="Scroll to my experience"><Icon name="arrow-down" /></a>
+</section>

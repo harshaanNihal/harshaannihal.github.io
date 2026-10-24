@@ -1,0 +1,11 @@
+---
+/* A painted star: a glow, then four bands of brush dabs (symbols in SkyDefs) that turn at their own speeds.
+   Decorative, so the parent .sky carries aria-hidden. `origin` marks the star the constellation's wave starts from. */
+interface Props {
+  class?: string;
+  origin?: boolean;
+}
+
+const { class: variant, origin = false } = Astro.props;
+---
+<span class={`pstar ${variant ?? ''}`} data-sky-origin={origin ? '' : undefined}><span class="pstar__glow"></span><svg class="pstar__band pstar__band--4" viewBox="0 0 200 200" focusable="false"><use href="#ps-b4"/></svg><svg class="pstar__band pstar__band--3" viewBox="0 0 200 200" focusable="false"><use href="#ps-b3"/></svg><svg class="pstar__band pstar__band--2" viewBox="0 0 200 200" focusable="false"><use href="#ps-b2"/></svg><svg class="pstar__band pstar__band--1" viewBox="0 0 200 200" focusable="false"><use href="#ps-core"/></svg></span>

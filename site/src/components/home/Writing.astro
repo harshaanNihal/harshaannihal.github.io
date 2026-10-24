@@ -1,0 +1,52 @@
+---
+import { medium, profile } from '../../lib/data';
+import { isoDay, shortDate } from '../../lib/format';
+import Icon from '../Icon.astro';
+import Picture from '../Picture.astro';
+
+const [latest, ...rest] = medium.posts;
+const ribbon = latest && profile.featured.find((f) => latest.url.includes(f.match));
+---
+<section class="section section--alt" id="writing" aria-labelledby="writing-title">
+  <div class="container">
+    <header class="section__head reveal">
+      <h2 id="writing-title">Notes from Medium.</h2>
+      <p class="section__lead">What I learn, written down. From making a slow Rails job fast to the CSS box model.</p>
+    </header>
+    <div class="writing">
+      {latest && (
+        <article class="story story--feature reveal">
+          {latest.cover && (
+            <div class="story__media"><Picture src={latest.cover} alt="" w={720} h={405} />{ribbon && <a class="ribbon" href={ribbon.url}>{ribbon.text} <Icon name="arrow-up-right" px={14} /></a>}</div>
+          )}
+          <div class="story__body">
+            <h3><a href={latest.url}>{latest.title}</a></h3>
+            <p class="story__meta"><span class="badge">Latest</span><time datetime={isoDay(latest.date)}>{shortDate(latest.date)}</time><span>{latest.minutes} min read</span></p>
+            <p class="story__excerpt">{latest.excerpt}</p>
+            <ul class="chips">{latest.tags.map((tag) => <li class="chip">{tag}</li>)}</ul>
+            <p class="story__more">Read on Medium <Icon name="arrow-up-right" px={16} /></p>
+          </div>
+        </article>
+      )}
+      <ul class="stories">
+        {rest.map((post, i) => (
+          <li class="reveal" style={`--d:${i * 90}ms`}>
+            <article class="story">
+              {post.cover && <div class="story__media"><Picture src={post.cover} alt="" w={720} h={405} /></div>}
+              <div class="story__body">
+                <h3><a href={post.url}>{post.title}</a></h3>
+                <p class="story__meta"><time datetime={isoDay(post.date)}>{shortDate(post.date)}</time><span>{post.minutes} min read</span></p>
+                <p class="story__excerpt">{post.excerpt}</p>
+                <p class="story__more">Read on Medium <Icon name="arrow-up-right" px={16} /></p>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <p class="section__more section__actions reveal">
+      <a class="link-arrow" href="/blog/">Blog archive <Icon name="arrow-right" px={16} /></a>
+      <a class="link-arrow" href={medium.profile}>All stories on Medium <Icon name="arrow-up-right" px={16} /></a>
+    </p>
+  </div>
+</section>

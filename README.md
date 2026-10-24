@@ -1,83 +1,89 @@
 # harshaannihal.github.io
 
-Portfolio of Harshaan Nihal Khan, built with [Jekyll](https://jekyllrb.com/) and served by GitHub Pages. The design takes its cues from the portrait on the home page: Van Gogh's *The Starry Night*, in a night theme and a day theme. Headings are set in Polya, a wireframe display face. The hero has a constellation of floating stars that sits behind the text and the portrait.
+Portfolio of Harshaan Nihal Khan, built with [Astro](https://astro.build/) and TypeScript and served by GitHub Pages. The design takes its cues from the portrait on the home page: Van Gogh's *The Starry Night*, in a night theme and a day theme. Headings are set in Polya, a wireframe display face. The hero has a constellation of floating stars that sits behind the text and the portrait.
 
 **Live:** https://harshaannihal.github.io/
 
+## Run locally
+
+Needs Node 22.12 or later (CI uses 24).
+
+```sh
+npm install
+npm run dev        # http://localhost:4800, reloads as you edit
+npm run check      # type-checks the components, scripts and data
+npm run build      # writes the static site to site/dist
+npm run preview    # serves site/dist on http://localhost:4800
+```
+
+The site lives in `site/`. The root `package.json` is an npm workspace, so the commands run from the repository root.
+
+## Deploy
+
+Pushing to `master` runs `.github/workflows/site.yml`: it type-checks, builds, and publishes `site/dist` to GitHub Pages. Pull requests are checked and built but not published. Pages must be set to deploy from GitHub Actions (Settings, Pages, Build and deployment, Source).
+
 ## Edit the content
 
-Everything the home page says lives in [`_data/profile.yml`](_data/profile.yml): the hero line, about text, work history with each role's stack, skills, the case studies (with the parts and links each constellation sketch draws), the site's experiments and the GitHub repositories. Change the YAML, not the templates.
+Everything the home page says lives in [`site/src/data/profile.yml`](site/src/data/profile.yml): the hero line, about text, work history with each role's stack, skills, the case studies (with the parts and links each constellation sketch draws), the site's experiments and the GitHub repositories. Change the YAML, not the components.
+
+`site/src/lib/data.ts` checks every data file against a schema on each build. It also checks that every role's stack names skills exactly as they appear under `skills`, that every skill lights for some role, that every case-study link points at a case study, and that every sketch's lines join real stars. A mistake fails the build with the field's path instead of quietly breaking a section.
 
 The Writing section comes from Medium. Refresh it after publishing a story, then review and commit the diff:
 
 ```sh
-tools/update-medium.py          # reads medium.com/feed/@klassynihal
+site/tools/update-medium.py     # reads medium.com/feed/@klassynihal
+site/tools/update-github.py     # the contribution calendar, from github.com/users/harshaanNihal/contributions
 ```
 
-It rewrites `_data/medium.yml` and downloads each cover into `assets/media/writing/` as AVIF plus a JPEG fallback. The covers need macOS `sips`. Pass a different handle as the first argument.
+`update-medium.py` rewrites `site/src/data/medium.yml` and downloads each cover into `site/public/assets/media/writing/` as AVIF plus a JPEG fallback (the covers need macOS `sips`). `update-github.py` writes `site/src/data/github.yml`: the year's total, each day's level and count, and the monthly totals that the hidden table reads.
 
-The Code section has two more generated files. Refresh them the same way, then review and commit the diff:
-
-```sh
-tools/update-github.py          # the contribution calendar, from github.com/users/harshaanNihal/contributions
-node tools/excerpts.mjs         # the code beside each experiment, copied from the real files
-```
-
-`update-github.py` writes `_data/github.yml`: the year's total, each day's level and count, and the monthly totals that the hidden table reads. `excerpts.mjs` copies each excerpt into `_includes/excerpts/` and its file and line range into `_data/excerpts.yml`. Run it after editing anything in `_includes/site.css`, `_includes/site.js` or `tools/painted-sky.mjs` above or inside an excerpt, or the line numbers drift.
+The code beside each experiment in the Code section is cut from the real source at build time (`site/src/lib/excerpts.ts`), so it can't drift from the file it shows.
 
 ## The blog
 
-Posts live in `_posts/` and show up on [/blog/](https://harshaannihal.github.io/blog/) next to the Medium stories, newest first. Add a post by dropping `YYYY-MM-DD-title.markdown` in `_posts/` with `layout: post`, a `title` and a `date`. A post that was also published on Medium can set `canonical_url` and gets an "Also on Medium" link. Old post URLs keep working through `redirect_from` in the front matter.
+Posts live in `site/src/content/posts/` and show up on [/blog/](https://harshaannihal.github.io/blog/) next to the Medium stories, newest first. Add a post as `YYYY-MM-DD-title.md` with a `title` and a `date`; it is served at `/blog/title`. A post that was also published on Medium can set `canonical_url` and gets an "Also on Medium" link and that story's cover. Old addresses keep working through the `redirects` in `site/astro.config.mjs`.
 
 ## Fonts
 
-Polya (by Adrien Coquet) is the display face. `tools/font.sh` rebuilds `assets/fonts/polya-latin.woff2` from `_src/fonts/POLYA.otf` (needs fonttools and brotli). Polya has no lowercase and lacks a few symbols, so those fall back to the next font in the stack. Body text uses the system font.
+Polya (by Adrien Coquet) is the display face. `site/tools/font.sh` rebuilds `site/public/assets/fonts/polya-latin.woff2` from `site/src/originals/fonts/POLYA.otf` (needs fonttools and brotli). Polya has no lowercase and lacks a few symbols, so those fall back to the next font in the stack. Body text uses the system font.
 
 ## Images
 
-Originals live in `_src/`, which never publishes. `tools/images.sh` rebuilds every optimized image from them (macOS `sips`):
+Originals live in `site/src/originals/`. `site/tools/images.sh` rebuilds the optimized images from them (macOS `sips`):
 
-- `_src/hero.jpg` becomes `assets/media/hero-480`, `hero-720` and `hero-1152`, each as AVIF with a JPEG fallback.
-- `_src/sky.jpg` is the top band of the portrait. `tools/wash.mjs` (run by the script, or alone) turns it into the small inline washes behind the hero and Contact: `_includes/hero-wash.txt` for night, mapped from midnight navy to cobalt, and `_includes/hero-wash-day.txt`, cream to gold. One hue per theme, so the blur never mixes the painting's yellows into its blues.
-- `_src/work/NAME.jpg` becomes `assets/media/work/NAME.avif` and `.jpg` at 720 px wide. The `site-*` captures are this site's own pieces (the painted sky, the constellation, the skills sky), taken from a local build with Playwright for the experiments in the Code section.
+- `hero.jpg` becomes `public/assets/media/hero-480`, `hero-720` and `hero-1152`, each as AVIF with a JPEG fallback.
+- `work/NAME.jpg` becomes `public/assets/media/work/NAME.avif` and `.jpg` at 720 px wide. The `site-*` captures are this site's own pieces (the painted sky, the constellation, the skills sky), taken from a local build with Playwright for the experiments in the Code section.
 
-Add an experiment preview by dropping a 1200 by 750 JPEG in `_src/work/`, running the script, and pointing an entry under `site_experiments` in `profile.yml` at `work/NAME`.
+`sky.jpg`, the top band of the portrait, becomes the small inline washes behind the hero and Contact at build time (`site/src/lib/wash.ts`, with sharp): one mapped from midnight navy to cobalt for night, one from cream to gold for day. One hue per theme, so the blur never mixes the painting's yellows into its blues.
+
+Add an experiment preview by dropping a 1120 by 700 JPEG in `site/src/originals/work/`, running the script, and pointing an entry under `site_experiments` in `profile.yml` at `work/NAME`.
 
 ## Layout
 
 | Path | What it holds |
 | --- | --- |
-| `_layouts/` | `default` (page shell), `home`, `blog` (the archive), `page` and `post` |
-| `_includes/home/` | One file per home page section. `code.html` is the GitHub-style section: the contribution calendar, the experiments as a file view with tabs, and the repositories |
-| `_includes/site.css` | All styles, inlined into every page. Tokens for the two themes sit at the top |
-| `_includes/site.js` | Theme toggle, mobile menu, scroll reveal, copy-email, the hero constellation, the skills sky, the case-study links, the calendar tooltip and the experiment tabs, inlined into every page |
-| `_includes/` | `head`, `header`, `footer`, `picture`, the `icon` helper, `btn` (the button link, see below), `email-cta` (the address as a notch button plus Copy), `repo` (one repository row) and `sign-off` (the end of the blog and of every post) |
-| `_includes/excerpts/` | Generated by `tools/excerpts.mjs`: the code shown beside each experiment |
-| `_includes/sky-defs.html` | The painted sky's brushwork (star halos and the swirl) as SVG symbols, written by `tools/painted-sky.mjs`. `pstar.html` and `swirl.html` place them |
-| `tools/og.html` | Template for the social share image |
+| `site/src/pages/` | The routes: the home page, `blog/index` and `blog/[slug]` for posts, `404`, the `/about/` redirect, `sitemap.xml` and `robots.txt` |
+| `site/src/layouts/` | `Base` (the head, header, footer and script for every page) and `Page` (a plain narrow page) |
+| `site/src/components/home/` | One component per home page section. `Code.astro` is the GitHub-style section: the contribution calendar, the experiments as a file view with tabs, and the repositories |
+| `site/src/components/` | `Header`, `Footer`, `Seo` (title, share tags, structured data), `Icon`, `Btn` (the button link, see below), `EmailCta` (the address as a notch button plus Copy), `Picture`, `Repo`, `SignOff`, and the painted sky's `SkyDefs`, `Pstar` and `Swirl` |
+| `site/src/scripts/` | The behaviour, one TypeScript module per feature: theme, menu, reveal, nav spy, case links, copy email, skills sky, moonlight, sky rooms, constellation, calendar, file view. `main.ts` starts them |
+| `site/src/styles/site.css` | All styles, inlined into every page. Tokens for the two themes sit at the top |
+| `site/src/lib/` | Build-time code: `data.ts` (the data files and their schemas), `painted-sky.ts` (the sky's brushwork, seeded), `wash.ts`, `excerpts.ts`, `posts.ts`, `format.ts`, `code-theme.ts` (code highlighting) and `site.ts` (the site's address and share defaults) |
+| `site/tools/` | Scripts you run by hand: the Medium and GitHub refreshes, `images.sh`, `font.sh`, and `og.html`, the template for the social share image |
 
 ## The notch button
 
-`{% include btn.html href="mailto:..." label="Email me" icon="arrow-right" variant="notch" %}` draws a bordered button whose border has two gaps. On hover or keyboard focus the gaps slide to the opposite ends, the border turns crimson and the arrow turns a quarter. The border is a clipped pseudo-element, so the gaps are real holes. Other variants are `primary` and `ghost`.
+`<Btn href="mailto:..." label="Email me" icon="arrow-right" />` draws a bordered button whose border has two gaps. On hover or keyboard focus the gaps slide to the opposite ends, the border turns crimson and the arrow turns a quarter. The border is a clipped pseudo-element, so the gaps are real holes. Other variants are `primary` and `ghost`.
 
-The notch is kept for the one action, emailing, so it always means "write to me". Other links on the home page, the blog and posts are ghost buttons or text links. `{% include email-cta.html %}` draws it with the address as the label and a Copy button beside it.
-
-## Run locally
-
-```sh
-bundle install
-bundle exec jekyll serve
-```
-
-Then open http://localhost:4000/. The Gemfile pins the `github-pages` gem, so local builds use the same Jekyll and plugins as GitHub Pages.
+The notch is kept for the one action, emailing, so it always means "write to me". Other links on the home page, the blog and posts are ghost buttons or text links. `<EmailCta />` draws it with the address as the label and a Copy button beside it.
 
 ## Performance notes
 
-Looks come first here, and the numbers are still good. Measured with Lighthouse on mobile, served gzipped as GitHub Pages does: 99 for performance and 100 for accessibility, best practices and SEO, with LCP at 1.9 s. Layout shift is 0.
+Looks come first here, and the numbers are still good. Measured with Lighthouse on mobile, served gzipped as GitHub Pages does: 100 for performance, accessibility, best practices and SEO, with LCP at 1.8 s and layout shift at 0.
 
-- A first visit on a phone is 4 requests and about 230 KB: the page (56 KB gzipped), the Polya font (71 KB), the hero portrait as AVIF (100 KB) and the favicon. The experiment previews and the Medium covers load lazily, further down.
-- CSS and JavaScript are inlined, the body text uses the system font, and there are no third-party requests.
-- The hero background is a small inline copy of the painting, stretched and softened. The hero and the contact each have a constellation canvas that pauses when it is off screen and stops for reduced motion. The painted stars turn on the compositor and rest while their section is off screen.
+- A first visit on a phone is 6 requests and about 160 KB: the page with its inlined stylesheet, the behaviour script, the Polya font, the hero portrait as AVIF and the favicon. The experiment previews and the Medium covers load lazily, further down.
+- The body text uses the system font, and there are no third-party requests.
+- The hero background is a small inline copy of the painting, mapped to one hue and softened. The hero and the contact each have a constellation canvas that pauses when it is off screen and stops for reduced motion. The painted stars turn on the compositor and rest while their section is off screen.
 - Content is readable with JavaScript off, and animation stops when the system asks for reduced motion. Without JavaScript the case studies still open (they are `details` elements) and the experiments read one after another instead of as tabs.
-- The contribution calendar is plain HTML from `_data/github.yml`, so visitors never wait on GitHub.
-- The share image `assets/media/og.jpg` comes from `tools/og.html`. The header of that file has the render commands.
+- The contribution calendar is plain HTML from `site/src/data/github.yml`, so visitors never wait on GitHub.
+- The share image `site/public/assets/media/og.jpg` comes from `site/tools/og.html`. The header of that file has the render commands.

@@ -1,5 +1,0 @@
-{%- comment -%}
-  The great swirl: a river of brush dabs that runs in from the left and curl around a painted star.
-  A mask drawn along the swirl's center line lays the strokes down on arrival. Pass a unique id.
-{%- endcomment -%}
-<span class="swirl swirl--{{ include.id }}"><svg class="swirl__strokes" viewBox="0 0 1000 340" focusable="false"><mask id="swirl-mask-{{ include.id }}" maskUnits="userSpaceOnUse" x="-40" y="-40" width="1080" height="420"><use class="swirl__reveal" href="#swirl-line"/></mask><g mask="url(#swirl-mask-{{ include.id }})"><use href="#swirl"/></g></svg>{% include pstar.html class="pstar--swirl" origin=true %}</span>

@@ -1,0 +1,59 @@
+---
+/* Every page: the head (theme before first paint, share tags, the inlined stylesheet), the header, the page, the
+   footer, and the behavior script. */
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Seo from '../components/Seo.astro';
+import '../styles/site.css';
+
+type SeoProps = import('astro/types').ComponentProps<typeof Seo>;
+
+interface Props {
+  seo: SeoProps;
+  /** The Blog link is current on the blog and its posts. */
+  current?: 'blog';
+  /** The home page preloads the portrait and carries the two washes of the painted sky. */
+  home?: { wash: { night: string; day: string } };
+}
+
+const { seo, current, home } = Astro.props;
+const washes = home && `:root { --wash: url("${home.wash.night}"); }\n:root[data-theme="light"] { --wash: url("${home.wash.day}"); }`;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#061033">
+<script is:inline>
+  /* Set the theme before first paint so there is no flash. Night is the default. */
+  (function () {
+    var root = document.documentElement, theme = null;
+    root.classList.add('js');
+    try { theme = localStorage.getItem('theme'); } catch (e) {}
+    if (theme !== 'light' && theme !== 'dark') {
+      theme = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    root.setAttribute('data-theme', theme);
+  })();
+</script>
+<Seo {...seo} />
+<link rel="icon" href="/assets/media/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/media/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/polya-latin.woff2" as="font" type="font/woff2" crossorigin>
+{home && <link rel="preload" as="image" type="image/avif" href="/assets/media/hero-720.avif" imagesrcset="/assets/media/hero-480.avif 480w, /assets/media/hero-720.avif 720w, /assets/media/hero-1152.avif 1152w" imagesizes="(max-width: 960px) 240px, 420px" fetchpriority="high">}
+{washes && <style is:inline set:html={washes} />}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <Header current={current} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+  <script>
+    import '../scripts/main';
+  </script>
+</body>
+</html>

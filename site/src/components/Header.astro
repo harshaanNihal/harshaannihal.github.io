@@ -1,0 +1,44 @@
+---
+import { profile } from '../lib/data';
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Marks the Blog link as the current page, on the blog and its posts. */
+  current?: 'blog';
+}
+
+const { current } = Astro.props;
+---
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path d="M38 6a26 26 0 1 0 0 52 34 34 0 0 1 0-52z" fill="#f2c14e"/>
+        <path d="M50 12l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#ffe08a"/>
+      </svg>
+      <span class="brand__name">{profile.name}</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/#experience" data-nav="experience">Experience</a></li>
+        <li><a href="/#work" data-nav="work code">Work</a></li>
+        <li><a href="/#writing" data-nav="writing">Writing</a></li>
+        <li><a href="/blog/" aria-current={current === 'blog' ? 'page' : undefined}>Blog</a></li>
+        <li><a href="/#about" data-nav="about">About</a></li>
+        <li><a href="/#contact" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__tools">
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Switch to day theme" aria-pressed="false">
+        <span class="theme-dial" aria-hidden="true">
+          <span class="theme-icon theme-icon--sun"><Icon name="sun" /></span>
+          <span class="theme-icon theme-icon--moon"><Icon name="moon" /></span>
+        </span>
+      </button>
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__open"><Icon name="menu" /></span>
+        <span class="nav-toggle__close"><Icon name="x" /></span>
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,65 @@
+---
+/* The blog index: posts on this site and stories on Medium, newest first. The newest entry gets a card with its
+   cover; the rest are a compact list. The page ends with the sign-off. */
+import Icon from '../../components/Icon.astro';
+import Picture from '../../components/Picture.astro';
+import SignOff from '../../components/SignOff.astro';
+import Base from '../../layouts/Base.astro';
+import { medium } from '../../lib/data';
+import { isoDay, shortDate, SITE_ZONE } from '../../lib/format';
+import { blogEntries } from '../../lib/posts';
+
+const title = 'Blog';
+const description = 'Posts and stories by Harshaan Nihal Khan, newest first. Some live on this site, the rest on Medium.';
+const lead = 'Newest first. Some of it lives on this site, the rest is on Medium.';
+const entries = await blogEntries();
+/* Posts carry a time and the author's offset; Medium stories are plain days. */
+const zone = (onSite: boolean) => (onSite ? SITE_ZONE : 'UTC');
+---
+<Base seo={{ title, description, path: '/blog/' }} current="blog">
+  <div class="blog container">
+    <header class="blog__head">
+      <h1>Everything I have written.</h1>
+      <p class="lead">{lead}</p>
+    </header>
+
+    <ul class="blog-list">
+      {entries.map((e, i) => {
+        const meta = (
+          <Fragment>
+            {e.onSite ? <span class="source source--site">On this site</span> : <span class="source source--medium">On Medium</span>}
+            <time datetime={isoDay(e.date, zone(e.onSite))}>{shortDate(e.date, zone(e.onSite))}</time>
+            <span>{e.minutes} min read</span>
+          </Fragment>
+        );
+        const more = e.onSite
+          ? <Fragment>Read the post <Icon name="arrow-right" px={16} /></Fragment>
+          : <Fragment>Read on Medium <Icon name="arrow-up-right" px={16} /></Fragment>;
+        return i === 0 ? (
+          <li class="blog-list__lead">
+            <article class={`story${e.cover ? ' story--feature' : ''}`}>
+              {e.cover && <div class="story__media"><Picture src={e.cover} alt="" w={720} h={405} /></div>}
+              <div class="story__body">
+                <h2><a href={e.href}>{e.title}</a></h2>
+                <p class="story__meta">{meta}</p>
+                {e.excerpt && <p class="story__excerpt">{e.excerpt}</p>}
+                <p class="story__more">{more}</p>
+                {e.alt && <p class="story__alt"><a href={e.alt}>Also on Medium <Icon name="arrow-up-right" px={14} /></a></p>}
+              </div>
+            </article>
+          </li>
+        ) : (
+          <li class="entry">
+            <h2 class="entry__title"><a href={e.href}>{e.title}</a></h2>
+            <p class="entry__meta">{meta}</p>
+            {e.excerpt && <p class="entry__excerpt">{e.excerpt}</p>}
+            <p class="entry__more"><span class="entry__go">{more}</span>{e.alt && <a class="entry__alt" href={e.alt}>Also on Medium <Icon name="arrow-up-right" px={14} /></a>}</p>
+          </li>
+        );
+      })}
+    </ul>
+
+    <p class="blog__foot"><a class="link-arrow" href={medium.profile}>All stories on Medium <Icon name="arrow-up-right" px={16} /></a></p>
+    <SignOff />
+  </div>
+</Base>

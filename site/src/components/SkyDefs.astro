@@ -1,0 +1,5 @@
+---
+/* The painted sky's brushwork as SVG symbols, drawn at build time by src/lib/painted-sky.ts. Once per page. */
+import { skyDefs } from '../lib/painted-sky';
+---
+<Fragment set:html={skyDefs} />

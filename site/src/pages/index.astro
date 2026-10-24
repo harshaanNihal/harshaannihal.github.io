@@ -1,0 +1,24 @@
+---
+/* Proof first (where he has worked, the systems behind those roles, then his code), the writing, then the ask
+   where the reader decides, then About for readers who want more. */
+import About from '../components/home/About.astro';
+import Ask from '../components/home/Ask.astro';
+import Code from '../components/home/Code.astro';
+import Contact from '../components/home/Contact.astro';
+import Experience from '../components/home/Experience.astro';
+import Hero from '../components/home/Hero.astro';
+import Work from '../components/home/Work.astro';
+import Writing from '../components/home/Writing.astro';
+import Base from '../layouts/Base.astro';
+import { wash } from '../lib/wash';
+---
+<Base seo={{ path: '/', home: true }} home={{ wash }}>
+  <Hero />
+  <Experience />
+  <Work />
+  <Code />
+  <Writing />
+  <Ask />
+  <About />
+  <Contact />
+</Base>

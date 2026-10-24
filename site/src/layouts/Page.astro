@@ -1,0 +1,23 @@
+---
+/* A plain page: a narrow column with a title, an optional lead and the content. */
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  lead?: string;
+  path: string;
+}
+
+const { title, lead, path } = Astro.props;
+---
+<Base seo={{ title, path }}>
+  <article class="page container container--narrow">
+    <header class="page__head">
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</Base>
