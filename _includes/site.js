@@ -12,7 +12,7 @@
 
   function applyTheme(theme, persist) {
     root.setAttribute('data-theme', theme);
-    if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#f8f1dc' : '#021861');
+    if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#f8f1dc' : '#061033');
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(theme === 'light'));
       toggle.setAttribute('aria-label', theme === 'light' ? 'Switch to night theme' : 'Switch to day theme');

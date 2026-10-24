@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#021861">
+<meta name="theme-color" content="#061033">
 <script>
   /* Set the theme before first paint so there is no flash. Night is the default. */
   (function () {
@@ -22,6 +22,9 @@
 <link rel="preload" as="image" type="image/avif" href="{{ '/assets/media/hero-720.avif' | relative_url }}" imagesrcset="{{ '/assets/media/hero-480.avif' | relative_url }} 480w, {{ '/assets/media/hero-720.avif' | relative_url }} 720w, {{ '/assets/media/hero-1152.avif' | relative_url }} 1152w" imagesizes="(max-width: 960px) 240px, 420px" fetchpriority="high">
 {%- endif %}
 <style>
+{%- if page.layout == 'home' %}
 :root { --wash: url("{% include hero-wash.txt %}"); }
+:root[data-theme="light"] { --wash: url("{% include hero-wash-day.txt %}"); }
+{%- endif %}
 {% include site.css %}
 </style>

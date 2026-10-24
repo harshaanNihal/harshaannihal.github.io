@@ -4,7 +4,7 @@
 #   _src/sky.jpg       the top 16:9 band of hero.jpg, the source of the hero wash
 #   _src/work/NAME.jpg  previews of this site's experiments (captured from the site), become work/NAME.avif
 #                       and work/NAME.jpg at 720 px
-# It also writes _includes/hero-wash.txt, a tiny inline image of the sky that paints the hero background.
+# It also runs tools/wash.mjs, which writes the tiny inline images of the sky behind the hero and Contact.
 set -eu
 cd "$(dirname "$0")/.."
 out=assets/media
@@ -26,11 +26,6 @@ for src in _src/work/*.jpg; do
 done
 
 # The wash is only the sky (_src/sky.jpg is the top 16:9 band of hero.jpg), so the face and shirt do not muddy it.
-tmp=$(mktemp -t wash).jpg
-# 96 px at q75: at 36 px and q35 the stretched JPEG blocks showed as gray mud on a wide screen.
-# The browser blows this up to the hero size, so more source pixels means a softer, richer wash.
-sips -Z 96 -s format jpeg -s formatOptions 75 _src/sky.jpg --out "$tmp" >/dev/null
-printf 'data:image/jpeg;base64,%s' "$(base64 < "$tmp" | tr -d '\n')" > _includes/hero-wash.txt
-rm -f "$tmp"
+node tools/wash.mjs
 
 ls -l "$out"/hero-* "$out"/work/* | awk '{print $5, $9}'

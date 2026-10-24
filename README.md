@@ -38,7 +38,7 @@ Polya (by Adrien Coquet) is the display face. `tools/font.sh` rebuilds `assets/f
 Originals live in `_src/`, which never publishes. `tools/images.sh` rebuilds every optimized image from them (macOS `sips`):
 
 - `_src/hero.jpg` becomes `assets/media/hero-480`, `hero-720` and `hero-1152`, each as AVIF with a JPEG fallback.
-- `_src/sky.jpg` is the top band of the portrait. It becomes the small inline wash behind the hero, in `_includes/hero-wash.txt`.
+- `_src/sky.jpg` is the top band of the portrait. `tools/wash.mjs` (run by the script, or alone) turns it into the small inline washes behind the hero and Contact: `_includes/hero-wash.txt` for night, mapped from midnight navy to cobalt, and `_includes/hero-wash-day.txt`, cream to gold. One hue per theme, so the blur never mixes the painting's yellows into its blues.
 - `_src/work/NAME.jpg` becomes `assets/media/work/NAME.avif` and `.jpg` at 720 px wide. The `site-*` captures are this site's own pieces (the painted sky, the constellation, the skills sky), taken from a local build with Playwright for the experiments in the Code section.
 
 Add an experiment preview by dropping a 1200 by 750 JPEG in `_src/work/`, running the script, and pointing an entry under `site_experiments` in `profile.yml` at `work/NAME`.

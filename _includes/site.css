@@ -35,15 +35,17 @@
   --header-h: 68px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Night: the sky over Saint-Remy in midnight navy. Gold from the moon and stars, cobalt for the lines that
-     join things, bright red for heat (hover, focus, "latest", press). Cobalt is never small text on navy. */
-  --navy: #021861;
+  /* Night: the sky over Saint-Remy. Midnight navy #021861 paints the sky itself (its wash, from
+     tools/wash.mjs); the rooms are a deeper, quieter midnight, because #021861 across a whole page reads as
+     royal blue and swallows the cobalt, gold and red laid on it. Gold from the moon and stars, cobalt for the
+     lines that join things, bright red for heat (hover, focus, "latest", press). Cobalt is never small text on
+     navy. */
   --cobalt: #255dce;
   --red: #de1110;
-  --bg: #021861;
-  --bg-alt: #031c6e;
-  --surface: #0a2a7f;
-  --line: #1a3c9a;
+  --bg: #061033;
+  --bg-alt: #08153c;
+  --surface: #0d1d4c;
+  --line: #1f346b;
   --frame: #c9a227;
   --text: #f6efd8;
   --muted: #b9c6e8;
@@ -57,10 +59,8 @@
   --crimson: #de1110;
   --badge: #de1110;
   --tok-tag: #ff7a72;
-  --glass: rgba(2, 24, 97, 0.82);
-  --scrim: rgba(1, 16, 66, 0.9);
-  --wash-filter: saturate(1.55) brightness(0.9);
-  --wash-opacity: 1;
+  --glass: rgba(6, 16, 51, 0.82);
+  --scrim: rgba(6, 16, 51, 0.88);
   --shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
   --halo: rgba(255, 216, 107, 0.45);
   /* Polya is made of hairlines. The stroke gives them weight, the bloom lights the hero title. */
@@ -108,8 +108,6 @@
   --tok-tag: #c00e0d;
   --glass: rgba(248, 241, 220, 0.88);
   --scrim: rgba(248, 241, 220, 0.9);
-  --wash-filter: saturate(1.8) brightness(1.12);
-  --wash-opacity: 0.5;
   --shadow: 0 24px 50px -28px rgba(20, 34, 74, 0.45);
   --halo: rgba(224, 169, 46, 0.35);
   --ink-stroke: max(0.45px, 0.012em);
@@ -141,6 +139,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 12px);
+  scrollbar-color: var(--line) var(--bg);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -239,26 +238,6 @@ a:hover {
 
 .section--alt {
   background: var(--bg-alt);
-}
-
-/* A swirl of brushstrokes marks where one room of the gallery ends. */
-.section--alt::before,
-.section--alt::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 22px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='22' viewBox='0 0 88 22' fill='none' stroke='%23c9a227' stroke-width='1.6' stroke-linecap='round' opacity='.55'%3E%3Cpath d='M0 11c11-14 22-14 33 0s22 14 33 0'/%3E%3Ccircle cx='76' cy='11' r='3.2'/%3E%3Ccircle cx='76' cy='11' r='7' opacity='.5'/%3E%3C/svg%3E") repeat-x center;
-  opacity: 0.55;
-}
-
-.section--alt::before {
-  top: 0;
-}
-
-.section--alt::after {
-  bottom: 0;
 }
 
 .section__head {
@@ -732,15 +711,17 @@ h2 {
   background: var(--bg);
 }
 
-/* The painting, shrunk to a thumbnail and stretched back: a wash of its colors for free. */
+/* The painting, shrunk to a thumbnail and stretched back: its swirls of light and dark for free. Each theme
+   has its own thumbnail with the painting's light mapped onto one ramp (midnight navy to cobalt by night,
+   cream to gold by day; tools/wash.mjs), because in full color the blur smeared its yellows into its blues as
+   olive and mauve. The painted strokes above carry the painting's other colors, side by side, never mixed. */
 .hero__wash {
   position: absolute;
   inset: -6%;
   z-index: -3;
   background: var(--wash, none) center / cover no-repeat, linear-gradient(160deg, #1b3a82, #021861);
   /* The blur melts the pixel grid of the stretched thumbnail, which shows on tall tablet screens. */
-  filter: var(--wash-filter) blur(12px);
-  opacity: var(--wash-opacity);
+  filter: blur(12px);
 }
 
 .hero::after {
@@ -1062,9 +1043,10 @@ h2 {
   animation: kindle 1.1s ease-out 1.1s both;
 }
 
+/* The curl sits at 58% of the width, just past the end of the name, so its dabs never cross a letter. */
 .swirl--hero {
-  left: calc(54% - min(608px, 42.5vw));
-  top: 1.5%;
+  left: calc(58% - min(608px, 42.5vw));
+  top: 0;
   width: min(800px, 56vw);
 }
 
@@ -2020,14 +2002,15 @@ html:not(.js) .skill-sky__roles {
 /* ---------- Code: a year on GitHub, this site's experiments, side projects ---------- */
 /* The contribution calendar, as GitHub draws it: a column per week, a square per day, months above and three
    weekdays down the side. Levels are GitHub's own quartiles on one cobalt ramp, brighter for more by night and
-   darker for more by day, so the busiest days read first in both. An empty day is a quiet square a step up
-   from the card, so the year keeps its shape. */
+   darker for more by day, so the busiest days read first in both. A year with few empty days is mostly the
+   lower levels, so by night those stay close to the card and only the busy days shine. An empty day is a
+   quiet square a step up from the card, so the year keeps its shape. */
 .gh {
-  --l0: color-mix(in srgb, var(--cobalt) 30%, var(--surface));
-  --l1: var(--cobalt);
-  --l2: #5a86e6;
-  --l3: #93b2f0;
-  --l4: #d3e1ff;
+  --l0: #1d2c4a;
+  --l1: #1f3b7c;
+  --l2: #2954b0;
+  --l3: #487cde;
+  --l4: #a9c8ff;
   container-type: inline-size;
   padding: clamp(18px, 3vw, 28px);
   border: 1px solid var(--line);
@@ -2657,8 +2640,7 @@ html:not(.js) .experiment + .experiment {
   z-index: -3;
   /* The top half of the painting only: the sky and the moon, not the portrait below them. */
   background: var(--wash, none) 50% 0 / 200% auto no-repeat, linear-gradient(160deg, #1b3a82, #021861);
-  filter: var(--wash-filter) blur(14px);
-  opacity: var(--wash-opacity);
+  filter: blur(14px);
 }
 
 .contact::after {
