@@ -52,10 +52,8 @@ export function initBeacon() {
 
   /* A details element's toggle doesn't bubble, so listen while it travels down. */
   document.addEventListener('toggle', (event) => {
-    const details = event.target as Element;
-    if (details instanceof HTMLDetailsElement && details.open && details.matches('.case__more')) {
-      track('case_open', details.closest('[id^="case-"]')?.id.slice('case-'.length));
-    }
+    const details = event.target;
+    if (details instanceof HTMLDetailsElement && details.open && details.dataset.case) track('case_open', details.dataset.case);
   }, true);
 
   document.addEventListener('click', (event) => {

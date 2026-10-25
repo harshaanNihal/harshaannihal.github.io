@@ -1,8 +1,8 @@
 ---
-import { medium, profile as p } from '../../lib/data';
-import Btn from '../Btn.astro';
+/* The finale: the sky comes back around the ask, the address and the form. The footer below carries the links
+   elsewhere, so they aren't repeated here. */
 import ContactForm from '../ContactForm.astro';
-import Icon from '../Icon.astro';
+import EmailCta from '../EmailCta.astro';
 import Pstar from '../Pstar.astro';
 import Swirl from '../Swirl.astro';
 ---
@@ -19,20 +19,7 @@ import Swirl from '../Swirl.astro';
       <h2 id="contact-title">Let's build something good.</h2>
       <p class="lead">Have a role, a project or a question in mind? My inbox is open.</p>
     </header>
-    <div class="contact__actions reveal">
-      <Btn href={`mailto:${p.email}`} label={p.email.replace('@', '<wbr>@')} icon="arrow-right" />
-      <button class="btn btn--ghost btn--copy" type="button" data-copy={p.email}>
-        <span class="copy-icon" aria-hidden="true"><Icon name="copy" /><Icon name="check" /></span>
-        <span data-copy-label>Copy email</span>
-      </button>
-      <span class="visually-hidden" role="status" data-copy-status></span>
-    </div>
-    <ul class="social reveal" aria-label="Find me online">
-      <li><a class="icon-btn" href={`https://github.com/${p.github}`} aria-label="GitHub"><Icon name="github" /></a></li>
-      <li><a class="icon-btn" href={`https://www.linkedin.com/in/${p.linkedin}`} aria-label="LinkedIn"><Icon name="linkedin" /></a></li>
-      <li><a class="icon-btn" href={medium.profile} aria-label="Medium"><Icon name="book-open" /></a></li>
-      <li><a class="icon-btn" href={`https://twitter.com/${p.twitter}`} aria-label="Twitter"><Icon name="twitter" /></a></li>
-    </ul>
+    <EmailCta class="reveal" />
     <ContactForm />
   </div>
 </section>

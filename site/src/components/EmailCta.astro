@@ -1,14 +1,17 @@
 ---
-/* The one action on every surface: the address as a notch button, with a Copy fallback for readers without a
-   mail client. */
+/* The one action on every surface: the address as a notch button, with Copy beside it for readers without a
+   mail client. Used by the ask, Contact, the blog and posts. */
 import { profile } from '../lib/data';
 import Btn from './Btn.astro';
-import Icon from './Icon.astro';
+import CopyEmail from './CopyEmail.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 ---
-<div class="mail-actions">
+<div class:list={['mail-actions', className]}>
   <Btn href={`mailto:${profile.email}`} label={profile.email.replace('@', '<wbr>@')} icon="arrow-right" />
-  <button class="btn btn--ghost" type="button" data-copy={profile.email}>
-    <span data-copy-icon><Icon name="copy" /></span>
-    <span data-copy-label>Copy email</span>
-  </button>
+  <CopyEmail />
 </div>

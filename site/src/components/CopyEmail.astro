@@ -1,0 +1,19 @@
+---
+/* Copies the email address: the copy icon turns into a check, and the status beside it tells screen readers. The
+   link variant is the small one under the hero's buttons. */
+import { profile } from '../lib/data';
+import Icon from './Icon.astro';
+
+interface Props {
+  label?: string;
+  variant?: 'ghost' | 'link';
+}
+
+const { label = 'Copy email', variant = 'ghost' } = Astro.props;
+const px = variant === 'link' ? 16 : 20;
+---
+<button class={variant === 'link' ? 'copy-link' : 'btn btn--ghost btn--copy'} type="button" data-copy={profile.email}>
+  <span class="copy-icon" aria-hidden="true"><Icon name="copy" px={px} /><Icon name="check" px={px} /></span>
+  <span data-copy-label>{label}</span>
+</button>
+<span class="visually-hidden" role="status" data-copy-status></span>

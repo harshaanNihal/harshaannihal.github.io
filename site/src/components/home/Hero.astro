@@ -1,6 +1,7 @@
 ---
 import { medium, profile as p } from '../../lib/data';
 import Btn from '../Btn.astro';
+import CopyEmail from '../CopyEmail.astro';
 import Icon from '../Icon.astro';
 import Pstar from '../Pstar.astro';
 import SkyDefs from '../SkyDefs.astro';
@@ -22,8 +23,9 @@ import Swirl from '../Swirl.astro';
       <p class="lead reveal" style="--d:120ms"><strong class="lead__role">{p.hero.eyebrow}.</strong> {p.hero.lead}</p>
       <div class="hero__cta reveal" style="--d:180ms">
         <Btn href={`mailto:${p.email}`} label="Email me" icon="arrow-right" />
-        <Btn href="#work" label="See my work" variant="ghost" />
+        <Btn href="#experience" label="See my work" variant="ghost" />
       </div>
+      <p class="hero__mail reveal" style="--d:210ms"><span class="hero__address">{p.email}</span> <CopyEmail label="Copy" variant="link" /></p>
       <ul class="social reveal" style="--d:240ms" aria-label="Find me online">
         <li><a class="icon-btn" href={`https://github.com/${p.github}`} aria-label="GitHub"><Icon name="github" /></a></li>
         <li><a class="icon-btn" href={`https://www.linkedin.com/in/${p.linkedin}`} aria-label="LinkedIn"><Icon name="linkedin" /></a></li>

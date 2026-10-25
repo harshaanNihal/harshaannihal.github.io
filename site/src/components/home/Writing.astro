@@ -6,6 +6,8 @@ import Picture from '../Picture.astro';
 
 const [latest, ...rest] = medium.posts;
 const ribbon = latest && profile.featured.find((f) => latest.url.includes(f.match));
+/* "Latest" only while it is news: under about three months old when the site is built. */
+const isNew = latest && Date.now() - latest.date.getTime() < 90 * 24 * 3600 * 1000;
 ---
 <section class="section section--alt" id="writing" aria-labelledby="writing-title">
   <div class="container">
@@ -21,7 +23,7 @@ const ribbon = latest && profile.featured.find((f) => latest.url.includes(f.matc
           )}
           <div class="story__body">
             <h3><a href={latest.url}>{latest.title}</a></h3>
-            <p class="story__meta"><span class="badge">Latest</span><time datetime={isoDay(latest.date)}>{shortDate(latest.date)}</time><span>{latest.minutes} min read</span></p>
+            <p class="story__meta">{isNew && <span class="badge">Latest</span>}<time datetime={isoDay(latest.date)}>{shortDate(latest.date)}</time><span>{latest.minutes} min read</span></p>
             <p class="story__excerpt">{latest.excerpt}</p>
             <ul class="chips">{latest.tags.map((tag) => <li class="chip">{tag}</li>)}</ul>
             <p class="story__more">Read on Medium <Icon name="arrow-up-right" px={16} /></p>

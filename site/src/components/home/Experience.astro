@@ -1,12 +1,14 @@
 ---
 /* Where he has worked, as a ledger on the timeline: dates in a column that never moves, one star on the dashed
-   line per row, then the company, title, notes and stack. The top row is the open slot for the next role, the
-   last is the side projects, and each role links to its case study in Work. Each row carries the skills it used
-   (data-skills, slugified); the skills-sky script lights those stars and joins them. Without JavaScript the
-   ledger and the full list of skills still read in full. */
+   line per row, then the company, title, notes and stack. A role's system opens under its notes, in a details
+   element: its name, its sketch as a constellation, and how it was built. The top row is the open slot for the
+   next role, and the last is the side projects. Each row carries the skills it used (data-skills, slugified);
+   the skills-sky script lights those stars and joins them. Without JavaScript the ledger and the full list of
+   skills still read in full. */
 import { profile as p } from '../../lib/data';
 import { isoMonth, monthYear, rubyFloat, slugify } from '../../lib/format';
 import Icon from '../Icon.astro';
+import Sketch from '../Sketch.astro';
 
 const escape = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -60,7 +62,16 @@ const groups = g.map((group, i) => {
                     {pos.notes.map((note) => <li set:html={noteHtml(note, pos.press)} />)}
                   </ul>
                   <p class="career__stack">{pos.tech.map((t) => <span>{t}</span>)}</p>
-                  {pos.case && <a class="career__case" href={`#case-${pos.case}`} data-open-case>Read the case study <Icon name="arrow-down" px={15} /></a>}
+                  {pos.system && (
+                    <details class="career__system" id={`case-${pos.system.id}`} data-case={pos.system.id}>
+                      <summary class="case__toggle"><span class="case__open">See the system</span><span class="case__close">Hide the system</span> <Icon name="arrow-down" px={16} /></summary>
+                      <div class="career__system-body">
+                        <p class="career__system-title">{pos.system.title}</p>
+                        <Sketch nodes={pos.system.nodes} edges={pos.system.edges} />
+                        <p class="career__system-text">{pos.system.text}</p>
+                      </div>
+                    </details>
+                  )}
                 </div>
               ))}
             </div>
@@ -73,7 +84,10 @@ const groups = g.map((group, i) => {
             <div class="career__position">
               <p class="career__text">{sp.text}</p>
               <p class="career__stack">{sp.tech.map((t) => <span>{t}</span>)}</p>
-              <a class="career__case" href="#code">See the code <Icon name="arrow-down" px={15} /></a>
+              <p class="career__links">
+                <a class="career__link" href="#work">See Miru and Tlatoani <Icon name="arrow-down" px={15} /></a>
+                <a class="career__link" href="#code">See the code <Icon name="arrow-down" px={15} /></a>
+              </p>
             </div>
           </div>
         </li>

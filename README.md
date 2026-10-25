@@ -29,9 +29,9 @@ Pushing to `master` runs `.github/workflows/site.yml`: it type-checks, builds, a
 
 ## Edit the content
 
-Everything the home page says lives in [`site/src/data/profile.yml`](site/src/data/profile.yml): the hero line, about text, work history with each role's stack, skills, the case studies (with the parts and links each constellation sketch draws), the site's experiments and the GitHub repositories. Change the YAML, not the components.
+Everything the home page says lives in [`site/src/data/profile.yml`](site/src/data/profile.yml): the hero line, about text, work history with each role's stack and the system it built (the constellation sketch that opens in the ledger), skills, the case studies for the products built outside the jobs, the site's experiments and the GitHub repositories. Change the YAML, not the components.
 
-`site/src/lib/data.ts` checks every data file against a schema on each build. It also checks that every role's stack names skills exactly as they appear under `skills`, that every skill lights for some role, that every case-study link points at a case study, and that every sketch's lines join real stars. A mistake fails the build with the field's path instead of quietly breaking a section.
+`site/src/lib/data.ts` checks every data file against a schema on each build. It also checks that every role's stack names skills exactly as they appear under `skills`, that every skill lights for some role, and that every sketch's lines join real stars. A mistake fails the build with the field's path instead of quietly breaking a section.
 
 The Writing section comes from Medium. Refresh it after publishing a story, then review and commit the diff:
 
@@ -70,8 +70,8 @@ Add an experiment preview by dropping a 1120 by 700 JPEG in `site/src/originals/
 | `site/src/pages/` | The routes: the home page, `blog/index` and `blog/[slug]` for posts, `404`, the `/about/` redirect, `sitemap.xml` and `robots.txt` |
 | `site/src/layouts/` | `Base` (the head, header, footer and script for every page) and `Page` (a plain narrow page) |
 | `site/src/components/home/` | One component per home page section. `Code.astro` is the GitHub-style section: the contribution calendar, the experiments as a file view with tabs, and the repositories |
-| `site/src/components/` | `Header`, `Footer`, `Seo` (title, share tags, structured data), `Icon`, `Btn` (the button link, see below), `EmailCta` (the address as a notch button plus Copy), `Picture`, `Repo`, `SignOff`, and the painted sky's `SkyDefs`, `Pstar` and `Swirl` |
-| `site/src/scripts/` | The behaviour, one TypeScript module per feature: theme, menu, reveal, nav spy, case links, copy email, skills sky, moonlight, sky rooms, constellation, calendar, file view. `main.ts` starts them |
+| `site/src/components/` | `Header`, `Footer`, `Seo` (title, share tags, structured data), `Icon`, `Btn` (the button link, see below), `EmailCta` (the address as a notch button plus Copy), `CopyEmail` (the Copy button on its own), `Sketch` (a system drawn as a constellation, for the ledger and Work), `Picture`, `Repo`, `SignOff`, and the painted sky's `SkyDefs`, `Pstar` and `Swirl` |
+| `site/src/scripts/` | The behaviour, one TypeScript module per feature: theme, menu, reveal, nav spy, case-study addresses, copy email, skills sky, moonlight, sky rooms, constellation, calendar, file view. `main.ts` starts them |
 | `site/src/styles/site.css` | All styles, inlined into every page. Tokens for the two themes sit at the top |
 | `site/src/lib/` | Build-time code: `data.ts` (the data files and their schemas), `painted-sky.ts` (the sky's brushwork, seeded), `wash.ts`, `excerpts.ts`, `posts.ts`, `format.ts`, `code-theme.ts` (code highlighting) and `site.ts` (the site's address and share defaults) |
 | `api/` | The Worker: the contact and event endpoints, the cron jobs, the D1 schema and the tests (see `api/README.md`) |

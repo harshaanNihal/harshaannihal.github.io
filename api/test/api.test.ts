@@ -86,10 +86,16 @@ describe('POST /contact', () => {
     expect(await rows('messages')).toHaveLength(1);
   });
 
-  it('rejects an address that is not an email', async () => {
-    const response = await call('/contact', contact({ ...ada, email: 'not-an-email' }));
+  it('rejects an address that is not an email, and names the field', async () => {
+    const response = await call('/contact', contact({ ...ada, email: 'ada@example' }));
     expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ outcome: 'invalid', field: 'email' });
     expect(await rows('messages')).toHaveLength(0);
+  });
+
+  it('counts a message padded with spaces by what is left', async () => {
+    const response = await call('/contact', contact({ ...ada, message: '   hi there   ' }));
+    expect(await response.json()).toEqual({ outcome: 'invalid', field: 'message' });
   });
 
   it('turns away a fourth message within the hour', async () => {

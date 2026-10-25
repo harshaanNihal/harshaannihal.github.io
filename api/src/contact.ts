@@ -14,8 +14,9 @@ type Outcome = 'sent' | 'invalid' | 'limited' | 'error';
 export async function handleContact(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
   const origin = allowedOrigin(request, env);
   const wantsJson = (request.headers.get('Accept') ?? '').includes('application/json');
-  const reply = (outcome: Outcome, status: number) =>
-    withCors(wantsJson ? json({ outcome }, status) : redirect(`${env.SITE_ORIGIN}/contact/${outcome === 'sent' ? 'sent' : 'error'}/`), origin);
+  /* `field` names the field that was turned down, so the page can point at it. */
+  const reply = (outcome: Outcome, status: number, field?: PropertyKey) =>
+    withCors(wantsJson ? json({ outcome, ...(typeof field === 'string' && { field }) }, status) : redirect(`${env.SITE_ORIGIN}/contact/${outcome === 'sent' ? 'sent' : 'error'}/`), origin);
 
   /* Only the site's own pages may send a message. */
   if (!origin) return reply('invalid', 403);
@@ -27,7 +28,7 @@ export async function handleContact(request: Request, env: Env, ctx: ExecutionCo
     return reply('invalid', 400);
   }
   const parsed = contactMessage.safeParse(fields);
-  if (!parsed.success) return reply('invalid', 400);
+  if (!parsed.success) return reply('invalid', 400, parsed.error.issues[0]?.path[0]);
   const message = parsed.data;
 
   /* A filled honeypot, or a form sent faster than anyone types: answer as if it was sent, and keep nothing. */

@@ -40,44 +40,86 @@ about:
 
 # Work history for the Experience ledger, newest first. Each position's `tech` lights those stars in the
 # skills sky (the owner confirmed every role's list on 2026-10-24), so spell every entry exactly as it appears
-# under `skills`. A position's `case` names the case study in `case_studies` that tells the longer story.
+# under `skills`. A position's `system` is the one it built, opened under its notes: its name, how it was built,
+# and its sketch as a constellation (x and y are percentages of the sketch; `side` puts a label above or below
+# its star). Its `id` is the #case- address that opens it.
 experience:
   - company: Cisco Meraki
     start: 2024-07-01
     end: 2026-02-01
     positions:
       - title: Software Engineer III
-        case: meraki
         notes:
           - Architected a cloud packet-capture (PCAP) service for Meraki switches, for real-time packet analysis.
           - Shipped full-stack features for the switches dashboard in React and Ruby on Rails, with the hardware and firmware teams.
         tech: [Ruby on Rails, React, Ruby, JavaScript, Scala, TypeScript, SQL, PostgreSQL, Docker, Git]
+        system:
+          id: meraki
+          title: Packet capture for switches, in the cloud
+          text: Built the distributed systems behind it, for high-volume network traffic data.
+          nodes:
+            - { label: Meraki switch, x: 8, y: 66, side: below }
+            - { label: Packet capture, x: 28, y: 28, side: above }
+            - { label: Cloud PCAP service, x: 50, y: 70, side: below }
+            - { label: Traffic processing, x: 72, y: 24, side: above }
+            - { label: Switches dashboard, x: 92, y: 44, side: above }
+          edges: [[0, 1], [1, 2], [2, 3], [2, 4]]
   - company: Saeloun
     start: 2022-06-01
     end: 2024-07-01
     positions:
       - title: Software Engineer
-        case: saeloun
         notes:
           - Co-built logistics software for a cloud-kitchen startup's meal deliveries, and led its GraphQL backend and client API.
           - "Published an article on a Rails dual-database setup, featured in Ruby Weekly #681."
         press: { match: "Ruby Weekly #681", url: "https://rubyweekly.com/issues/681" }
         tech: [Ruby on Rails, React, GraphQL, Apollo Client, PostgreSQL, Redis, Sidekiq, Heroku, Cypress, Capybara, Ruby, JavaScript, TypeScript, SQL, Docker, Git, HTML/CSS]
+        system:
+          id: saeloun
+          title: Meal-delivery logistics for a cloud kitchen
+          text: It carried the company's expansion beyond California, with end-to-end tests on the critical workflows.
+          nodes:
+            - { label: Customer React app, x: 8, y: 30, side: above }
+            - { label: GraphQL API, x: 24, y: 68, side: below }
+            - { label: Rails and Postgres, x: 46, y: 26, side: above }
+            - { label: Sidekiq jobs on Redis, x: 58, y: 72, side: below }
+            - { label: Meal deliveries, x: 94, y: 70, side: below }
+          edges: [[0, 1], [1, 2], [2, 3], [3, 4]]
   - company: BigBinary
     start: 2019-09-01
     end: 2022-05-01
     positions:
       - title: Software Engineer and Team Lead, on contract to Vineti
-        case: vineti
         notes:
           - Led the team delivering cell and gene therapy workflows for healthcare clients, configured per client in Rails and YAML.
           - Mentored and onboarded engineers, and set up code review and TDD practices.
         tech: [Ruby on Rails, Ruby, YAML, Pact, SQL, PostgreSQL, Docker, Jenkins, Git]
+        system:
+          id: vineti
+          title: Cell and gene therapy workflows
+          text: Built REST APIs and microservices, with every API contract-tested in Pact. Each workflow tracks its operation flow and chain of custody.
+          nodes:
+            - { label: Client config in YAML, x: 8, y: 70, side: below }
+            - { label: Rails workflows, x: 30, y: 26, side: above }
+            - { label: Chain of custody, x: 46, y: 72, side: below }
+            - { label: REST APIs, x: 70, y: 26, side: above }
+            - { label: Pact contracts, x: 90, y: 70, side: below }
+          edges: [[0, 1], [1, 2], [1, 3], [3, 4]]
       - title: Mobile Developer, NeetoDesk
-        case: neetodesk
         notes:
           - Built NeetoDesk's mobile ticketing app from scratch in React Native, on a Rails backend, with peer-to-peer chat.
         tech: [React Native, JavaScript, Ruby on Rails, Ruby, Git]
+        system:
+          id: neetodesk
+          title: A ticketing app for phones, from scratch
+          text: Added filtered ticket views, first-response-time reports and automated email configuration.
+          nodes:
+            - { label: Filtered tickets, x: 9, y: 36, side: above }
+            - { label: Response reports, x: 29, y: 22, side: above }
+            - { label: React Native app, x: 47, y: 72, side: below }
+            - { label: Peer-to-peer chat, x: 65, y: 22, side: above }
+            - { label: Rails backend, x: 89, y: 38, side: above }
+          edges: [[0, 2], [1, 2], [2, 3], [2, 4]]
 
 # The ledger's last row: work outside the jobs. Its `tech` lights the skills the side projects prove.
 side_projects:
@@ -104,70 +146,9 @@ featured:
     text: "Featured in Ruby Weekly #681"
     url: https://rubyweekly.com/issues/681
 
-# Case studies for Work, written only from facts the owner has made public (no numbers). `nodes` and `edges`
-# draw each one's sketch as a constellation: x and y are percentages of the sketch, and `side` puts the label
-# above, below, left or right of its star. `id` is the anchor the Experience ledger links to.
+# Case studies for Work: products built outside the jobs, written only from facts the owner has made public (no
+# numbers). `nodes` and `edges` draw each one's sketch, as for a position's `system`. `id` is its #case- address.
 case_studies:
-  - id: meraki
-    when: Jul 2024 – Feb 2026
-    company: Cisco Meraki
-    title: Packet capture for switches, in the cloud
-    summary: A cloud packet-capture (PCAP) service for real-time packet analysis on Meraki switches, the distributed systems behind it, and full-stack features for the switches dashboard.
-    role: Software Engineer III. Architected the cloud PCAP service and built distributed systems for high-volume network traffic data.
-    tools: [Ruby on Rails, React, Scala, TypeScript, PostgreSQL, Docker]
-    outcome: Real-time packet analysis for Meraki switches, from the cloud, worked out with the hardware and firmware teams.
-    nodes:
-      - { label: Meraki switch, x: 8, y: 66, side: below }
-      - { label: Packet capture, x: 28, y: 28, side: above }
-      - { label: Cloud PCAP service, x: 50, y: 70, side: below }
-      - { label: Traffic processing, x: 72, y: 24, side: above }
-      - { label: Switches dashboard, x: 92, y: 44, side: above }
-    edges: [[0, 1], [1, 2], [2, 3], [2, 4]]
-  - id: saeloun
-    when: Jun 2022 – Jul 2024
-    company: Saeloun
-    title: Meal-delivery logistics for a cloud kitchen
-    summary: Co-built the logistics software behind a cloud-kitchen startup's meal deliveries, and led the GraphQL backend and client API for its customer-facing React app.
-    role: Software Engineer. Led the GraphQL backend and client API (graphql-ruby, Apollo) and added end-to-end tests for critical workflows.
-    tools: [Ruby on Rails, GraphQL, Apollo Client, PostgreSQL, Redis, Sidekiq]
-    outcome: It carried the company's expansion beyond California.
-    nodes:
-      - { label: Customer React app, x: 8, y: 30, side: above }
-      - { label: GraphQL API, x: 24, y: 68, side: below }
-      - { label: Rails and Postgres, x: 46, y: 26, side: above }
-      - { label: Sidekiq jobs on Redis, x: 58, y: 72, side: below }
-      - { label: Meal deliveries, x: 94, y: 70, side: below }
-    edges: [[0, 1], [1, 2], [2, 3], [3, 4]]
-  - id: vineti
-    when: Sep 2019 – May 2022
-    company: Vineti
-    title: Cell and gene therapy workflows
-    summary: Led the team at BigBinary delivering cell and gene therapy workflows for healthcare clients, each configured in Rails and YAML, with operation flow and chain of custody.
-    role: Software Engineer and Team Lead, on contract from BigBinary. Built REST APIs and microservices, mentored engineers and set up code review and TDD.
-    tools: [Ruby on Rails, YAML, Pact, PostgreSQL, Docker, Jenkins]
-    outcome: Client-specific therapy workflows, from configuration, with every API contract-tested in Pact.
-    nodes:
-      - { label: Client config in YAML, x: 8, y: 70, side: below }
-      - { label: Rails workflows, x: 30, y: 26, side: above }
-      - { label: Chain of custody, x: 46, y: 72, side: below }
-      - { label: REST APIs, x: 70, y: 26, side: above }
-      - { label: Pact contracts, x: 90, y: 70, side: below }
-    edges: [[0, 1], [1, 2], [1, 3], [3, 4]]
-  - id: neetodesk
-    when: Sep 2019 – May 2022
-    company: NeetoDesk
-    title: A ticketing app for phones, from scratch
-    summary: Built BigBinary's NeetoDesk mobile app in React Native on a Rails backend, with peer-to-peer chat, filtered ticket views and first-response-time reports.
-    role: Mobile Developer at BigBinary. Built the app from scratch and added automated email configuration.
-    tools: [React Native, JavaScript, Ruby on Rails]
-    outcome: A mobile ticketing app with chat, filtered views and first-response-time reports.
-    nodes:
-      - { label: Filtered tickets, x: 9, y: 36, side: above }
-      - { label: Response reports, x: 29, y: 22, side: above }
-      - { label: React Native app, x: 47, y: 72, side: below }
-      - { label: Peer-to-peer chat, x: 65, y: 22, side: above }
-      - { label: Rails backend, x: 89, y: 38, side: above }
-    edges: [[0, 2], [1, 2], [2, 3], [2, 4]]
   - id: tlatoani
     when: Lead developer
     company: Tlatoani

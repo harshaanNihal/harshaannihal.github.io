@@ -5,6 +5,9 @@ import { limits } from '@portfolio/contract';
 import { apiUrl } from '../lib/api';
 import { profile } from '../lib/data';
 import Icon from './Icon.astro';
+
+/* The browser's own email check takes "name@company"; the API wants a domain with a dot, so ask for one here. */
+const emailPattern = String.raw`[^@\s]+@[^@\s]+\.[A-Za-z]{2,}`;
 ---
 {apiUrl && (
   <form class="contact-form reveal" id="contact-form" method="post" action={`${apiUrl}/contact`} data-contact-form data-email={profile.email}>
@@ -15,10 +18,10 @@ import Icon from './Icon.astro';
     </div>
     <div class="contact-form__row">
       <label for="cf-email">Email</label>
-      <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength={limits.email} />
+      <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength={limits.email} pattern={emailPattern} title="An address like name@company.com" />
     </div>
     <div class="contact-form__row contact-form__row--wide">
-      <label for="cf-message">Message</label>
+      <label for="cf-message">Message <span class="contact-form__hint">at least {limits.messageMin} characters</span></label>
       <textarea id="cf-message" name="message" rows="5" required minlength={limits.messageMin} maxlength={limits.message}></textarea>
     </div>
     <div class="visually-hidden" aria-hidden="true">
@@ -28,7 +31,7 @@ import Icon from './Icon.astro';
     <input type="hidden" name="shown" value="" />
     <div class="contact-form__foot">
       <button class="btn btn--ghost contact-form__send" type="submit"><span class="btn__label">Send message</span><span class="btn__icon btn__icon--arrow-right"><Icon name="arrow-right" px={18} /></span></button>
-      <p class="contact-form__status" data-form-status role="status" aria-live="polite"></p>
+      <p class="contact-form__result"><span class="contact-form__done" aria-hidden="true"><Icon name="check" px={18} /></span><span class="contact-form__status" data-form-status role="status" aria-live="polite"></span></p>
     </div>
     <p class="contact-form__note">It goes straight to my inbox. <a href="/privacy/">How messages are handled</a>.</p>
   </form>

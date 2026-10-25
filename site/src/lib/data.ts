@@ -12,15 +12,23 @@ const read = (source: string): unknown => parse(source, { customTags: ['timestam
 const text = z.string().min(1);
 const link = z.object({ text, url: z.url(), press: z.boolean().optional() });
 
+/* A system drawn as a constellation: x and y are percentages of the sketch, `side` puts the label above or below
+   its star, and each edge joins two nodes by index. */
+const sketch = z.object({
+  nodes: z.array(z.object({ label: text, x: z.number(), y: z.number(), side: z.enum(['above', 'below']) })),
+  edges: z.array(z.tuple([z.number().int(), z.number().int()])),
+});
+
 const position = z.object({
   title: text,
-  case: text.optional(),
   notes: z.array(text),
   press: z.object({ match: text, url: z.url() }).optional(),
   tech: z.array(text),
+  /** The system the role built, opened under its notes. `id` is its #case- address. */
+  system: sketch.extend({ id: text, title: text, text }).optional(),
 });
 
-const caseStudy = z.object({
+const caseStudy = sketch.extend({
   id: text,
   when: text,
   company: text,
@@ -30,8 +38,6 @@ const caseStudy = z.object({
   tools: z.array(text).optional(),
   outcome: text,
   links: z.array(link).optional(),
-  nodes: z.array(z.object({ label: text, x: z.number(), y: z.number(), side: z.enum(['above', 'below', 'left', 'right']) })),
-  edges: z.array(z.tuple([z.number().int(), z.number().int()])),
 });
 
 const profileSchema = z.object({
@@ -81,18 +87,17 @@ const profileSchema = z.object({
   for (const s of skills) {
     if (!used.has(s)) ctx.addIssue({ code: 'custom', message: `The skill "${s}" never lights: no role lists it` });
   }
-  const cases = new Set(p.case_studies.map((c) => c.id));
   for (const job of p.experience) {
     for (const pos of job.positions) {
-      if (pos.case && !cases.has(pos.case)) ctx.addIssue({ code: 'custom', message: `${job.company} links to a missing case study "${pos.case}"` });
       if (pos.press && !pos.notes.some((n) => n.includes(pos.press!.match))) {
         ctx.addIssue({ code: 'custom', message: `${job.company}: no note contains the press text "${pos.press.match}"` });
       }
     }
   }
-  for (const c of p.case_studies) {
-    for (const [a, b] of c.edges) {
-      if (!c.nodes[a] || !c.nodes[b]) ctx.addIssue({ code: 'custom', message: `Case "${c.id}" has an edge to a missing node: [${a}, ${b}]` });
+  const sketches = [...p.experience.flatMap((job) => job.positions.flatMap((pos) => pos.system ?? [])), ...p.case_studies];
+  for (const s of sketches) {
+    for (const [a, b] of s.edges) {
+      if (!s.nodes[a] || !s.nodes[b]) ctx.addIssue({ code: 'custom', message: `The sketch "${s.id}" has an edge to a missing node: [${a}, ${b}]` });
     }
   }
 });
@@ -135,6 +140,6 @@ export const medium = check(mediumSchema, mediumSource, 'src/data/medium.yml');
 export const github = check(githubSchema, githubSource, 'src/data/github.yml');
 
 export type Profile = typeof profile;
-export type CaseStudy = Profile['case_studies'][number];
+export type Sketch = z.infer<typeof sketch>;
 export type Repo = Profile['repos'][number];
 export type Story = typeof medium.posts[number];

@@ -1,0 +1,24 @@
+---
+/* A system sketched as a constellation: its parts are stars, the dashed lines are how they connect. A part's label
+   sits on the side away from its lines (above it, lines only run down; below it, only up, or level to a
+   neighbour), so no line crosses a word. The frame is a size container: in a narrow column the sketch stands up
+   instead (site.css). Used by the Experience ledger and by Work. */
+import type { Sketch } from '../lib/data';
+
+type Props = Sketch;
+
+const { nodes, edges } = Astro.props;
+---
+<div class="sketch-frame">
+  <figure class="sketch">
+    <svg class="sketch__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g>
+      {edges.map(([i0, i1], i) => {
+        const a = nodes[i0]!;
+        const b = nodes[i1]!;
+        return <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} style={`--i:${i}`} />;
+      })}
+    </g></svg>
+    {nodes.map((n, i) => <span class={`sketch__node sketch__node--${n.side}`} style={`--x:${n.x};--y:${n.y};--i:${i}`} aria-hidden="true">{n.label}</span>)}
+    <figcaption class="visually-hidden">The parts of the system: {nodes.map((n) => n.label).join(', ')}.</figcaption>
+  </figure>
+</div>
