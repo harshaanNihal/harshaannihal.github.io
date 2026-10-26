@@ -157,7 +157,9 @@ const swirl = river({ seed: 101, count: 230, half: 26, len: [22, 46], widths: [5
 /* The center line, for the mask that lays the swirl down. Whole units are plenty for that. */
 const centerPath = 'M' + line.pts.filter((_, i) => i % 3 === 0 || i === line.pts.length - 1).map((p) => Math.round(p.x) + ' ' + Math.round(p.y)).join('L');
 
-const symbol = (id: string, viewBox: string, body: string) => `<symbol id="${id}" viewBox="${viewBox}" fill="none" stroke-linecap="round">${body}</symbol>`;
+/* A symbol clips to its viewBox, so the swirl, whose center line enters at x = -20, says it may draw past it. */
+const symbol = (id: string, viewBox: string, body: string, overflow = false) =>
+  `<symbol id="${id}" viewBox="${viewBox}" fill="none" stroke-linecap="round"${overflow ? ' overflow="visible"' : ''}>${body}</symbol>`;
 const SV = '-100 -100 200 200'; /* drawn around the center; Pstar.astro shows them in a 0 0 200 200 box */
 
 /* The curl's center, as a share of the swirl's box: where .swirl .pstar sits in site.css (76% 48.82%). */
@@ -168,6 +170,6 @@ export const skyDefs = `<svg class="sky-defs" width="0" height="0" aria-hidden="
   + symbol('ps-b2', SV, star.b2)
   + symbol('ps-b3', SV, star.b3)
   + symbol('ps-b4', SV, star.b4)
-  + symbol('swirl', `0 0 ${W} ${H}`, swirl)
+  + symbol('swirl', `0 0 ${W} ${H}`, swirl, true)
   + `<path id="swirl-line" pathLength="1" d="${centerPath}"/>`
   + `</defs></svg>`;

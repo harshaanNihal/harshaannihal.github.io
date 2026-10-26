@@ -1,6 +1,6 @@
 /* Portfolio styles, inlined into every page by the Base layout (Astro's build.inlineStylesheets).
    Tokens, base, layout, components, sections, motion, responsive.
-   Theme: The Starry Night, in midnight navy, cobalt and bright red, with the painting's own gold for the
+   Theme: The Starry Night, in Prussian moonlight, cobalt and bright red, with the painting's own gold for the
    stars. Night and day follow the visitor's device. */
 
 /* Polya by Adrien Coquet, a wireframe display face (all capitals). Latin subset built by tools/font.sh. */
@@ -37,55 +37,58 @@
   --section-y: clamp(64px, 7vw, 96px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Night: the sky over Saint-Remy. Midnight navy #021861 paints the sky itself (its wash, from
-     tools/wash.mjs); the rooms are a deeper, quieter midnight, because #021861 across a whole page reads as
-     royal blue and swallows the cobalt, gold and red laid on it. Gold from the moon and stars, cobalt for the
-     lines that join things, bright red for heat (hover, focus, "latest", press). Cobalt is never small text on
-     navy. */
+  /* Night: the sky over Saint-Remy in Prussian moonlight (the owner's pick, 2026-10-26). The rooms are a quiet
+     blue-black, the sky's wash runs from it up through Prussian blues (lib/wash.ts), and the light is a pale moon
+     gold. Cobalt for the lines that join things, bright red for heat (hover, focus, "latest", press). Cobalt is
+     never small text at night. */
   --cobalt: #255dce;
   --red: #de1110;
-  --bg: #061033;
-  --bg-alt: #08153c;
-  --surface: #0d1d4c;
-  --line: #1f346b;
-  --frame: #c9a227;
-  --text: #f6efd8;
-  --muted: #b9c6e8;
-  --gold: #f2c14e;
-  --gold-bright: #ffe08a;
+  --bg: #021425;
+  --bg-alt: #03192d;
+  --surface: #06233c;
+  --line: #1c3d5b;
+  --frame: #d3ab4e;
+  --text: #e6eef4;
+  --muted: #acc4da;
+  --gold: #f3d27e;
+  --gold-bright: #fcebb6;
   /* Gold for marks, focus rings and large text: 3:1 or more on every ground. Small text uses --gold-text. */
-  --gold-mark: #f2c14e;
-  --gold-text: #ffe08a;
+  --gold-mark: #f3d27e;
+  --gold-text: #fcebb6;
   --gold-ink: #1b1403;
-  --link: #ffd86b;
+  --link: #f8df9c;
   --sky: #255dce;
-  --sky-text: #9dbcf7;
+  --sky-text: #9ec5f1;
   --crimson: #de1110;
   --badge: #de1110;
   --tok-tag: #ff7a72;
-  --glass: rgba(6, 16, 51, 0.82);
-  --scrim: rgba(6, 16, 51, 0.88);
+  --glass: rgba(2, 20, 37, 0.82);
+  --scrim: rgba(2, 20, 37, 0.88);
   --shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
-  --halo: rgba(255, 216, 107, 0.45);
-  /* Polya is made of hairlines. The stroke gives them weight, the bloom lights the hero title. */
+  --halo: rgba(255, 242, 205, 0.34);
+  /* Polya is made of hairlines. The stroke gives them weight. */
   --ink-stroke: max(0.4px, 0.011em);
   --ink-shadow: 0 0 1px currentColor;
-  --ink-bloom: rgba(255, 210, 100, 0.24);
+  /* The gold leaf of the portrait's arched frame and the sign-off's small one. */
+  --frame-leaf: linear-gradient(160deg, #fff1c8, #d9b255 52%, #6c5019);
   /* The painted sky: star dabs (core outward) and the five strokes of the swirl. */
-  --ps-core: #fff8d6;
-  --ps-a: #ffd23f;
-  --ps-b: #ffeaa0;
-  --ps-c: #d8ecc4;
-  --ps-d: #8fc1f2;
-  --ps-glow: rgba(255, 214, 102, 0.4);
-  --sw-1: rgba(126, 176, 240, 0.72);
-  --sw-2: rgba(240, 236, 214, 0.62);
-  --sw-3: rgba(37, 93, 206, 0.82);
-  --sw-4: rgba(255, 212, 102, 0.62);
-  --sw-5: rgba(178, 214, 246, 0.6);
-  /* Light that follows the pointer over a framed card, and the pencil hatching inside a pressed notch. */
-  --moonlight: rgba(255, 216, 107, 0.1);
-  --hatch: rgba(242, 193, 78, 0.34);
+  --ps-core: #fffcee;
+  --ps-a: #f3d572;
+  --ps-b: #faeab8;
+  --ps-c: #d4e6dc;
+  --ps-d: #8fbce9;
+  --ps-glow: rgba(255, 248, 228, 0.3);
+  --sw-1: rgba(82, 137, 198, 0.74);
+  --sw-2: rgba(236, 240, 240, 0.6);
+  --sw-3: rgba(33, 93, 165, 0.85);
+  --sw-4: rgba(243, 214, 130, 0.55);
+  --sw-5: rgba(161, 201, 240, 0.6);
+  /* Light that follows the pointer over a framed card. */
+  --moonlight: rgba(250, 236, 190, 0.08);
+  /* The light a button holds under the pointer, and the brand's four-point star (the header mark's) as a mask. By
+     night it is moonlight in the sky's own blue, since a cream glow on Prussian blue would read as grey. */
+  --btn-light: rgba(158, 197, 241, 0.17);
+  --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z'/%3E%3C/svg%3E");
   --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
   color-scheme: dark;
 }
@@ -117,7 +120,7 @@
   --halo: rgba(224, 169, 46, 0.35);
   --ink-stroke: max(0.45px, 0.012em);
   --ink-shadow: none;
-  --ink-bloom: transparent;
+  --frame-leaf: linear-gradient(160deg, #ffe9a3, #d9962b 52%, #7a4e08);
   --ps-core: #fff6d0;
   --ps-a: #e8a919;
   --ps-b: #f2c14e;
@@ -130,7 +133,7 @@
   --sw-4: rgba(224, 169, 46, 0.75);
   --sw-5: rgba(111, 155, 224, 0.7);
   --moonlight: rgba(224, 169, 46, 0.14);
-  --hatch: rgba(31, 63, 150, 0.2);
+  --btn-light: rgba(224, 169, 46, 0.26);
   color-scheme: light;
 }
 
@@ -323,17 +326,68 @@ h2 {
   min-height: var(--header-h);
 }
 
+/* On the home page the header rests clear on the painted sky: the hero starts at the top edge, so the painting runs
+   up under the bar, and the glass and its hairline are a layer of their own that forms as the page scrolls, whole by
+   the time the hero's first words reach the bar. Without scroll timelines, with reduced motion (which strips the
+   animation) or with the menu open, the glass simply stays. */
+body:has(.hero) .site-header {
+  margin-bottom: calc(-1 * var(--header-h));
+  border-bottom: 0;
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body:has(.hero) .site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -1px;
+  z-index: -1;
+  border-bottom: 1px solid var(--line);
+  background: var(--glass);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  backdrop-filter: saturate(160%) blur(12px);
+}
+
+@supports (animation-timeline: scroll()) {
+  body:has(.hero) .site-header:not(.nav-open)::before {
+    animation: glass-forms linear both;
+  }
+
+  /* A rule of its own: the build's minifier would fold animation-timeline into the shorthand above, where browsers
+     reject it (it is reset-only there) and the glass would never form. */
+  :root body:has(.hero) .site-header:not(.nav-open)::before {
+    animation-timeline: scroll(root);
+    animation-range: 0 clamp(40px, 7vw, 88px);
+  }
+}
+
+@keyframes glass-forms {
+  from {
+    opacity: 0;
+  }
+}
+
+/* With the phone menu open, bar and list are one solid panel. */
+body:has(.hero) .site-header.nav-open::before {
+  background: var(--bg);
+}
+
+/* The name is a link home, so it gets the 44px target of every standalone link. */
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px;
   color: var(--text);
   font: 400 1.1rem/1.15 var(--font-display);
   letter-spacing: 0.02em;
   text-decoration: none;
 }
 
+/* The mark keeps its size where the links wrap beside it (without the script). */
 .brand__mark {
+  flex: none;
   transition: transform 0.5s var(--ease);
 }
 
@@ -341,13 +395,40 @@ h2 {
   transform: rotate(-14deg);
 }
 
-/* By day the mark's moon gold would fade into the paper. */
+/* The mark's moon and star in the theme's golds (by day the moon deepens, or it would fade into the paper). Its star
+   catches the light once as the hero's sky finishes painting, and turns again on a hover: once, not on a loop, so
+   nothing moves beside the words while they are read. */
+.brand__mark path:first-child {
+  fill: var(--gold);
+}
+
+.brand__mark path:last-child {
+  fill: var(--gold-bright);
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform 0.6s var(--ease);
+}
+
+body:has(.hero) .brand__mark path:last-child {
+  animation: mark-glint 1.2s var(--ease) 3.2s;
+}
+
+.brand:hover .brand__mark path:last-child {
+  transform: scale(1.3) rotate(90deg);
+}
+
 :root[data-theme="light"] .brand__mark path:first-child {
   fill: var(--gold-mark);
 }
 
-:root[data-theme="light"] .brand__mark path:last-child {
-  fill: var(--gold-bright);
+@keyframes mark-glint {
+  45% {
+    transform: scale(1.6) rotate(45deg);
+  }
+
+  to {
+    transform: scale(1) rotate(90deg);
+  }
 }
 
 .site-nav {
@@ -360,21 +441,58 @@ h2 {
   gap: 4px;
 }
 
+/* The links are words, not pills. The section being read is lit, as the One Light Rule has it: its name turns gold,
+   its stretch of the bar's bottom line lights from the middle, and the mark's four-point star turns a quarter and
+   grows in on that line. Colours snap (blue to gold would pass through grey); the motion is the star and the line. */
 .site-nav a {
+  position: relative;
   display: block;
   padding: 8px 14px;
-  border-radius: 999px;
   color: var(--muted);
   font-size: 0.95rem;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.2s, background 0.2s;
 }
 
-.site-nav a:hover,
-.site-nav a[aria-current] {
+.site-nav a:hover {
   color: var(--text);
-  background: var(--surface);
+}
+
+.site-nav a[aria-current] {
+  color: var(--gold-text);
+}
+
+.site-nav a::before,
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  top: calc(50% + var(--header-h) / 2);
+  background: var(--gold-mark);
+  opacity: 0;
+  transition: opacity 0.4s, transform 0.6s var(--ease);
+}
+
+.site-nav a::before {
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  transform: scaleX(0);
+}
+
+.site-nav a::after {
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  margin: -6px 0 0 -6.5px;
+  -webkit-mask: var(--star) center / contain no-repeat;
+  mask: var(--star) center / contain no-repeat;
+  transform: scale(0.4) rotate(-90deg);
+}
+
+.site-nav a[aria-current]::before,
+.site-nav a[aria-current]::after {
+  opacity: 1;
+  transform: none;
 }
 
 .site-header__tools {
@@ -439,6 +557,10 @@ h2 {
 }
 
 /* ---------- Buttons ---------- */
+/* One family, cut from the same gold. The notch is the action: a ring of beaten gold broken by two gaps that slide
+   to the other corners. The plaque is the other: a plate in a frame-gold hairline, like the portrait's. The small
+   plaques (role pills, the Code section's tools) and the round icon buttons light the same way. Every word on them
+   is set in the one label type, hover lights the line and moves nothing, and a press squeezes the button. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -446,41 +568,81 @@ h2 {
   gap: 10px;
   max-width: 100%;
   min-height: 48px;
-  padding: 12px 24px;
-  border: 1px solid transparent;
-  border-radius: 999px;
+  padding: 13px 26px;
+  border: 0;
+  border-radius: 0;
   background: none;
   color: var(--text);
-  font: 600 0.98rem var(--font-body);
-  line-height: 1.2;
+  font: 600 0.84rem/1.35 var(--font-body);
+  letter-spacing: 0.16em;
+  text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: transform 0.2s var(--ease), border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s var(--ease), color 0.3s ease-out, border-color 0.3s ease-out, box-shadow 0.3s ease-out, --btn-lit 0.45s ease-out;
+  /* A pool of light follows the pointer across the plate, as on the story cards (moonlight.ts sets --mx and --my),
+     and a tap lights the plate where the finger is. --btn-lit fades it in and out. */
+  --btn-pool: radial-gradient(110px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--btn-light) calc(var(--btn-lit) * 100%), transparent), transparent 70%);
 }
 
-.btn:hover {
-  transform: translateY(-2px);
+/* The press answers a tap, where hover does not exist: one squeeze for every button. A disabled one stays put. */
+.btn:not(:disabled):active {
+  transform: scale(0.97);
 }
 
-.btn--primary {
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
-  color: var(--gold-ink);
-  box-shadow: 0 10px 28px -12px var(--gold);
+@property --btn-lit {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
 }
 
-:root[data-theme="light"] .btn--primary {
-  background: var(--link);
-  color: #fff;
-  box-shadow: 0 10px 28px -14px var(--link);
+.btn:not(:disabled):is(:focus-visible, :active) {
+  --btn-lit: 1;
 }
 
-.btn--ghost {
-  border-color: var(--line);
-  background: var(--surface);
+@media (hover: hover) {
+  .btn:not(:disabled):hover {
+    --btn-lit: 1;
+  }
 }
 
-.btn--ghost:hover {
-  border-color: var(--gold);
+/* The arrow says where a button goes: it turns down for a jump within the page and leans forward for everything
+   else. Skipped for people who ask for less movement. */
+.btn .btn__icon--arrow-right,
+.btn .btn__icon--arrow-up-right {
+  transition: transform 0.35s var(--ease);
+}
+
+.btn[href^="#"] .btn__icon {
+  transition: transform 0.4s linear;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn[href^="#"]:is(:focus-visible, :active) .btn__icon {
+    transform: rotate(90deg);
+  }
+
+  .btn:not([href^="#"]):is(:focus-visible, :active) .btn__icon--arrow-right {
+    transform: translateX(5px);
+  }
+
+  .btn:is(:focus-visible, :active) .btn__icon--arrow-up-right {
+    transform: translate(3px, -3px);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .btn[href^="#"]:hover .btn__icon {
+    transform: rotate(90deg);
+  }
+
+  .btn:not([href^="#"]):not(:disabled):hover .btn__icon--arrow-right {
+    transform: translateX(5px);
+  }
+
+  .btn:hover .btn__icon--arrow-up-right {
+    transform: translate(3px, -3px);
+  }
 }
 
 .btn__label {
@@ -493,51 +655,68 @@ h2 {
   flex: none;
 }
 
-/* Notch: the signature button. A bordered box whose border is broken by two gaps, top-left
-   and bottom-right. On hover or focus the gaps slide to the opposite ends, the border turns
-   crimson and the arrow turns a quarter. The ring is a pseudo-element clipped by a polygon,
-   so the gaps are real holes and the page behind shows through them. */
+/* The plaque: the other action, a plate in a frame-gold hairline. Lit, its line doubles. */
+.btn--ghost {
+  position: relative;
+  padding: 13px 22px;
+  border: 1px solid var(--frame);
+  border-radius: 4px;
+  background: var(--btn-pool) var(--bg);
+}
+
+.btn--ghost:not(:disabled):is(:focus-visible, :active) {
+  border-color: var(--gold-mark);
+  box-shadow: inset 0 0 0 1px var(--gold-mark);
+}
+
+@media (hover: hover) {
+  .btn--ghost:not(:disabled):hover {
+    border-color: var(--gold-mark);
+    box-shadow: inset 0 0 0 1px var(--gold-mark);
+  }
+}
+
+/* Notch: the signature button. A ring of gold leaf built from the gold tokens, broken by two gaps, top-left and
+   bottom-right, that slide to the opposite corners on hover or focus while the arrow turns a quarter or leans. A
+   glint with a fainter echo runs the ring as the button arrives (the hero's as the page settles) and again whenever it
+   is pointed at or focused, like light moving over beaten leaf, and the label catches it. Gold only. The ring is a
+   pseudo-element clipped by a polygon, so the gaps are real holes and the page shows through them. By day the notch
+   holds a pale gold tint, cut by the same gaps, so it stands off the cream. */
 .btn--notch {
   --bw: 3px;
   --nd: 8px;
   --nw: 20%;
-  --btn-line: var(--gold);
-  --btn-hot: var(--crimson);
   --btn-ring: var(--gold-bright);
+  --glint-at: 0.5s;
+  --notch-leaf-hi: color-mix(in oklab, var(--gold-bright) 62%, #fff);
+  --notch-leaf: var(--gold);
+  --notch-leaf-lo: color-mix(in oklab, var(--frame) 78%, #000);
+  --notch-shine: color-mix(in oklab, var(--gold-bright) 14%, #fff);
+  --notch-paint: linear-gradient(115deg, var(--notch-leaf-hi), var(--notch-leaf) 18%, var(--notch-leaf-lo) 44%, var(--notch-leaf) 62%, var(--notch-leaf-hi) 80%, var(--notch-leaf));
   /* Twelve points: the box outline with a notch cut into the top edge and one into the bottom.
      Both shapes keep the same point order, so the clip-path transition slides the notches. */
   --cut-rest: polygon(0 0, 0 0, 0 var(--nd), var(--nw) var(--nd), var(--nw) 0, 100% 0, 100% 100%, 100% 100%, 100% calc(100% - var(--nd)), calc(100% - var(--nw)) calc(100% - var(--nd)), calc(100% - var(--nw)) 100%, 0 100%);
   --cut-hot: polygon(0 0, calc(100% - var(--nw)) 0, calc(100% - var(--nw)) var(--nd), 100% var(--nd), 100% 0, 100% 0, 100% 100%, var(--nw) 100%, var(--nw) calc(100% - var(--nd)), 0 calc(100% - var(--nd)), 0 100%, 0 100%);
   position: relative;
+  isolation: isolate;
   min-width: 200px;
   padding: 13px 28px;
-  border: 0;
-  border-radius: 0;
-  color: var(--text);
-  font: 600 0.84rem/1.35 var(--font-body);
-  letter-spacing: 0.16em;
-  text-align: center;
-  text-transform: uppercase;
-  transition: transform 0.15s ease-out;
+  transition: transform 0.2s var(--ease), color 0.3s ease-out, --btn-lit 0.45s ease-out;
 }
 
 :root[data-theme="light"] .btn--notch {
-  --btn-line: var(--link);
-  --btn-ring: var(--link);
+  --notch-leaf-hi: var(--gold);
+  --notch-leaf: var(--gold-bright);
+  --notch-leaf-lo: var(--gold-mark);
+  --notch-shine: color-mix(in oklab, var(--gold) 45%, #fff);
+  --notch-tint: 12%;
+  --btn-ring: var(--gold-mark);
 }
 
-.btn--notch::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: var(--bw) solid var(--btn-line);
-  clip-path: var(--cut-rest);
-  pointer-events: none;
-  transition: clip-path 0.35s ease-out, border-color 0.4s ease-in;
-}
-
-.btn--notch:hover {
-  transform: none;
+/* Pressed, the leaf darkens into its shadow: a colour cut. */
+.btn--notch:active {
+  --notch-leaf-hi: var(--notch-leaf);
+  --notch-leaf-lo: color-mix(in oklab, var(--notch-leaf) 50%, #000);
 }
 
 @media (max-width: 480px) {
@@ -547,109 +726,143 @@ h2 {
   }
 }
 
+/* The ring: the leaf painted in the border's place, cut to a ring by a mask, and clipped by the gaps. The light is a
+   background-position animation on the ring's gradient layers, which repaints where an animated custom property in
+   a gradient would not. */
+.btn--notch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: var(--bw);
+  background:
+    linear-gradient(100deg, transparent 28%, color-mix(in srgb, var(--notch-shine) 45%, transparent) 48.6%, var(--notch-shine) 50%, transparent 53%) 100% 0 / 300% 100% no-repeat,
+    var(--notch-paint);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  clip-path: var(--cut-rest);
+  pointer-events: none;
+  transition: clip-path 0.35s ease-out;
+}
+
+/* Under the ring, the plate: the pool of light, and by day a pale gold tint. It is cut by the same two gaps, so each
+   gap stays a hole in the button and never a patch of light. */
+.btn--notch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-pool);
+  clip-path: var(--cut-rest);
+  pointer-events: none;
+  transition: clip-path 0.35s ease-out;
+}
+
+:root[data-theme="light"] .btn--notch::after {
+  background: var(--btn-pool) color-mix(in srgb, var(--gold) var(--notch-tint), transparent);
+  transition: clip-path 0.35s ease-out, background-color 0.3s ease-out;
+}
+
 .btn--notch:focus-visible {
   outline: 2px solid var(--btn-ring);
   outline-offset: 5px;
   border-radius: 0;
 }
 
-/* Colour changes: pointer hover, keyboard focus and press. Touch skips hover, so the resting
-   state has to look finished on its own. */
-.btn--notch:focus-visible::before,
-.btn--notch:active::before {
-  border-color: var(--btn-hot);
+.btn--notch:is(:focus-visible, :active) {
+  color: var(--gold-text);
+}
+
+:root[data-theme="light"] .btn--notch:is(:focus-visible, :active) {
+  --notch-tint: 24%;
+}
+
+@media (hover: hover) {
+  .btn--notch:hover {
+    color: var(--gold-text);
+  }
+
+  :root[data-theme="light"] .btn--notch:hover {
+    --notch-tint: 24%;
+  }
+}
+
+/* The light: a comet on a layer three boxes wide, waiting off the left edge at 100% and gone past the right at 0%.
+   It runs once as the button arrives, then again on hover or focus under a second name, so pointing at the button
+   does not replay the first. Where a button is not revealed on arrival, only the second runs. */
+@keyframes notch-glint {
+  from {
+    background-position: 100% 0, 0 0;
+  }
+
+  to {
+    background-position: 0 0, 0 0;
+  }
+}
+
+@keyframes notch-glint-again {
+  from {
+    background-position: 100% 0, 0 0;
+  }
+
+  to {
+    background-position: 0 0, 0 0;
+  }
+}
+
+.hero__cta .btn--notch {
+  --glint-at: 2.4s;
+}
+
+:is(.reveal.in, .hero__cta) .btn--notch::before {
+  animation: notch-glint 1.4s var(--ease-draw) var(--glint-at) both;
+}
+
+.btn--notch:focus-visible::before {
+  animation: notch-glint-again 1.1s var(--ease-draw) both;
+}
+
+:is(.reveal.in, .hero__cta) .btn--notch:focus-visible::before {
+  animation: notch-glint 1.4s var(--ease-draw) var(--glint-at) both, notch-glint-again 1.1s var(--ease-draw) both;
 }
 
 @media (hover: hover) {
   .btn--notch:hover::before {
-    border-color: var(--btn-hot);
+    animation: notch-glint-again 1.1s var(--ease-draw) both;
+  }
+
+  :is(.reveal.in, .hero__cta) .btn--notch:hover::before {
+    animation: notch-glint 1.4s var(--ease-draw) var(--glint-at) both, notch-glint-again 1.1s var(--ease-draw) both;
   }
 }
 
-/* Hatching: on hover or focus the box is shaded in with pencil lines, left to right, the way a
-   sketch gets its shadow. It sits under the label, inside the ring. */
-.btn--notch {
-  isolation: isolate;
-}
-
-.btn--notch::after {
-  content: "";
-  position: absolute;
-  inset: calc(var(--bw) + 3px);
-  z-index: -1;
-  background: repeating-linear-gradient(-45deg, var(--hatch) 0 1px, transparent 1px 6px);
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.45s var(--ease-draw);
-  pointer-events: none;
-}
-
-.btn--notch:focus-visible::after,
-.btn--notch:active::after {
-  clip-path: inset(0);
-}
-
-@media (hover: hover) {
-  .btn--notch:hover::after {
-    clip-path: inset(0);
-  }
-}
-
-/* Movement: skipped for people who ask for less of it. The arrow says where the button goes:
-   it turns down for a jump within the page and leans forward for everything else. */
+/* Movement: skipped for people who ask for less of it. The gaps slide to the other corners. */
 @media (prefers-reduced-motion: no-preference) {
-  .btn--notch:focus-visible::before,
-  .btn--notch:active::before {
+  .btn--notch:is(:focus-visible, :active)::before,
+  .btn--notch:is(:focus-visible, :active)::after {
     clip-path: var(--cut-hot);
-  }
-
-  .btn--notch[href^="#"]:focus-visible .btn__icon,
-  .btn--notch[href^="#"]:active .btn__icon {
-    transform: rotate(90deg);
-  }
-
-  .btn--notch:not([href^="#"]):focus-visible .btn__icon--arrow-right,
-  .btn--notch:not([href^="#"]):active .btn__icon--arrow-right {
-    transform: translateX(5px);
-  }
-
-  .btn--notch:focus-visible .btn__icon--arrow-up-right,
-  .btn--notch:active .btn__icon--arrow-up-right {
-    transform: translate(3px, -3px);
-  }
-
-  .btn--notch:active {
-    transform: scale(0.97);
   }
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .btn--notch:hover::before {
+  .btn--notch:hover::before,
+  .btn--notch:hover::after {
     clip-path: var(--cut-hot);
   }
+}
 
-  .btn--notch[href^="#"]:hover .btn__icon {
-    transform: rotate(90deg);
-  }
-
-  .btn--notch:not([href^="#"]):hover .btn__icon--arrow-right {
-    transform: translateX(5px);
-  }
-
-  .btn--notch:hover .btn__icon--arrow-up-right {
-    transform: translate(3px, -3px);
+/* Forced colours drop gradient paint, so the ring falls back to a plain line. */
+@media (forced-colors: active) {
+  .btn--notch::before {
+    padding: 0;
+    border: var(--bw) solid LinkText;
+    background: none;
+    -webkit-mask: none;
+    mask: none;
   }
 }
 
-.btn--notch .btn__icon--arrow-right,
-.btn--notch .btn__icon--arrow-up-right {
-  transition: transform 0.35s var(--ease);
-}
-
-.btn--notch[href^="#"] .btn__icon {
-  transition: transform 0.4s linear;
-}
-
-/* Copy email: the copy icon turns into a check that is drawn in, and the ring warms to gold. */
+/* Copy email: the copy icon turns into a check that is drawn in, and the plaque lights. */
 .copy-icon {
   position: relative;
   display: grid;
@@ -669,7 +882,8 @@ h2 {
 }
 
 .btn--copy.is-copied {
-  border-color: var(--gold);
+  border-color: var(--gold-mark);
+  box-shadow: inset 0 0 0 1px var(--gold-mark);
   color: var(--gold-text);
 }
 
@@ -684,6 +898,42 @@ h2 {
   stroke-dashoffset: 0;
 }
 
+/* Copied, a star is born beside the check: it flares once and goes, like a star added to the sky. */
+.copy-icon::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: -8px;
+  width: 11px;
+  height: 11px;
+  background: var(--gold-mark);
+  -webkit-mask: var(--star) center / contain no-repeat;
+  mask: var(--star) center / contain no-repeat;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-copied .copy-icon::after {
+  animation: copied-star 0.9s var(--ease) 0.15s both;
+}
+
+@keyframes copied-star {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(-45deg);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1.15) rotate(10deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.6) rotate(45deg);
+  }
+}
+
 /* The small Copy beside a written-out address: a text button, still a full-size target. */
 .copy-link {
   display: inline-flex;
@@ -696,11 +946,18 @@ h2 {
   color: var(--link);
   font: 600 0.92rem var(--font-body);
   cursor: pointer;
+  transition: color 0.2s, opacity 0.2s;
 }
 
-.copy-link:hover [data-copy-label] {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+@media (hover: hover) {
+  .copy-link:hover [data-copy-label] {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.copy-link:active {
+  opacity: 0.7;
 }
 
 .copy-link.is-copied {
@@ -730,13 +987,34 @@ h2 {
   background: var(--surface);
   color: var(--text);
   cursor: pointer;
-  transition: transform 0.2s var(--ease), border-color 0.2s, color 0.2s;
+  transition: transform 0.2s var(--ease), border-color 0.3s ease-out, box-shadow 0.3s ease-out, color 0.3s ease-out;
 }
 
-.icon-btn:hover {
-  transform: translateY(-2px);
-  border-color: var(--gold);
+@media (hover: hover) {
+  .icon-btn:hover {
+    border-color: var(--gold-mark);
+    box-shadow: inset 0 0 0 1px var(--gold-mark);
+    color: var(--gold-text);
+  }
+}
+
+.icon-btn:active {
+  transform: scale(0.97);
+  border-color: var(--gold-mark);
+  box-shadow: inset 0 0 0 1px var(--gold-mark);
   color: var(--gold-text);
+}
+
+/* The press answers a tap, so the browser's own flash over a tapped button is switched off. */
+.btn,
+.icon-btn,
+.copy-link,
+.scroll-cue,
+.skill-sky__role,
+.repo-view__file,
+.experiment__tool,
+.case__toggle {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .social {
@@ -755,15 +1033,25 @@ h2 {
   background: var(--bg);
 }
 
+/* Under the clear header the hero starts at the top edge; its content and its sky keep their places. */
+body:has(.hero) .hero {
+  min-height: 100svh;
+  padding-top: var(--header-h);
+}
+
+body:has(.hero) .hero > .sky {
+  top: var(--header-h);
+}
+
 /* The painting, shrunk to a thumbnail and stretched back: its swirls of light and dark for free. Each theme
-   has its own thumbnail with the painting's light mapped onto one ramp (midnight navy to cobalt by night,
-   cream to gold by day; tools/wash.mjs), because in full color the blur smeared its yellows into its blues as
-   olive and mauve. The painted strokes above carry the painting's other colors, side by side, never mixed. */
+   has its own thumbnail with the painting's light mapped onto one ramp (Prussian blues by night, cream to gold by
+   day; lib/wash.ts), because in full color the blur smeared its yellows into its blues as olive and mauve. The
+   painted strokes above carry the painting's other colors, side by side, never mixed. */
 .hero__wash {
   position: absolute;
   inset: -6%;
   z-index: -3;
-  background: var(--wash, none) center / cover no-repeat, linear-gradient(160deg, #1b3a82, #021861);
+  background: var(--wash, none) center / cover no-repeat, linear-gradient(160deg, #063d6b, #021425);
   /* The blur melts the pixel grid of the stretched thumbnail, which shows on tall tablet screens. */
   filter: blur(12px);
 }
@@ -776,6 +1064,14 @@ h2 {
   background:
     linear-gradient(90deg, var(--scrim) 0%, transparent 62%),
     linear-gradient(180deg, transparent 60%, var(--bg) 100%);
+}
+
+/* By night the sky deepens everywhere but round the moon, so the moon and the swirl lead. */
+:root:not([data-theme="light"]) .hero::after {
+  background:
+    radial-gradient(circle at 90% 17%, transparent 0 8%, color-mix(in oklab, var(--bg) 52%, transparent) 32%, color-mix(in oklab, var(--bg) 80%, transparent) 72%),
+    linear-gradient(90deg, var(--scrim) 0%, transparent 62%),
+    linear-gradient(180deg, transparent 55%, var(--bg) 100%);
 }
 
 .sky {
@@ -871,6 +1167,42 @@ h2 {
 :root[data-theme="light"] .stars,
 :root[data-theme="light"] .stars::after {
   opacity: 0.35;
+}
+
+/* The hero's sky is calmer: eight dots, each a whole dab of light that breathes within its own hue. */
+.hero .stars {
+  --dot: var(--ps-core);
+  box-shadow:
+    3vw 34vh 0 0.6px var(--dot),
+    92vw 38vh 0 0.8px var(--dot),
+    6vw 79vh 0 0.6px var(--dot),
+    41vw 94vh 0 0.8px var(--dot),
+    88vw 95vh 0 0.6px var(--dot);
+  animation: dot-breathe 5.2s ease-in-out infinite alternate;
+}
+
+.hero .stars::after {
+  box-shadow:
+    45vw 9vh 0 0 var(--dot),
+    9vw 51vh 0 0 var(--dot),
+    97vw 66vh 0 0 var(--dot);
+  animation: dot-breathe 7.4s ease-in-out -2.5s infinite alternate;
+}
+
+:root[data-theme="light"] .hero .stars,
+:root[data-theme="light"] .hero .stars::after {
+  --dot: var(--gold-mark);
+  opacity: 1;
+}
+
+@keyframes dot-breathe {
+  from {
+    opacity: 0.62;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ---------- The painted sky ---------- */
@@ -992,9 +1324,9 @@ h2 {
   top: 50%;
   width: 100%;
   --in: 1500ms;
-  --ps-a: #ffb948;
-  --ps-b: #f2a03a;
-  --ps-c: #ffd86b;
+  --ps-a: #f0cf72;
+  --ps-b: #e6c066;
+  --ps-c: #fbe7a8;
 }
 
 .moon .pstar__band--1 {
@@ -1019,6 +1351,125 @@ h2 {
   --ps-c: #f2c14e;
 }
 
+/* The hero's moon is larger and wears a halo of its own: two rings of dabs (lib/moon-halo.ts), each turning at its
+   own pace, the close one in the moon's gold and the wider one in its paler light. It sits low enough that the whole
+   halo shows, and its lower edge tucks behind the portrait's arch. */
+.hero .moon {
+  top: 7%;
+  right: 4%;
+  width: clamp(140px, 11vw, 190px);
+  --ring-1: var(--gold);
+  --ring-2: var(--ps-b);
+  --ring-3: var(--ps-d);
+}
+
+:root[data-theme="light"] .hero .moon {
+  --ring-1: var(--ps-a);
+}
+
+/* Under about 1250px the portrait's arch reaches the moon and covers more than its lower edge, and it hides the star
+   at the right edge altogether, so the sky leaves both out until the screen has room beside the portrait. */
+@media (min-width: 961px) and (max-width: 1249px) {
+  .hero .moon,
+  .hero .pstar--d {
+    display: none;
+  }
+}
+
+.moon__halo {
+  position: absolute;
+  inset: -25%;
+}
+
+.moon__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: turn var(--turn) linear infinite;
+}
+
+.moon__ring--1 {
+  --turn: 130s;
+  animation-direction: reverse;
+}
+
+.moon__ring--2 {
+  --turn: 170s;
+}
+
+/* Two small painted stars where the words and the portrait leave sky: one above the words at the left, one beside the
+   portrait. Their outermost ring is left out, so each stays smaller than star b. */
+.pstar--c,
+.pstar--d {
+  --s: 34px;
+}
+
+.pstar--c .pstar__band--4,
+.pstar--d .pstar__band--4 {
+  display: none;
+}
+
+.pstar--c {
+  left: 4%;
+  top: 7%;
+  --s: 46px;
+  --in: 1650ms;
+}
+
+.pstar--d {
+  left: 95.4%;
+  top: 54%;
+  --s: 40px;
+  --in: 1800ms;
+}
+
+/* The painting's own soft yellow light (the owner's "blurry night", 2026-10-26), behind the hero's moon and each
+   painted star: each glow is the profile of how the painting's yellow thins out round its moon and its stars,
+   measured once from src/originals/sky.jpg. By night the gold meets the blue on a pit of the ground the same shape,
+   never on the pale blue the wash turns round a bright star, and its edge is the painting's own, short, so the two
+   colours stay two colours. By day it is plain gold on cream. Each glow spreads out from its star as the star is
+   painted in (Motion, below). */
+.hero .sky {
+  --glow: color-mix(in oklab, var(--gold) 55%, #ee8a1c);
+  --pit: var(--bg);
+  --glow-k: 0.5;
+  --pit-k: 0.5;
+  --reach: 100%;
+}
+
+:root[data-theme="light"] .hero .sky {
+  --glow: var(--gold);
+  --pit: transparent;
+}
+
+.hero .moon .pstar {
+  --reach: 50%;
+  --glow-k: 0.64;
+}
+
+.hero .moon .pstar::before {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--reach));
+  background:
+    radial-gradient(closest-side, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 97%), transparent) 0%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 95%), transparent) 8.3%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 93%), transparent) 16.7%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 92%), transparent) 25%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 91%), transparent) 33.3%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 91%), transparent) 41.7%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 91%), transparent) 50%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 82%), transparent) 58.3%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 61%), transparent) 66.7%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 37%), transparent) 75%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 19%), transparent) 83.3%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 11%), transparent) 91.7%, transparent 100%),
+    radial-gradient(closest-side, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 97%), transparent) 0%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 95%), transparent) 8.3%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 93%), transparent) 16.7%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 92%), transparent) 25%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 91%), transparent) 33.3%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 91%), transparent) 41.7%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 91%), transparent) 50%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 82%), transparent) 58.3%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 61%), transparent) 66.7%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 37%), transparent) 75%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 19%), transparent) 83.3%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 11%), transparent) 91.7%, transparent 100%);
+}
+
+.hero .swirl .pstar::before,
+.hero .pstar--b::before,
+.hero .pstar--c::before,
+.hero .pstar--d::before {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--reach));
+  background:
+    radial-gradient(closest-side, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 73%), transparent) 0%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 73%), transparent) 16.7%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 66%), transparent) 25%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 52%), transparent) 33.3%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 38%), transparent) 41.7%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 26%), transparent) 50%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 16%), transparent) 58.3%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 9%), transparent) 66.7%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 4%), transparent) 75%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 2%), transparent) 83.3%, color-mix(in srgb, var(--glow) calc(var(--glow-k) * 1%), transparent) 91.7%, transparent 100%),
+    radial-gradient(closest-side, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 73%), transparent) 0%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 73%), transparent) 16.7%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 66%), transparent) 25%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 52%), transparent) 33.3%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 38%), transparent) 41.7%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 26%), transparent) 50%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 16%), transparent) 58.3%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 9%), transparent) 66.7%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 4%), transparent) 75%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 2%), transparent) 83.3%, color-mix(in srgb, var(--pit) calc(var(--pit-k) * 1%), transparent) 91.7%, transparent 100%);
+}
+
 /* Every sky loop rests while its room is off screen (the script sets data-sky-off). */
 [data-sky-off] .sky *,
 [data-sky-off] .sky *::after {
@@ -1038,7 +1489,7 @@ h2 {
   transition: opacity 1.6s ease;
   --c-star: var(--gold-bright);
   --c-glow: var(--gold);
-  --c-line: #cfe2ff;
+  --c-line: #98beea;
   --c-line-a: 0.3;
 }
 
@@ -1053,6 +1504,21 @@ h2 {
   --c-line-a: 0.34;
 }
 
+/* In the hero the constellation is a faint thread round the swirl and the moon: thinner lines, gathered by the script
+   in an ellipse (--c-f*: its center and radii as shares of the canvas) that leaves the lower sky and the words alone. A
+   star a visitor adds ignores it. */
+.hero .sky__canvas {
+  --c-line-a: 0.15;
+  --c-fx: 0.66;
+  --c-fy: 0.15;
+  --c-frx: 0.66;
+  --c-fry: 0.52;
+}
+
+:root[data-theme="light"] .hero .sky__canvas {
+  --c-line-a: 0.2;
+}
+
 .hero__inner {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
@@ -1061,41 +1527,132 @@ h2 {
   padding: clamp(40px, 7vw, 88px) 0 clamp(72px, 10vw, 120px);
 }
 
+/* The name sits higher the shorter the screen, and the swirl's river runs above it. So on a short screen the row
+   starts a little lower, by up to 24px, which it gives back below, and the swirl is drawn smaller and nearer the top
+   (.swirl--hero), so the river never reaches the letters. */
+@media (min-width: 961px) {
+  .hero__inner {
+    --lift: clamp(0px, calc((960px - 100svh) * 0.3), 24px);
+    padding-top: calc(clamp(40px, 7vw, 88px) + var(--lift));
+    padding-bottom: calc(clamp(72px, 10vw, 120px) - var(--lift));
+  }
+}
+
+/* The greeting is said quietly, in the muted ink, so the gold name is the brightest thing in the copy. */
 .hero__title {
   position: relative;
   isolation: isolate;
   margin-bottom: 22px;
+  color: var(--muted);
   font-size: clamp(2.1rem, 4.7vw, 3.7rem);
   line-height: 1.08;
   letter-spacing: 0.015em;
 }
 
-/* Hairlines carry no light of their own, so a text-shadow glow never shows. This bloom sits behind the title instead. */
+/* A pool of the ground itself behind the title (navy by night, cream by day): one hue, so nothing mixes, and it clears
+   the constellation's lines from behind the letters so the name reads at once. */
 .hero__title::before {
   content: "";
   position: absolute;
   inset: -0.5em -0.9em;
   z-index: -1;
-  background: radial-gradient(closest-side, var(--ink-bloom), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--bg) 78%, transparent) 35%, transparent);
   pointer-events: none;
-  animation: bloom 1.6s var(--ease) 1.15s both;
 }
 
-/* The name kindles from cream to gold as the star in the swirl above it ignites. */
-.name {
-  color: var(--gold);
-  animation: kindle 1.1s ease-out 1.1s both;
+/* The name is gilded in gold leaf drawn from the gold tokens, and never white or cream. The letters start in a deep
+   gold; as the swirl's brush crosses the headline the leaf is laid on left to right, the deep-gold cover shrinking
+   away, so the two golds meet at an edge and never cross-fade. Polya's mesh is drawn twice as heavy so the leaf has
+   body. By night, every twelve seconds a glint of Bright Moon Gold (pale, never white) runs along the name in reading order, clipped to
+   the letters, so it never touches the blue. */
+@property --gild {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
 }
 
-/* The curl sits at 58% of the width, just past the end of the name, so its dabs never cross a letter. */
+@property --glint {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+.hero .name {
+  /* Resting values too, so a browser without @property still shows the gilded name. */
+  --gild: 100%;
+  --glint: 100%;
+  --leaf-deep: color-mix(in srgb, var(--frame) 66%, #8a4f00);
+  --leaf: linear-gradient(172deg, var(--gold), var(--frame) 58%, var(--leaf-deep));
+  --leaf-shine: var(--gold-bright);
+  color: transparent;
+  -webkit-text-stroke-width: max(0.6px, 0.021em);
+  /* The glint (a band in a layer three times the name's width: off the letters before 80% and after 20%), the cover
+     of deep gold, then the leaf. The background runs along both lines as one strip, so the glint and the leaf cross
+     HARSHAAN, then NIHAL KHAN. */
+  background:
+    linear-gradient(105deg, transparent 45%, color-mix(in srgb, var(--leaf-shine) 50%, transparent) 48.4%, var(--leaf-shine) 50%, color-mix(in srgb, var(--leaf-shine) 50%, transparent) 51.6%, transparent 55%) var(--glint) 0 / 300% 100% no-repeat,
+    linear-gradient(var(--leaf-deep), var(--leaf-deep)) 100% 0 / calc(100% - var(--gild)) 100% no-repeat,
+    var(--leaf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gild 1.4s var(--ease-draw) 1.1s both, glint 12s linear 4s infinite;
+}
+
+/* By day no gold paler than Gold Mark reads on cream, so the leaf runs from it to Gold Text, the letters start in
+   Gold Text, and no glint can show. */
+:root[data-theme="light"] .hero .name {
+  --leaf-deep: var(--gold-text);
+  --leaf: linear-gradient(172deg, var(--gold-mark) 30%, var(--gold-text));
+  animation: gild 1.4s var(--ease-draw) 1.1s both;
+}
+
+.hero[data-sky-off] .name {
+  animation-play-state: paused;
+}
+
+@keyframes gild {
+  from {
+    --gild: 0%;
+  }
+}
+
+@keyframes glint {
+  from {
+    --glint: 80%;
+  }
+
+  30%,
+  to {
+    --glint: 20%;
+  }
+}
+
+/* Pointed at by night, the leaf catches the light at once, as the notch's ring does; the twelve-second glint carries
+   on afterwards. */
+@media (hover: hover) {
+  :root:not([data-theme="light"]) .hero .name:hover {
+    animation: gild 1.4s var(--ease-draw) 1.1s both, glint 12s linear 4s infinite, glint-now 1.6s linear;
+  }
+}
+
+@keyframes glint-now {
+  from {
+    --glint: 80%;
+  }
+
+  to {
+    --glint: 20%;
+  }
+}
+
+/* The curl sits at 58% of the width, just past the end of the name, so its dabs never cross a letter. The swirl's
+   width also follows the screen's height, and on a short screen it rides up to 24px higher, so the river above the
+   name keeps clear of it; the curl stays at 58% whatever the width. */
 .swirl--hero {
-  left: calc(58% - min(608px, 42.5vw));
-  top: 0;
-  width: min(800px, 56vw);
-}
-
-:root[data-theme="light"] .name {
-  color: var(--link);
+  --w: min(800px, 56vw, calc((100svh - 40px) * 0.8));
+  left: calc(58% - var(--w) * 0.76);
+  top: calc(-1 * clamp(0px, calc((900px - 100svh) * 0.15), 24px));
+  width: var(--w);
 }
 
 .hero .lead {
@@ -1141,7 +1698,7 @@ h2 {
   grid-template-columns: minmax(0, 1fr);
   justify-items: center;
   justify-self: center;
-  width: min(420px, 78vw, (100svh - var(--header-h) - 140px) * 0.75);
+  width: min(420px, 100%, 78vw, (100svh - var(--header-h) - 140px - var(--lift, 0px)) * 0.75);
 }
 
 .portrait__frame {
@@ -1152,7 +1709,7 @@ h2 {
 .portrait__frame {
   padding: 10px;
   border-radius: 50% 50% 26px 26px / 37.5% 37.5% 26px 26px;
-  background: linear-gradient(160deg, #ffe9a3, #d9962b 52%, #7a4e08);
+  background: var(--frame-leaf);
   box-shadow: 0 28px 70px -26px rgba(0, 0, 0, 0.8), 0 0 90px -10px var(--halo);
 }
 
@@ -1161,6 +1718,14 @@ h2 {
   aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 50% 50% 17px 17px / 37.5% 37.5% 17px 17px;
+}
+
+/* Forced colours drop the gold leaf, so the arches keep their frames as a line. */
+@media (forced-colors: active) {
+  .portrait__frame,
+  .sign-off__portrait {
+    border: 4px solid CanvasText;
+  }
 }
 
 .plaque {
@@ -1191,12 +1756,22 @@ h2 {
   background: var(--glass);
   color: var(--muted);
   transform: translateX(-50%);
+  transition: color 0.3s ease-out, border-color 0.3s ease-out, box-shadow 0.3s ease-out;
   animation: bob 2.4s ease-in-out infinite;
 }
 
-.scroll-cue:hover {
+@media (hover: hover) {
+  .scroll-cue:hover {
+    color: var(--gold-text);
+    border-color: var(--gold-mark);
+    box-shadow: inset 0 0 0 1px var(--gold-mark);
+  }
+}
+
+.scroll-cue:active {
   color: var(--gold-text);
-  border-color: var(--gold);
+  border-color: var(--gold-mark);
+  box-shadow: inset 0 0 0 1px var(--gold-mark);
 }
 
 /* ---------- Experience: the timeline beside the skills sky ---------- */
@@ -1463,10 +2038,11 @@ h2 {
   }
 }
 
-/* The skills sky. Every skill is a star on an oval; CSS finds each point from --uy, its row's height on the
-   oval, and --side. Labels point outward, so the line that joins a role's stars never crosses a word, and
-   unlit stars wear a ring of the page colour, so where the line passes one it reads as passing behind.
-   It rides beside the timeline on wide screens. */
+/* The skills sky, drawn as a star chart. Every skill is a star on an oval; CSS finds each point from --uy, its row's
+   height on the oval, and --side. Labels point outward, so the line that joins a role's stars never crosses a word,
+   and unlit stars wear a ring of the page colour, so where the line passes one it reads as passing behind. A lit
+   star is the brand's four-point star over a gold core, the role's name is lettered in the middle, and the groups
+   are named like regions of the chart. It rides beside the timeline on wide screens. */
 .skill-sky {
   position: sticky;
   top: calc(var(--header-h) + 28px);
@@ -1511,25 +2087,36 @@ html:not(.js) .skill-sky__roles {
   font-size: 0.9rem;
 }
 
+/* The small plaque: the same plate as the button, in a quiet line, for controls that sit in a row. Picked, its line
+   doubles. */
 .skill-sky__role {
   min-height: 40px;
-  padding: 7px 12px;
+  padding: 7px 14px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 4px;
   background: none;
   color: var(--muted);
   font: 500 0.86rem var(--font-body);
   cursor: pointer;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  transition: color 0.3s ease-out, background-color 0.3s ease-out, border-color 0.3s ease-out, box-shadow 0.3s ease-out, transform 0.2s var(--ease);
 }
 
-.skill-sky__role:hover {
+@media (hover: hover) {
+  .skill-sky__role:hover {
+    border-color: var(--frame);
+    color: var(--text);
+  }
+}
+
+.skill-sky__role:active {
+  transform: scale(0.97);
   border-color: var(--frame);
   color: var(--text);
 }
 
 .skill-sky__role[aria-pressed="true"] {
   border-color: var(--lit);
+  box-shadow: inset 0 0 0 1px var(--lit);
   background: var(--surface);
   color: var(--text);
 }
@@ -1565,6 +2152,11 @@ html:not(.js) .skill-sky__roles {
   transition: stroke-dashoffset 0.9s var(--ease-draw);
 }
 
+/* The line being replaced: the script fades it while the new one draws. */
+.skill-sky__lines .is-old {
+  opacity: 0;
+}
+
 .skill-sky__star,
 .skill-sky__head {
   --side: 1;
@@ -1584,13 +2176,15 @@ html:not(.js) .skill-sky__roles {
   translate: -100% -50%;
 }
 
+/* Going out, a star fades at once (0.25s); coming on, it waits for the pen (--at, set by skills-sky.ts). */
 .skill-sky__star {
   color: var(--muted);
   font-size: 0.82rem;
   line-height: 1.2;
-  transition: color 0.4s;
+  transition: color 0.25s ease-out;
 }
 
+/* The core: unlit, a dim dot in a ring of the page colour; lit, gold with a glow. */
 .skill-sky__star::before {
   content: "";
   position: absolute;
@@ -1602,27 +2196,111 @@ html:not(.js) .skill-sky__roles {
   background: color-mix(in srgb, var(--muted) 60%, var(--bg));
   box-shadow: 0 0 0 3px var(--bg);
   translate: -50% -50%;
-  transition: background 0.4s, box-shadow 0.4s, scale 0.5s var(--ease);
+  transition: background-color 0.25s ease-out, box-shadow 0.25s ease-out;
 }
 
-.skill-sky__star.is-left::before {
+/* The spikes: the brand's four-point star, laid over the core when the star is lit. */
+.skill-sky__star::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 19px;
+  height: 19px;
+  background: var(--lit);
+  -webkit-mask: var(--star) center / contain no-repeat;
+  mask: var(--star) center / contain no-repeat;
+  translate: -50% -50%;
+  scale: 0;
+  opacity: 0;
+  transition: scale 0.25s ease-out, opacity 0.25s ease-out;
+  pointer-events: none;
+}
+
+.skill-sky__star.is-left::before,
+.skill-sky__star.is-left::after {
   left: 100%;
 }
 
-.skill-sky__star.is-lit {
+/* Until the sky is first seen it waits unlit (.is-waiting), so its stars light with the pen the first time too. */
+.skill-sky:not(.is-waiting) .skill-sky__star.is-lit {
   color: var(--text);
+  transition: color 0.4s ease-out var(--at, 0ms);
 }
 
-.skill-sky__star.is-lit::before {
+.skill-sky:not(.is-waiting) .skill-sky__star.is-lit::before {
   background: var(--lit);
-  scale: 1.5;
   box-shadow: 0 0 8px var(--lit), 0 0 18px var(--halo);
+  transition: background-color 0.3s ease-out var(--at, 0ms), box-shadow 0.5s ease-out var(--at, 0ms);
 }
 
+/* Lit, the spikes open out with a turn. Then every ten seconds or so each star catches the light: its spikes grow,
+   turn a little and brighten, and settle. It only ever brightens, so nothing passes through grey. Stars take their
+   turns from their place in the list (--i), so a few flare at a time, never together. */
+.skill-sky:not(.is-waiting) .skill-sky__star.is-lit::after {
+  scale: 1;
+  opacity: 1;
+  transition: scale 0.6s var(--ease) var(--at, 0ms), opacity 0.3s ease-out var(--at, 0ms);
+  animation: skill-catch 10s ease-in-out calc(var(--i, 0) * -1.37s) infinite;
+}
+
+/* Off screen the stars rest (data-sky-off, from skills-sky.ts). As specific as the rule above, which sets the
+   animation, and after it. */
+.skill-sky[data-sky-off]:not(.is-waiting) .skill-sky__star.is-lit::after {
+  animation-play-state: paused;
+}
+
+@keyframes skill-catch {
+  0%,
+  84%,
+  100% {
+    transform: none;
+    background-color: var(--lit);
+  }
+
+  90% {
+    transform: scale(1.4) rotate(22deg);
+    background-color: var(--gold-bright);
+  }
+}
+
+/* The groups, named like regions of the chart: small spaced capitals in the label type. */
 .skill-sky__head {
   margin: 0;
-  color: var(--text);
-  font: 600 0.85rem var(--font-body);
+  color: var(--muted);
+  font: 600 0.68rem var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* The constellation's name, lettered in the middle of the oval as a star chart names its figures. The script sets it,
+   places it as near the middle as the line and the stars allow (--name-at), and fades it in when the role changes. A
+   halo of the page colour lets the line pass behind it if it must. */
+.skill-sky__name {
+  position: absolute;
+  left: 50%;
+  top: var(--name-at, 50%);
+  width: max-content;
+  max-width: calc(2 * var(--rx) - 40px);
+  margin: 0;
+  color: var(--muted);
+  font: 600 0.72rem/1.6 var(--font-body);
+  letter-spacing: 0.28em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 2px var(--bg), 0 0 6px var(--bg), 0 0 10px var(--bg), 0 0 14px var(--bg);
+  translate: -50% -50%;
+  transition: opacity 0.6s ease-out 0.3s;
+  pointer-events: none;
+}
+
+.skill-sky.is-waiting .skill-sky__name {
+  opacity: 0;
+  transition: none;
+}
+
+.skill-sky__name[data-crowded] {
+  visibility: hidden;
 }
 
 /* ---------- About ---------- */
@@ -1772,8 +2450,8 @@ html:not(.js) .skill-sky__roles {
   width: 0.34em;
   height: 0.34em;
   background: var(--ink);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: var(--star) center / contain no-repeat;
+  mask: var(--star) center / contain no-repeat;
   opacity: 0;
   transform: scale(0.4) rotate(-90deg);
   transition: opacity 0.4s, transform 0.6s var(--ease);
@@ -1878,15 +2556,22 @@ html:not(.js) .skill-sky__roles {
   font-weight: 600;
   list-style: none;
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 .case__toggle::-webkit-details-marker {
   display: none;
 }
 
-.case__toggle:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+@media (hover: hover) {
+  .case__toggle:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.case__toggle:active {
+  opacity: 0.7;
 }
 
 .case__toggle .icon {
@@ -2125,33 +2810,47 @@ html:not(.js) .skill-sky__roles {
 /* The contribution calendar, as GitHub draws it: a column per week, a square per day, months above and three
    weekdays down the side. Levels are GitHub's own quartiles on one cobalt ramp, brighter for more by night and
    darker for more by day, so the busiest days read first in both. A year with few empty days is mostly the
-   lower levels, so by night those stay close to the card and only the busy days shine. An empty day is a
-   quiet square a step up from the card, so the year keeps its shape. */
+   lower levels, so by night those stay close to the ground and only the busy days shine. An empty day is a
+   quiet square a step up from the ground, so the year keeps its shape. The longest streak's days are lit on a
+   gold ramp of their own, level for level: the one light in the year. A twinkle (src/scripts/calendar.ts) takes
+   a square through a colour of its own hue (--twinkle): a blue day dims toward the ground by night and toward a
+   paler blue by day, and a gold one catches the light, so none ever passes through grey or khaki. */
 .gh {
-  --l0: #1d2c4a;
-  --l1: #1f3b7c;
-  --l2: #2954b0;
-  --l3: #487cde;
-  --l4: #a9c8ff;
+  --l0: #162839;
+  --l1: #173859;
+  --l2: #215587;
+  --l3: #407ab9;
+  --l4: #accff0;
+  --g1: #a97e0a;
+  --g2: #cca136;
+  --g3: var(--gold-mark);
+  --g4: var(--gold-bright);
+  --dim: #061b2d;
+  --shine: #ffd86b;
+  --shine-top: #fff6dc;
+  --edge: rgb(255 255 255 / 0.05);
   container-type: inline-size;
-  padding: clamp(18px, 3vw, 28px);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
 }
 
 :root[data-theme="light"] .gh {
-  --l0: #efe6cb;
+  --l0: #ece2c2;
   --l1: #c2d3f6;
   --l2: #7fa3ea;
   --l3: var(--cobalt);
   --l4: #0f3584;
+  --g1: #e9c25a;
+  --g2: #cf9a2a;
+  --g4: #7d5200;
+  --dim: #e3eaf8;
+  --shine-top: var(--shine);
+  --edge: rgb(2 24 97 / 0.07);
 }
 
 .gh__head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  justify-content: space-between;
   gap: 4px 14px;
   margin-bottom: 18px;
   color: var(--muted);
@@ -2163,12 +2862,22 @@ html:not(.js) .skill-sky__roles {
 }
 
 .gh__handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 600;
+  text-decoration: none;
 }
 
-/* The squares grow with the card until the year fills it; on a phone they stop at 9px and the year scrolls. */
+.gh__handle:hover {
+  text-decoration: underline;
+}
+
+/* The squares grow with the room until the year fills it; on a phone they keep 12px and the year scrolls. It is
+   positioned, so a day's offsetLeft (src/scripts/calendar.ts, which opens it on the streak) counts from its edge. */
 .gh__cal {
   --cell: clamp(9px, (100cqw - 40px) / 53 - 3px, 18px);
+  position: relative;
   display: grid;
   grid-template-columns: auto max-content;
   grid-template-areas: ". months" "days grid";
@@ -2228,42 +2937,117 @@ html:not(.js) .skill-sky__roles {
 }
 
 .gh i {
+  --c: var(--l0);
+  --twinkle: var(--dim);
   display: block;
   width: var(--cell);
   height: var(--cell);
-  border-radius: 3px;
-  background: var(--l0);
+  border-radius: 26%;
+  outline: 1px solid var(--edge);
+  outline-offset: -1px;
+  background: var(--c);
 }
 
 .gh i.l1 {
-  background: var(--l1);
+  --c: var(--l1);
 }
 
 .gh i.l2 {
-  background: var(--l2);
+  --c: var(--l2);
 }
 
 .gh i.l3 {
-  background: var(--l3);
+  --c: var(--l3);
 }
 
 .gh i.l4 {
-  background: var(--l4);
+  --c: var(--l4);
+}
+
+/* The longest streak, lit gold, level for level. The first time the calendar is seen its days light up in day
+   order, each from its middle: a cover of its own blue (an inset shadow) shrinks to its edges, so blue and gold
+   meet side by side and never cross-fade through grey. Without the script, or with less motion, they're lit from
+   the start. A twinkle catches the light toward a bright gold, and by night the brightest days toward cream. */
+.gh__grid i[data-streak] {
+  --twinkle: var(--shine);
+  background: var(--g1);
+}
+
+.gh__grid i[data-streak].l2 {
+  background: var(--g2);
+}
+
+.gh__grid i[data-streak].l3 {
+  background: var(--g3);
+}
+
+.gh__grid i[data-streak].l4 {
+  --twinkle: var(--shine-top);
+  background: var(--g4);
+}
+
+.js .gh.reveal:not(.in) .gh__grid i[data-streak] {
+  background: var(--c);
+}
+
+.gh.in .gh__grid i[data-streak] {
+  animation: gh-light 0.5s var(--ease) calc(var(--k) * 45ms + 0.3s) backwards;
+}
+
+@keyframes gh-light {
+  from {
+    box-shadow: inset 0 0 0 calc(var(--cell) / 2 + 1px) var(--c);
+  }
+
+  to {
+    box-shadow: inset 0 0 0 0 var(--c);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gh.in .gh__grid i[data-streak] {
+    animation: none;
+  }
+}
+
+.gh__grid i:hover {
+  outline: 1.5px solid var(--text);
+  outline-offset: 1px;
+}
+
+/* Under the calendar: the streak's key and name on the left, the legend on the right, their squares one size. */
+.gh__foot {
+  --cell: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 20px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.gh__streak-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gh__streak-label time {
+  color: var(--text);
+}
+
+.gh i.gh__key {
+  --c: var(--g3);
+  flex: none;
 }
 
 .gh__legend {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 4px;
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.gh__legend i {
-  width: 12px;
-  height: 12px;
+  margin-left: auto;
 }
 
 /* The hover note on a day. The grid is a picture for the eye; the table behind it carries the numbers. */
@@ -2278,78 +3062,151 @@ html:not(.js) .skill-sky__roles {
   font-weight: 600;
   white-space: nowrap;
   pointer-events: none;
-  translate: -50% calc(-100% - 8px);
+  translate: -50% calc(-100% - 10px);
 }
 
-/* The experiments, as a file view: the files down the side, and for the open one its path, a preview, the
-   real code behind it, and what it does. */
+.gh__tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 5px solid transparent;
+  border-top-color: var(--text);
+  translate: -50% 0;
+}
+
+/* Where the year doesn't fit (a phone), its squares keep 12px and it scrolls from edge to edge of the screen,
+   opening on the longest streak (src/scripts/calendar.ts); the squares cut off at both edges say there's more. */
+@container (max-width: 675px) {
+  .gh__cal {
+    --cell: 12px;
+    margin-inline: -20px;
+    padding-inline: 20px;
+  }
+}
+
+/* The experiments, in a view of the site's own repository: its name and branch, the files as GitHub's underlined
+   tabs, and for the open one what it is, the effect running live, and the real code behind it, numbered as in its
+   file. The preview and the file share one height, so switching tabs never moves the page. */
 .repo-view {
-  display: grid;
-  grid-template-columns: minmax(200px, 0.32fr) minmax(0, 1fr);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface);
 }
 
-html:not(.js) .repo-view {
-  grid-template-columns: minmax(0, 1fr);
+.repo-view__repo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 14px clamp(16px, 2.5vw, 24px) 6px;
+  background: var(--bg-alt);
+  color: var(--muted);
+}
+
+.repo-view__repo > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--link);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.repo-view__repo > a .icon {
+  color: var(--text);
+}
+
+.repo-view__repo > a:hover > span {
+  text-decoration: underline;
+}
+
+.repo-view__repo strong {
+  font-weight: 600;
+}
+
+.repo-view__branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  font: 0.78rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* The tabs wrap rather than scroll, so on a phone all four stay in sight. */
+.repo-view__files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 4px;
+  padding: 0 clamp(6px, 1.5vw, 12px);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
 }
 
 html:not(.js) .repo-view__files {
   display: none;
 }
 
-.repo-view__files {
-  display: grid;
-  align-content: start;
-  gap: 2px;
-  padding: 10px;
-  border-right: 1px solid var(--line);
-  background: var(--bg-alt);
-}
-
 .repo-view__file {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0 10px;
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  padding: 10px 12px;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 12px;
   border: 0;
-  border-radius: 8px;
   background: none;
   color: var(--muted);
   font: 500 0.95rem var(--font-body);
-  text-align: left;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: color 0.2s;
 }
 
-.repo-view__file .icon {
-  grid-row: 1 / span 2;
+/* The tab's underline, in the gold that marks read in on either ground. */
+.repo-view__file::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold-mark);
+  scale: 0 1;
+  transition: scale 0.3s var(--ease);
 }
 
-.repo-view__path {
-  color: var(--muted);
-  font: 0.76rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  opacity: 0.85;
+@media (hover: hover) {
+  .repo-view__file:hover {
+    color: var(--text);
+  }
 }
 
-.repo-view__file:hover {
-  background: var(--surface);
+.repo-view__file:active {
   color: var(--text);
 }
 
+.repo-view__file:focus-visible {
+  outline-offset: -3px;
+}
+
 .repo-view__file[aria-selected="true"] {
-  background: var(--surface);
   color: var(--gold-text);
+}
+
+.repo-view__file[aria-selected="true"]::after {
+  scale: 1;
 }
 
 .experiment {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  grid-template-areas: "path path" "preview code" "about about";
-  gap: 18px 22px;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  grid-template-areas: "about about" "preview file";
+  gap: 20px 22px;
   padding: clamp(16px, 2.5vw, 24px);
 }
 
@@ -2361,90 +3218,35 @@ html:not(.js) .experiment + .experiment {
   border-top: 1px solid var(--line);
 }
 
-.experiment__path {
-  grid-area: path;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
-  color: var(--muted);
-  font: 0.84rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-}
-
-.experiment__path a {
-  color: var(--text);
-}
-
-.experiment__preview {
-  grid-area: preview;
-  align-self: start;
-  overflow: hidden;
-  border: 1px solid var(--frame);
-  border-radius: 10px;
-  background: var(--bg);
-  aspect-ratio: 16 / 10;
-}
-
-.experiment__preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.experiment__live {
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 14px;
-  height: 100%;
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
-/* The code scrolls in its own frame, which takes keyboard focus so the scroll works without a pointer. */
-.experiment__code {
-  grid-area: code;
-  min-width: 0;
-  max-height: 360px;
-  overflow: auto;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--bg);
-  scrollbar-width: thin;
-}
-
-.experiment__code .highlight {
-  margin: 0;
-}
-
-.experiment__code pre {
-  margin: 0;
-  padding: 14px 16px;
-  font: 0.8rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  tab-size: 2;
-}
-
+/* What it is, before it is shown: the name and a line about it, with its tags to the side. */
 .experiment__about {
   grid-area: about;
   display: grid;
-  gap: 8px;
-  max-width: 70ch;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "title tags" "text tags";
+  gap: 4px 28px;
+  align-items: start;
 }
 
 .experiment__title {
-  font: 600 1.1rem var(--font-body);
+  grid-area: title;
+  margin: 0;
+  font: 600 1.15rem var(--font-body);
 }
 
 .experiment__about p {
+  grid-area: text;
+  max-width: 68ch;
   color: var(--muted);
 }
 
 .experiment__tags {
+  grid-area: tags;
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 8px;
-  margin-top: 4px;
+  max-width: 320px;
 }
 
 .experiment__tags li {
@@ -2455,38 +3257,458 @@ html:not(.js) .experiment + .experiment {
   font-size: 0.8rem;
 }
 
-/* Side projects as GitHub rows: the name, one line, the language with GitHub's own colour, and a live demo. */
+.experiment__preview,
+.experiment__file {
+  height: 500px;
+}
+
+/* The preview: the effect on a stage, and under it a bar with what to try (or, with the workings on, what the
+   dashed lines are) and the buttons, so nothing is laid over the art. */
+.experiment__preview {
+  grid-area: preview;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--frame);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.experiment__stage {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+}
+
+.experiment__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  padding: 10px 12px 10px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--bg-alt);
+}
+
+html:not(.js) .experiment__bar {
+  display: none;
+}
+
+.experiment__hint {
+  flex: 1 1 150px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.experiment__caption,
+.is-working .experiment__try {
+  display: none;
+}
+
+.is-working .experiment__caption {
+  display: inline;
+  color: var(--sky-text);
+}
+
+.experiment__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.experiment__tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  font: 600 0.84rem var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.3s ease-out, box-shadow 0.3s ease-out, color 0.3s ease-out, transform 0.2s var(--ease);
+}
+
+@media (hover: hover) {
+  .experiment__tool:hover {
+    border-color: var(--gold-mark);
+  }
+}
+
+.experiment__tool:active {
+  transform: scale(0.97);
+  border-color: var(--gold-mark);
+}
+
+.experiment__tool[aria-pressed="true"] {
+  border-color: var(--gold-mark);
+  box-shadow: inset 0 0 0 1px var(--gold-mark);
+  color: var(--gold-text);
+}
+
+.experiment__tool--replay .icon {
+  transition: rotate 0.6s var(--ease);
+}
+
+@media (hover: hover) {
+  .experiment__tool--replay:hover .icon {
+    rotate: -200deg;
+  }
+}
+
+/* With no motion asked for, there's nothing to paint again. */
+@media (prefers-reduced-motion: reduce) {
+  .experiment__tool--replay {
+    display: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .experiment__tool {
+    min-height: 44px;
+  }
+}
+
+/* Hints that name the gesture the device has. */
+.for-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .for-pointer {
+    display: none;
+  }
+
+  .for-touch {
+    display: inline;
+  }
+}
+
+/* A small sky for the painted pieces: the painting's one-hue wash, as behind the hero. */
+.experiment__sky {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.experiment__sky::before {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  z-index: -3;
+  background: var(--wash, none) 30% 20% / cover no-repeat, linear-gradient(160deg, #063d6b, #021425);
+  filter: blur(12px);
+}
+
+/* The sky waits until its preview is first seen, so it paints in front of the reader, not far below them. */
+.js .experiment__sky:not(.is-lit) .sky *,
+.js .experiment__sky:not(.is-lit) .sky *::after {
+  animation-play-state: paused !important;
+}
+
+.is-replaying .sky *,
+.is-replaying .sky *::after {
+  animation: none !important;
+}
+
+/* The river runs in from the left edge and curls around its star on the right; the moon keeps the far corner. */
+.swirl--code {
+  left: -16%;
+  top: 30%;
+  width: 126%;
+  --draw: 150ms;
+}
+
+.swirl--code .pstar {
+  --in: 950ms;
+}
+
+.experiment__sky .moon {
+  top: 5%;
+  right: auto;
+  left: 6%;
+  width: 92px;
+}
+
+.experiment__sky .moon__crescent {
+  box-shadow: inset -11px 3px 0 0 var(--gold-bright);
+}
+
+/* The constellation's wave starts from this star. */
+.pstar--code {
+  --s: 70px;
+  left: 50%;
+  top: 42%;
+  --in: 250ms;
+}
+
+.experiment__live {
+  display: grid;
+  place-content: center;
+}
+
+/* The workings, in the dashed cobalt tint every joining line wears. The swirl's guide is its own centre line,
+   whose length is 1 (pathLength), so its dashes are fractions of it. */
+.swirl__guide {
+  fill: none;
+  stroke: var(--sky-text);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 0.006 0.009;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.is-working .swirl__guide {
+  opacity: 0.95;
+}
+
+/* The dabs are painted right along the line, so the paint steps back while the line is shown. */
+.swirl--code .swirl__strokes > g {
+  transition: opacity 0.4s;
+}
+
+.is-working .swirl--code .swirl__strokes > g {
+  opacity: 0.25;
+}
+
+/* The notch's whole border, which the clip-path cuts the gaps from. */
+.experiment__notch {
+  position: relative;
+  display: inline-grid;
+}
+
+.experiment__notch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px dashed var(--sky-text);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.is-working .experiment__notch::before {
+  opacity: 1;
+}
+
+/* The oval CSS works out: the field's own radii, so it runs through every star. */
+.experiment .skill-sky__field::before {
+  content: "";
+  position: absolute;
+  top: calc(50% - var(--ry));
+  bottom: calc(50% - var(--ry));
+  left: calc(50% - var(--rx));
+  right: calc(50% - var(--rx));
+  border: 1px dashed var(--sky-text);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.is-working .skill-sky__field::before {
+  opacity: 0.85;
+}
+
+/* The skills sky, small and on its own: only its pills light it, in the same light as the ledger's. */
+.experiment .skill-sky {
+  --lit: var(--gold);
+  position: static;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: none;
+  width: auto;
+  margin: 0;
+  padding: 14px 16px 8px;
+}
+
+:root[data-theme="light"] .experiment .skill-sky {
+  --lit: var(--gold-mark);
+}
+
+/* The bar already says to pick a role, so the pills' caption is for screen readers only, and the pills and
+   labels run a size smaller, leaving the oval room for its sixteen rows. */
+.experiment .skill-sky__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.experiment .skill-sky__role {
+  min-height: 34px;
+  padding-inline: 10px;
+  font-size: 0.8rem;
+}
+
+.experiment .skill-sky__star {
+  font-size: 0.78rem;
+}
+
+.experiment .skill-sky__head {
+  font-size: 0.64rem;
+}
+
+.experiment .skill-sky__name {
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+}
+
+.experiment .skill-sky__field {
+  flex: 1;
+  aspect-ratio: auto;
+  min-height: 0;
+  max-height: none;
+}
+
+/* The file: its path and lines, a way to the real thing, and the code. */
+.experiment__file {
+  grid-area: file;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.experiment__path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 14px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-alt);
+  color: var(--muted);
+  font: 0.8rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.experiment__file-name {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.experiment__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  margin-left: auto;
+  font: 600 0.84rem var(--font-body);
+  text-decoration: none;
+}
+
+.experiment__github:hover {
+  text-decoration: underline;
+}
+
+/* The code scrolls in its own frame, which takes keyboard focus so the scroll works without a pointer. */
+.experiment__code {
+  min-width: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.experiment__code .highlight {
+  margin: 0;
+}
+
+.experiment__code pre {
+  margin: 0;
+  padding: 12px 16px 14px 0;
+  font: 0.8rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Each line numbered as in its file (--from is the line before the excerpt's first). A line too long for the
+   frame wraps, and its rest hangs two columns past where its code starts (--i is its indent), so a wrap never
+   reads as a new line. A grid, so the newlines between the lines aren't drawn as blank lines. */
+.experiment__code code {
+  display: grid;
+  counter-reset: line var(--from);
+}
+
+.experiment__code .line {
+  --gutter: 6ch;
+  position: relative;
+  min-height: 1lh;
+  padding-left: calc(var(--gutter) + (var(--i, 0) + 2) * 1ch);
+  text-indent: calc((var(--i, 0) + 2) * -1ch);
+  counter-increment: line;
+}
+
+.experiment__code .line::before {
+  content: counter(line);
+  position: absolute;
+  left: 0;
+  width: calc(var(--gutter) - 2ch);
+  color: var(--muted);
+  opacity: 0.6;
+  text-align: right;
+  text-indent: 0;
+  user-select: none;
+}
+
+/* Side projects as GitHub rows: the name with the repo's book, its language in GitHub's own colour and a live
+   demo on the same line, and one line about it below. */
 .repos {
   border-top: 1px solid var(--line);
 }
 
 .repo {
   display: grid;
-  gap: 4px;
-  padding: 16px 0;
+  gap: 6px;
+  padding: 14px 0;
   border-bottom: 1px solid var(--line);
 }
 
+.repo__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+}
+
 .repo__name {
-  justify-self: start;
-  font-size: 1.08rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
   font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.repo__name .icon {
+  color: var(--muted);
+}
+
+.repo__meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 20px;
+  color: var(--muted);
+  font-size: 0.86rem;
 }
 
 .repo__text {
   max-width: 70ch;
   color: var(--muted);
   font-size: 0.95rem;
-}
-
-.repo__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 20px;
-  margin-top: 2px;
-  color: var(--muted);
-  font-size: 0.86rem;
 }
 
 .repo__lang {
@@ -2519,22 +3741,52 @@ html:not(.js) .experiment + .experiment {
   margin-top: 12px;
 }
 
-@media (max-width: 760px) {
-  .repo-view {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .repo-view__files {
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    overflow-x: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
+/* Below the width where preview and code fit side by side, they stack: what it is, the effect, then the code. */
+@media (max-width: 900px) {
   .experiment {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "path" "preview" "code" "about";
+    grid-template-areas: "about" "preview" "file";
+  }
+
+  .experiment__about {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "title" "text" "tags";
+  }
+
+  .experiment__tags {
+    justify-content: flex-start;
+    max-width: none;
+    margin-top: 6px;
+  }
+
+  .experiment__preview {
+    height: auto;
+  }
+
+  .experiment__stage {
+    flex: none;
+    aspect-ratio: 4 / 3;
+  }
+
+  .experiment__preview--skills-sky .experiment__stage {
+    aspect-ratio: auto;
+    height: 440px;
+  }
+
+  .experiment__file {
+    height: auto;
+  }
+
+  .experiment__code {
+    max-height: 380px;
+  }
+}
+
+/* A phone: each repository's language and demo sit under its name, so every row reads the same way. */
+@media (max-width: 560px) {
+  .repo__head {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -2628,8 +3880,14 @@ html:not(.js) .experiment + .experiment {
   transition: transform 0.25s var(--ease);
 }
 
-.ribbon:hover {
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .ribbon:hover {
+    filter: brightness(1.12);
+  }
+}
+
+.ribbon:active {
+  transform: scale(0.97);
 }
 
 .story h3 {
@@ -2761,7 +4019,7 @@ html:not(.js) .experiment + .experiment {
   inset: -6%;
   z-index: -3;
   /* The top half of the painting only: the sky and the moon, not the portrait below them. */
-  background: var(--wash, none) 50% 0 / 200% auto no-repeat, linear-gradient(160deg, #1b3a82, #021861);
+  background: var(--wash, none) 50% 0 / 200% auto no-repeat, linear-gradient(160deg, #063d6b, #021425);
   filter: blur(14px);
 }
 
@@ -2960,9 +4218,43 @@ html:not(.js) .experiment + .experiment {
   gap: 10px 16px;
 }
 
+/* Sending, a glint runs round the plaque's line until the answer comes back: the notch's light, at work. The words
+   dim; the line does not. */
 .contact-form__send[disabled] {
-  opacity: 0.6;
   cursor: progress;
+}
+
+.contact-form__send[disabled] > * {
+  opacity: 0.6;
+}
+
+.contact-form__send::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 2px;
+  border-radius: 5px;
+  background: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--gold-bright) 55%, transparent) 46%, var(--gold-bright) 50%, transparent 56%) 100% 0 / 300% 100% no-repeat;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact-form__send[disabled]::after {
+  opacity: 1;
+  animation: plaque-run 1.1s linear infinite;
+}
+
+@keyframes plaque-run {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
 }
 
 .contact-form__result {
@@ -3026,11 +4318,77 @@ html:not(.js) .experiment + .experiment {
 }
 
 /* ---------- Footer ---------- */
+/* The page ends on the painting's horizon: the village of Saint-Remy under the sky, cut from the ground the footer
+   stands on, against low hills and a faint glow of moonlight. By night its windows are lit: the first time the
+   footer is seen they come on one by one, and now and then a light goes out for a while and comes back, switching
+   rather than fading, as a window does. By day the windows are dark and the glow is the day's gold haze. */
 .site-footer {
-  border-top: 1px solid var(--line);
-  padding: 32px 0 40px;
+  padding: 0 0 40px;
   color: var(--muted);
   font-size: 0.92rem;
+  --hill: color-mix(in srgb, var(--sky) 22%, var(--bg));
+  --horizon: color-mix(in srgb, var(--sky-text) 9%, var(--bg));
+}
+
+/* By day the hills are the wheat of the day's gold, so nothing goes grey on the cream. */
+:root[data-theme="light"] .site-footer {
+  --hill: color-mix(in srgb, var(--gold) 34%, var(--bg));
+  --horizon: color-mix(in srgb, var(--gold) 14%, var(--bg));
+}
+
+.village {
+  display: block;
+  width: 100%;
+  height: clamp(72px, 8vw, 124px);
+  margin-bottom: 28px;
+  background: linear-gradient(transparent, var(--horizon) 62%, var(--horizon));
+}
+
+.village__hills {
+  fill: var(--hill);
+}
+
+.village__town {
+  fill: var(--bg);
+}
+
+.village__window {
+  fill: var(--gold);
+  transition: opacity 0.2s steps(1) calc(var(--w) * 110ms + 300ms);
+}
+
+/* Waiting for the first look, the windows are dark (with JavaScript; without it they are simply lit). */
+.js .site-footer:not(.is-lit) .village__window {
+  opacity: 0;
+  transition: none;
+}
+
+/* Once lit, a few windows, every third one, go dark for a while now and then, each on its own clock. */
+:is(html:not(.js) .site-footer, .site-footer.is-lit) .village__window:nth-of-type(3n) {
+  animation: window-out 31s steps(1) calc(var(--w) * -2.3s) infinite;
+}
+
+.site-footer.is-lit[data-sky-off] .village__window:nth-of-type(3n) {
+  animation-play-state: paused;
+}
+
+@keyframes window-out {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  88% {
+    opacity: 0;
+  }
+
+  95% {
+    opacity: 1;
+  }
+}
+
+:root[data-theme="light"] .village__window {
+  display: none;
 }
 
 .site-footer__inner {
@@ -3049,6 +4407,13 @@ html:not(.js) .experiment + .experiment {
 
 .site-footer a {
   color: var(--text);
+  transition: color 0.2s ease-out;
+}
+
+@media (hover: hover) {
+  .site-footer a:hover {
+    color: var(--gold-text);
+  }
 }
 
 .site-footer__note {
@@ -3223,24 +4588,23 @@ html:not(.js) .experiment + .experiment {
   clip-path: inset(-0.3em -0.2em -0.3em -0.1em);
 }
 
-/* Above the fold: CSS alone, so first paint never waits on JavaScript. */
+/* Above the fold: CSS alone, so first paint never waits on JavaScript. The words and the portrait are there at once
+   (a 0.4s fade), so nobody waits; behind them the night is painted (the hero's sky, below). */
 .js .hero .reveal,
 .hero .reveal {
   opacity: 1;
   transform: none;
   transition: none;
-  animation: rise 0.8s var(--ease) both;
-  animation-delay: var(--d, 0ms);
+  animation: fade 0.4s ease-out var(--d, 0ms) both;
 }
 
 .portrait {
-  animation: rise 0.9s var(--ease) 0.15s both;
+  animation: fade 0.4s ease-out both;
 }
 
-@keyframes rise {
+@keyframes fade {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
 }
 
@@ -3325,6 +4689,208 @@ html:not(.js) .experiment + .experiment {
   }
 }
 
+/* The hero's night is painted while you watch (the owner's pick, 2026-10-26), for about four seconds after the words,
+   and nothing is faded in: every stroke arrives at full colour and meets the sky as an edge.
+   - The swirl is one brush stroke, slow into the first dabs, steady across the headline and round the curl, with a
+     round tip so the front of the paint reads as a brush. It runs about 0.4s ahead of the name's gold leaf (1.1s to
+     2.5s) and closes the curl as the leaf lands.
+   - Each star is brushed in ring by ring: a wedge sweeps clockwise from where the curl ends, one ring after the next
+     outward, so a star's rings read as one spiral stroke, and the painting's yellow light spreads from it. The small
+     stars follow round the sky in a circuit; a ring takes as long as its size at one brush speed.
+   - The moon is last: its rings, its halo's two rings, then the lit edge of the crescent grows in.
+   Nothing is a permanent mask: a ring's clip-path exists only in the sweep's keyframes. Contact and the experiments
+   keep the arrival above. The swirl star keeps `ignite` under its own name, because the constellation's wave waits
+   for its peak. */
+.hero {
+  --river-at: 200ms;
+  --river-dur: 2200ms;
+  --halo-at: 3100ms;
+  --glow-at: 2800ms;
+  --wax-at: 3350ms;
+  --cue-at: 3800ms;
+}
+
+/* The brush's pace is fitted to the swirl's centre line (a monotone cubic through 12% drawn at 0.5s, 45% at 1.15s and
+   all at 2.2s, with zero speed at both ends). A browser without linear() keeps ease-in-out. */
+.hero .swirl__reveal {
+  stroke-linecap: round;
+  animation: swirl-draw var(--river-dur) ease-in-out var(--river-at) both;
+  animation-timing-function: linear(0, 0.006 4.2%, 0.023 8.3%, 0.047 12.5%, 0.076 16.7%, 0.106 20.8%, 0.137 25%, 0.176 29.2%, 0.22 33.3%, 0.269 37.5%, 0.321 41.7%, 0.373 45.8%, 0.424 50%, 0.472 54.2%, 0.527 58.3%, 0.586 62.5%, 0.649 66.7%, 0.713 70.8%, 0.776 75%, 0.835 79.2%, 0.889 83.3%, 0.934 87.5%, 0.969 91.7%, 0.992 95.8%, 1);
+}
+
+/* The stars are painted ring by ring, so they don't arrive as one piece. A star's glow flares when its core is dabbed
+   in (--lit puts the swirl star's on the curl's close). */
+.hero .pstar {
+  animation: none;
+}
+
+.hero .pstar__glow {
+  animation-delay: var(--lit, calc(var(--in) + 250ms));
+}
+
+/* Each ring is swept in turn: it starts at its own offset after the star's core and takes its own share of the
+   star's brush time (--k, by the star's size). Wider rings take longer, as one brush at one speed would. */
+.hero .pstar__band {
+  animation-name: turn, brush;
+  animation-duration: var(--turn), max(80ms, calc(var(--k, 1) * var(--brush-dur)));
+  animation-timing-function: linear;
+  animation-delay: 0s, calc(var(--in) + var(--k, 1) * var(--brush-at));
+  animation-iteration-count: infinite, 1;
+  animation-fill-mode: none, backwards;
+}
+
+.hero .pstar__band--1 {
+  --brush-at: 150ms;
+  --brush-dur: 220ms;
+}
+
+.hero .pstar__band--2 {
+  --brush-at: 330ms;
+  --brush-dur: 300ms;
+}
+
+.hero .pstar__band--3 {
+  --brush-at: 620ms;
+  --brush-dur: 380ms;
+}
+
+.hero .pstar__band--4 {
+  --brush-at: 980ms;
+  --brush-dur: 460ms;
+  animation-timing-function: linear, cubic-bezier(0.25, 0.5, 0.45, 1);
+}
+
+/* The moon's halo, brushed outward, the second ring beginning before the first has closed. The first ring turns
+   backwards, which would play its sweep backwards too, so each animation names its direction. */
+.hero .moon__ring {
+  animation-name: turn, brush;
+  animation-duration: var(--turn), var(--brush-dur);
+  animation-timing-function: linear;
+  animation-delay: 0s, calc(var(--halo-at) + var(--brush-at));
+  animation-iteration-count: infinite, 1;
+  animation-direction: normal, normal;
+  animation-fill-mode: none, backwards;
+}
+
+.hero .moon__ring--1 {
+  --brush-at: 0ms;
+  --brush-dur: 450ms;
+  animation-direction: reverse, normal;
+}
+
+.hero .moon__ring--2 {
+  --brush-at: 250ms;
+  --brush-dur: 600ms;
+}
+
+/* The painting's yellow light spreads from each star as the brush dabs in its core; the moon's comes up with its
+   halo, as the last light. */
+.hero .moon .pstar::before,
+.hero .swirl .pstar::before,
+.hero .pstar--b::before,
+.hero .pstar--c::before,
+.hero .pstar--d::before {
+  animation: glow-dawn 1.2s var(--ease) calc(var(--in) + 150ms) backwards;
+}
+
+.hero .moon .pstar::before {
+  animation-duration: 1.4s;
+  animation-delay: var(--glow-at);
+}
+
+.hero .moon__crescent {
+  animation: wax 0.7s var(--ease) var(--wax-at) both;
+}
+
+/* The cue joins once the painting is done, and only then starts to bob. */
+.hero .scroll-cue {
+  animation: fade 0.6s var(--ease) var(--cue-at) both, bob 2.4s ease-in-out calc(var(--cue-at) + 0.6s) infinite;
+}
+
+/* The brush's circuit: the swirl's star, the star above the words at the left, star b below them, the star beside
+   the portrait, and the moon last. */
+.hero .swirl .pstar {
+  --in: 1700ms;
+  --lit: 1950ms;
+  --k: 0.9;
+}
+
+.hero .pstar--c {
+  --in: 2050ms;
+  --k: 0.34;
+}
+
+.hero .pstar--b {
+  --in: 2300ms;
+  --k: 0.5;
+}
+
+.hero .pstar--d {
+  --in: 2550ms;
+  --k: 0.3;
+}
+
+.hero .moon .pstar {
+  --in: 2700ms;
+  --k: 0.8;
+}
+
+/* A wedge sweeping clockwise from 299deg, where the curl of the swirl ends, so the rings continue the stroke: a
+   polygon in eight 45deg steps with the same number of points in every frame, so the browser interpolates between
+   them. At each step the points up to that angle are in place and the rest wait on the leading edge; they lie on a
+   circle of 1.3 box widths, so the whole box is covered when the sweep is done. */
+@keyframes brush {
+  from {
+    clip-path: polygon(50% 50%, -63.7% -13%, -63.7% -13%, -63.7% -13%, -63.7% -13%, -63.7% -13%, -63.7% -13%, -63.7% -13%, -63.7% -13%, -63.7% -13%);
+  }
+
+  12.5% {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 14.2% -75%, 14.2% -75%, 14.2% -75%, 14.2% -75%, 14.2% -75%, 14.2% -75%, 14.2% -75%);
+  }
+
+  25% {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 113% -63.7%, 113% -63.7%, 113% -63.7%, 113% -63.7%, 113% -63.7%, 113% -63.7%, 113% -63.7%);
+  }
+
+  37.5% {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 113% -63.7%, 175% 14.2%, 175% 14.2%, 175% 14.2%, 175% 14.2%, 175% 14.2%, 175% 14.2%);
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 113% -63.7%, 175% 14.2%, 163.7% 113%, 163.7% 113%, 163.7% 113%, 163.7% 113%, 163.7% 113%);
+  }
+
+  62.5% {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 113% -63.7%, 175% 14.2%, 163.7% 113%, 85.8% 175%, 85.8% 175%, 85.8% 175%, 85.8% 175%);
+  }
+
+  75% {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 113% -63.7%, 175% 14.2%, 163.7% 113%, 85.8% 175%, -13% 163.7%, -13% 163.7%, -13% 163.7%);
+  }
+
+  87.5% {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 113% -63.7%, 175% 14.2%, 163.7% 113%, 85.8% 175%, -13% 163.7%, -75% 85.8%, -75% 85.8%);
+  }
+
+  to {
+    clip-path: polygon(50% 50%, -63.7% -13%, 14.2% -75%, 113% -63.7%, 175% 14.2%, 163.7% 113%, 85.8% 175%, -13% 163.7%, -75% 85.8%, -63.7% -13%);
+  }
+}
+
+@keyframes glow-dawn {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+
+/* The moon waxes: its lit edge grows in from nothing, so gold meets the dark disc as an edge. */
+@keyframes wax {
+  from {
+    box-shadow: inset 0 0 0 0 var(--gold-bright);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -3370,8 +4936,16 @@ html:not(.js) .experiment + .experiment {
 
   /* Phones and tablets: the portrait comes first, so the sky keeps to the strip beside its arch. */
   .hero .moon,
-  .pstar--b {
+  .pstar--b,
+  .pstar--c {
     display: none;
+  }
+
+  /* Beside the portrait, under the swirl. */
+  .pstar--d {
+    left: 86%;
+    top: 22%;
+    --s: 30px;
   }
 
   .swirl--hero {
@@ -3452,8 +5026,8 @@ html:not(.js) .experiment + .experiment {
   }
 
   /* Each row already lists its stack, and the sky can't ride beside the ledger here, so it would only repeat
-     the lists below them. */
-  .skill-sky {
+     the lists below them. Its copy in Code stays. */
+  #experience .skill-sky {
     display: none;
   }
 }
@@ -3509,8 +5083,33 @@ html:not(.js) .experiment + .experiment {
   }
 
   .js .site-nav a {
-    padding: 12px 14px;
+    padding: 12px 14px 12px 38px;
     font-size: 1.05rem;
+  }
+
+  /* In the menu there is no bar edge under a link: the star stands in the mark's column before the lit link, and the
+     words line up under the name. */
+  .js .site-nav a::before {
+    display: none;
+  }
+
+  .js .site-nav a::after {
+    left: 15px;
+    top: 50%;
+  }
+
+  /* Without the script the links wrap below the bar and the header grows, so it keeps its own place above the hero. */
+  html:not(.js) body:has(.hero) .site-header {
+    margin-bottom: 0;
+  }
+
+  html:not(.js) body:has(.hero) .hero {
+    min-height: calc(100svh - var(--header-h));
+    padding-top: 0;
+  }
+
+  html:not(.js) body:has(.hero) .hero > .sky {
+    top: 0;
   }
 
   .js .site-header.nav-open .nav-toggle__open {
@@ -3553,13 +5152,14 @@ html:not(.js) .experiment + .experiment {
     display: none;
   }
 
-  /* Email and See my work stay on one row down to 390 px. */
+  /* Email me and the plaque stay on one row down to 390 px. */
   .hero__cta {
     gap: 10px;
   }
 
   .hero__cta .btn--ghost {
-    padding-inline: 18px;
+    padding-inline: 14px;
+    letter-spacing: 0.1em;
   }
 }
 
@@ -3788,7 +5388,7 @@ html:not(.js) .experiment + .experiment {
   width: clamp(64px, 12vw, 88px);
   padding: 4px;
   border-radius: 50% 50% 10px 10px / 37.5% 37.5% 10px 10px;
-  background: linear-gradient(160deg, #ffe9a3, #d9962b 52%, #7a4e08);
+  background: var(--frame-leaf);
 }
 
 .sign-off__portrait img {
@@ -3957,5 +5557,26 @@ html:not(.js) .experiment + .experiment {
     grid-column: 1;
     justify-items: start;
     text-align: left;
+  }
+}
+
+/* Touch screens: standalone links and small buttons are 44px tall. The Code section's role pills are 34px where a
+   pointer is fine, and the Ruby Weekly ribbon keeps its look and gains the room round it. */
+@media (pointer: coarse) {
+  .experiment .skill-sky__role,
+  .experiment__github,
+  .gh__handle,
+  .repo__name,
+  .back-link,
+  .entry__alt {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .ribbon::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
   }
 }

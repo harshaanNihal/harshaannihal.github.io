@@ -1,14 +1,14 @@
 ---
-/* A button link. The notch variant (the default) is bordered, with sliding corner notches; ghost is a quiet pill;
-   primary is the legacy gold pill, kept for the 404 page. The label is a flex item that wraps, so a long label
-   never overflows at 320px, and may carry markup such as <wbr>. */
+/* A button link. The notch variant (the default) is the action: a ring of beaten gold with sliding gaps. Ghost is the
+   plaque: a plate in a frame-gold hairline. The label is a flex item that wraps, so a long label never overflows at
+   320px, and may carry markup such as <wbr>. */
 import Icon, { type IconName } from './Icon.astro';
 
 interface Props {
   href: string;
   label: string;
   icon?: IconName;
-  variant?: 'notch' | 'primary' | 'ghost';
+  variant?: 'notch' | 'ghost';
   /** Open in a new tab. */
   ext?: boolean;
 }

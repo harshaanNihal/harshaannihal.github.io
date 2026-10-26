@@ -1,12 +1,14 @@
 ---
 /* The great swirl: a river of brush dabs that runs in from the left and curls around a painted star. A mask drawn
-   along the swirl's center line lays the strokes down on arrival. The id keeps each swirl's mask unique. */
+   along the swirl's center line lays the strokes down on arrival. The id keeps each swirl's mask unique. `guide`
+   also draws that center line, hidden until the Code section shows its workings. */
 import Pstar from './Pstar.astro';
 
 interface Props {
   id: string;
+  guide?: boolean;
 }
 
-const { id } = Astro.props;
+const { id, guide = false } = Astro.props;
 ---
-<span class={`swirl swirl--${id}`}><svg class="swirl__strokes" viewBox="0 0 1000 340" focusable="false"><mask id={`swirl-mask-${id}`} maskUnits="userSpaceOnUse" x="-40" y="-40" width="1080" height="420"><use class="swirl__reveal" href="#swirl-line"/></mask><g mask={`url(#swirl-mask-${id})`}><use href="#swirl"/></g></svg><Pstar class="pstar--swirl" origin /></span>
+<span class={`swirl swirl--${id}`}><svg class="swirl__strokes" viewBox="0 0 1000 340" focusable="false"><mask id={`swirl-mask-${id}`} maskUnits="userSpaceOnUse" x="-40" y="-40" width="1080" height="420"><use class="swirl__reveal" href="#swirl-line"/></mask><g mask={`url(#swirl-mask-${id})`}><use href="#swirl"/></g>{guide && <use class="swirl__guide" href="#swirl-line"/>}</svg><Pstar class="pstar--swirl" origin /></span>

@@ -1,7 +1,11 @@
 ---
+/* The foot of every page: the village under the sky (lib/village.ts), whose windows come on one by one the first time
+   it is seen (data-sky-host, scripts/sky-rooms.ts), then the links. */
 import { medium, profile } from '../lib/data';
+import { village } from '../lib/village';
 ---
-<footer class="site-footer">
+<footer class="site-footer" data-sky-host>
+  <Fragment set:html={village} />
   <div class="container site-footer__inner">
     <p>&copy; {new Date().getFullYear()} {profile.name}</p>
     <ul class="site-footer__links">

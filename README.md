@@ -1,6 +1,6 @@
 # harshaannihal.github.io
 
-Portfolio of Harshaan Nihal Khan, built with [Astro](https://astro.build/) and TypeScript and served by GitHub Pages, with a small API on Cloudflare Workers for the contact form and a visit counter that uses no cookies. The design takes its cues from the portrait on the home page: Van Gogh's *The Starry Night*, in a night theme and a day theme. Headings are set in Polya, a wireframe display face. The hero has a constellation of floating stars that sits behind the text and the portrait.
+Portfolio of Harshaan Nihal Khan, built with [Astro](https://astro.build/) and TypeScript and served by GitHub Pages, with a small API on Cloudflare Workers for the contact form and a visit counter that uses no cookies. The design takes its cues from the portrait on the home page: Van Gogh's *The Starry Night*, in a night theme and a day theme. Headings are set in Polya, a wireframe display face. The hero is a moonlit night painted while you watch: the swirl first, the stars along it, the moon last, with a faint constellation behind the text and the portrait and the name gilded in gold leaf.
 
 **Live:** https://harshaannihal.github.io/
 
@@ -57,11 +57,10 @@ Polya (by Adrien Coquet) is the display face. `site/tools/font.sh` rebuilds `sit
 Originals live in `site/src/originals/`. `site/tools/images.sh` rebuilds the optimized images from them (macOS `sips`):
 
 - `hero.jpg` becomes `public/assets/media/hero-480`, `hero-720` and `hero-1152`, each as AVIF with a JPEG fallback.
-- `work/NAME.jpg` becomes `public/assets/media/work/NAME.avif` and `.jpg` at 720 px wide. The `site-*` captures are this site's own pieces (the painted sky, the constellation, the skills sky), taken from a local build with Playwright for the experiments in the Code section.
 
-`sky.jpg`, the top band of the portrait, becomes the small inline washes behind the hero and Contact at build time (`site/src/lib/wash.ts`, with sharp): one mapped from midnight navy to cobalt for night, one from cream to gold for day. One hue per theme, so the blur never mixes the painting's yellows into its blues.
+`sky.jpg`, the top band of the portrait, becomes the small inline washes behind the hero and Contact at build time (`site/src/lib/wash.ts`, with sharp): one mapped from a night ground up through Prussian blues for night, one from cream to gold for day. One hue per theme, so the blur never mixes the painting's yellows into its blues.
 
-Add an experiment preview by dropping a 1120 by 700 JPEG in `site/src/originals/work/`, running the script, and pointing an entry under `site_experiments` in `profile.yml` at `work/NAME`.
+The experiments in the Code section need no images: each runs live beside its code (the painted swirl, the constellation canvas, the notch button and a second skills sky), so it follows night and day. An entry under `site_experiments` in `profile.yml` names its preview with `live` and its code with `excerpt`.
 
 ## Layout
 
@@ -69,28 +68,28 @@ Add an experiment preview by dropping a 1120 by 700 JPEG in `site/src/originals/
 | --- | --- |
 | `site/src/pages/` | The routes: the home page, `blog/index` and `blog/[slug]` for posts, `404`, the `/about/` redirect, `sitemap.xml` and `robots.txt` |
 | `site/src/layouts/` | `Base` (the head, header, footer and script for every page) and `Page` (a plain narrow page) |
-| `site/src/components/home/` | One component per home page section. `Code.astro` is the GitHub-style section: the contribution calendar, the experiments as a file view with tabs, and the repositories |
-| `site/src/components/` | `Header`, `Footer`, `Seo` (title, share tags, structured data), `Icon`, `Btn` (the button link, see below), `EmailCta` (the address as a notch button plus Copy), `CopyEmail` (the Copy button on its own), `Sketch` (a system drawn as a constellation, for the ledger and Work), `Picture`, `Repo`, `SignOff`, and the painted sky's `SkyDefs`, `Pstar` and `Swirl` |
+| `site/src/components/home/` | One component per home page section. `Code.astro` is the GitHub-style section: the contribution calendar (it twinkles while it's on screen, and its longest streak, worked out from `github.yml` at build time, is lit gold on it), this site's experiments in a view of its repository (each running live beside its code, numbered as in its file, with "Show the workings" drawing the geometry the code works out), and the repositories |
+| `site/src/components/` | `Header`, `Footer`, `Seo` (title, share tags, structured data), `Icon`, `Btn` (the button link, see below), `EmailCta` (the address as a notch button plus Copy), `CopyEmail` (the Copy button on its own), `Sketch` (a system drawn as a constellation, for the ledger and Work), `SkillSky` (the skills sky, beside the ledger and again in Code), `Picture`, `Repo`, `SignOff`, and the painted sky's `SkyDefs`, `Pstar` and `Swirl` |
 | `site/src/scripts/` | The behaviour, one TypeScript module per feature: theme, menu, reveal, nav spy, case-study addresses, copy email, skills sky, moonlight, sky rooms, constellation, calendar, file view. `main.ts` starts them |
 | `site/src/styles/site.css` | All styles, inlined into every page. Tokens for the two themes sit at the top |
-| `site/src/lib/` | Build-time code: `data.ts` (the data files and their schemas), `painted-sky.ts` (the sky's brushwork, seeded), `wash.ts`, `excerpts.ts`, `posts.ts`, `format.ts`, `code-theme.ts` (code highlighting) and `site.ts` (the site's address and share defaults) |
+| `site/src/lib/` | Build-time code: `data.ts` (the data files and their schemas), `painted-sky.ts` (the sky's brushwork, seeded), `moon-halo.ts` (the hero moon's rings of dabs), `wash.ts`, `excerpts.ts`, `posts.ts`, `format.ts`, `code-theme.ts` (code highlighting) and `site.ts` (the site's address and share defaults) |
 | `api/` | The Worker: the contact and event endpoints, the cron jobs, the D1 schema and the tests (see `api/README.md`) |
 | `packages/contract/` | The shapes of a contact message and a page event, with Zod, shared by the form, the beacon and the API |
 | `site/tools/` | Scripts you run by hand: the Medium and GitHub refreshes, `images.sh`, `font.sh`, and `og.html`, the template for the social share image |
 
 ## The notch button
 
-`<Btn href="mailto:..." label="Email me" icon="arrow-right" />` draws a bordered button whose border has two gaps. On hover or keyboard focus the gaps slide to the opposite ends, the border turns crimson and the arrow turns a quarter. The border is a clipped pseudo-element, so the gaps are real holes. Other variants are `primary` and `ghost`.
+`<Btn href="mailto:..." label="Email me" icon="arrow-right" />` draws a ring of beaten gold whose border has two gaps. On hover or keyboard focus the gaps slide to the opposite ends, a glint of pale gold runs round the ring and the arrow turns a quarter. The ring is a gradient cut to a ring by a mask and clipped by a polygon, so the gaps are real holes. The other variant is `ghost`, the plaque: a plate in a frame-gold hairline. The role pills and the Code section's tools are small plaques, and icon-only buttons are circles that light the same way. Pills are for tags that do nothing.
 
-The notch is kept for the one action, emailing, so it always means "write to me". Other links on the home page, the blog and posts are ghost buttons or text links. `<EmailCta />` draws it with the address as the label and a Copy button beside it.
+The notch is kept for the one action, emailing, so it always means "write to me". Other actions on the home page, the blog and posts are plaques or text links. `<EmailCta />` draws it with the address as the label and a Copy plaque beside it.
 
 ## Performance notes
 
 Looks come first here, and the numbers are still good. Measured with Lighthouse on mobile, served gzipped as GitHub Pages does: 100 for performance, accessibility, best practices and SEO, with LCP at 1.8 s and layout shift at 0.
 
-- A first visit on a phone is 6 requests and about 160 KB: the page with its inlined stylesheet, the behaviour script, the Polya font, the hero portrait as AVIF and the favicon. The experiment previews and the Medium covers load lazily, further down.
+- A first visit on a phone is 6 requests and about 160 KB: the page with its inlined stylesheet, the behaviour script, the Polya font, the hero portrait as AVIF and the favicon. The Medium covers load lazily, further down.
 - The body text uses the system font, and there are no third-party requests. With the API on, each page also sends one small beacon to it, after the page has loaded.
-- The hero background is a small inline copy of the painting, mapped to one hue and softened. The hero and the contact each have a constellation canvas that pauses when it is off screen and stops for reduced motion. The painted stars turn on the compositor and rest while their section is off screen.
+- The hero background is a small inline copy of the painting, mapped to one hue and softened, with soft yellow glows baked into the stars' own gradients. The hero and the contact each have a constellation canvas that pauses when it is off screen and stops for reduced motion. The painted stars turn on the compositor and rest while their section is off screen.
 - Content is readable with JavaScript off, and animation stops when the system asks for reduced motion. Without JavaScript the case studies still open (they are `details` elements) and the experiments read one after another instead of as tabs.
 - The contribution calendar is plain HTML from `site/src/data/github.yml`, so visitors never wait on GitHub.
 - The share image `site/public/assets/media/og.jpg` comes from `site/tools/og.html`. The header of that file has the render commands.

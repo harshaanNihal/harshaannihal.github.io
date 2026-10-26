@@ -1,5 +1,6 @@
 ---
 import { medium, profile as p } from '../../lib/data';
+import { moonHalo } from '../../lib/moon-halo';
 import Btn from '../Btn.astro';
 import CopyEmail from '../CopyEmail.astro';
 import Icon from '../Icon.astro';
@@ -15,7 +16,9 @@ import Swirl from '../Swirl.astro';
     <canvas class="sky__canvas" data-constellation></canvas>
     <Swirl id="hero" />
     <Pstar class="pstar--b" />
-    <span class="moon"><Pstar class="pstar--moon" /><span class="moon__crescent"></span></span>
+    <Pstar class="pstar--c" />
+    <Pstar class="pstar--d" />
+    <span class="moon"><span class="moon__halo"><Fragment set:html={moonHalo} /></span><Pstar class="pstar--moon" /><span class="moon__crescent"></span></span>
   </div>
   <div class="container hero__inner">
     <div class="hero__copy">

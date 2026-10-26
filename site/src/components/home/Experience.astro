@@ -6,8 +6,9 @@
    the skills-sky script lights those stars and joins them. Without JavaScript the ledger and the full list of
    skills still read in full. */
 import { profile as p } from '../../lib/data';
-import { isoMonth, monthYear, rubyFloat, slugify } from '../../lib/format';
+import { isoMonth, monthYear, slugify } from '../../lib/format';
 import Icon from '../Icon.astro';
+import SkillSky from '../SkillSky.astro';
 import Sketch from '../Sketch.astro';
 
 const escape = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -21,25 +22,12 @@ function noteHtml(note: string, press?: { match: string; url: string }): string 
 
 const skillsOf = (tech: string[]) => tech.map(slugify).join(' ');
 const sp = p.side_projects;
-
-/* The skills sky: every skill on an oval, labels pointing out so the lines inside never cross them. Groups 1
-   and 3 run down the left arc, groups 2 and 4 down the right, each heading on the row above its stars. Rows
-   are evenly spaced from -0.9 to 0.9 of the half height, and CSS turns a row's --uy into its point on the oval. */
-const g = p.skills;
-const leftRows = g[0]!.items.length + g[2]!.items.length + 2;
-const rightRows = g[1]!.items.length + g[3]!.items.length + 2;
-const step = 1.8 / (Math.max(leftRows, rightRows) - 1);
-const uy = (row: number) => rubyFloat(Math.sign(row * step - 0.9) * Math.round(Math.abs(row * step - 0.9) * 1000) / 1000);
-const groups = g.map((group, i) => {
-  const headRow = i > 1 ? g[i - 2]!.items.length + 1 : 0;
-  return { ...group, side: i === 0 || i === 2 ? ' is-left' : '', headRow };
-});
 ---
 <section class="section" id="experience" aria-labelledby="experience-title">
   <div class="container">
     <header class="section__head reveal">
       <h2 id="experience-title">Where I've shipped.</h2>
-      <p class="section__lead">Rails and React in production since 2019: meal-delivery logistics for a cloud kitchen, therapy workflows for healthcare clients, and Cisco Meraki's switch dashboard.</p>
+      <p class="section__lead">Rails and React in production since 2019: meal-delivery logistics for a cloud kitchen, therapy workflows for healthcare clients.</p>
     </header>
     <div class="career-wrap">
       <ol class="career reveal">
@@ -93,25 +81,7 @@ const groups = g.map((group, i) => {
         </li>
       </ol>
 
-      <div class="skill-sky reveal" data-skill-sky>
-        <h3 class="visually-hidden">Skills</h3>
-        <div class="skill-sky__roles" role="group" aria-labelledby="skill-sky-label">
-          <span class="skill-sky__label" id="skill-sky-label">Lit up for</span>
-          {p.experience.map((job) => <button class="skill-sky__role" type="button" data-show-role={`role-${slugify(job.company)}`} aria-pressed="false">{job.company}</button>)}
-          <button class="skill-sky__role" type="button" data-show-role="role-side-projects" aria-pressed="false">Side projects</button>
-        </div>
-        <div class="skill-sky__field">
-          <svg class="skill-sky__lines" aria-hidden="true" focusable="false"><polyline points=""/></svg>
-          {groups.map((group) => (
-            <div class="skill-sky__group">
-              <h4 class={`skill-sky__head${group.side}`} style={`--uy:${uy(group.headRow)}`}>{group.group}</h4>
-              <ul>
-                {group.items.map((item, k) => <li class={`skill-sky__star${group.side}`} data-skill={slugify(item)} style={`--uy:${uy(k + 1 + group.headRow)}`}>{item}</li>)}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
+      <SkillSky id="skill-sky" follow />
     </div>
   </div>
 </section>

@@ -1,0 +1,48 @@
+---
+/* The skills sky: every skill on an oval, labels pointing out so the lines inside never cross them. Groups 1 and 3
+   run down the left arc, groups 2 and 4 down the right, each heading on the row above its stars. Rows are evenly
+   spaced from -0.9 to 0.9 of the half height, and CSS turns a row's --uy into its point on the oval. The pills
+   light a role's stars, read from that role's row in the Experience ledger (data-skills), and its name is lettered
+   in the middle of the oval, as a star chart names a constellation. The Experience sky also follows the role being
+   read (`follow`); the copy in Code only answers its pills, and its stars are hidden from screen readers, which
+   already have the list in Experience. Two lines: the one being drawn and the one fading out. */
+import { profile as p } from '../lib/data';
+import { rubyFloat, slugify } from '../lib/format';
+
+interface Props {
+  id: string;
+  follow?: boolean;
+}
+
+const { id, follow = false } = Astro.props;
+const g = p.skills;
+const leftRows = g[0]!.items.length + g[2]!.items.length + 2;
+const rightRows = g[1]!.items.length + g[3]!.items.length + 2;
+const step = 1.8 / (Math.max(leftRows, rightRows) - 1);
+const uy = (row: number) => rubyFloat(Math.sign(row * step - 0.9) * Math.round(Math.abs(row * step - 0.9) * 1000) / 1000);
+const groups = g.map((group, i) => {
+  const headRow = i > 1 ? g[i - 2]!.items.length + 1 : 0;
+  const first = g.slice(0, i).reduce((n, earlier) => n + earlier.items.length, 0);
+  return { ...group, side: i === 0 || i === 2 ? ' is-left' : '', headRow, first };
+});
+---
+<div class="skill-sky reveal" id={id} data-skill-sky data-follow={follow ? '' : undefined}>
+  {follow && <h3 class="visually-hidden">Skills</h3>}
+  <div class="skill-sky__roles" role="group" aria-labelledby={`${id}-label`}>
+    <span class="skill-sky__label" id={`${id}-label`}>Lit up for</span>
+    {p.experience.map((job) => <button class="skill-sky__role" type="button" data-show-role={`role-${slugify(job.company)}`} aria-pressed="false">{job.company}</button>)}
+    <button class="skill-sky__role" type="button" data-show-role="role-side-projects" aria-pressed="false">Side projects</button>
+  </div>
+  <div class="skill-sky__field" aria-hidden={follow ? undefined : 'true'}>
+    <svg class="skill-sky__lines" aria-hidden="true" focusable="false"><polyline class="is-old" points=""/><polyline class="is-new" points=""/></svg>
+    <p class="skill-sky__name" aria-hidden="true" data-sky-name></p>
+    {groups.map((group) => (
+      <div class="skill-sky__group">
+        <h4 class={`skill-sky__head${group.side}`} style={`--uy:${uy(group.headRow)}`}>{group.group}</h4>
+        <ul>
+          {group.items.map((item, k) => <li class={`skill-sky__star${group.side}`} data-skill={slugify(item)} style={`--uy:${uy(k + 1 + group.headRow)};--i:${group.first + k}`}>{item}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+</div>

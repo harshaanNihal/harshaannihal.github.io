@@ -1,5 +1,6 @@
 ---
-/* One repository as a GitHub row: name, one line, language and a live demo when there is one. */
+/* One repository as a GitHub row: the name with the repo's book icon, its language and a live demo when there is
+   one on the same line, and one line about it below. */
 import type { Repo } from '../lib/data';
 import { slugify } from '../lib/format';
 import Icon from './Icon.astro';
@@ -11,7 +12,9 @@ interface Props {
 const { repo } = Astro.props;
 ---
 <li class="repo">
-  <a class="repo__name" href={repo.url}>{repo.name}</a>
+  <p class="repo__head">
+    <a class="repo__name" href={repo.url}><Icon name="book" px={16} />{repo.name}</a>
+    <span class="repo__meta"><span class={`repo__lang repo__lang--${slugify(repo.language)}`}>{repo.language}</span>{repo.demo && <a class="link-arrow" href={repo.demo}>Live demo <Icon name="arrow-up-right" px={14} /></a>}</span>
+  </p>
   <p class="repo__text">{repo.text}</p>
-  <p class="repo__meta"><span class={`repo__lang repo__lang--${slugify(repo.language)}`}>{repo.language}</span>{repo.demo && <a class="link-arrow" href={repo.demo}>Live demo <Icon name="arrow-up-right" px={14} /></a>}</p>
 </li>

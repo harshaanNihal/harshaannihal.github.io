@@ -1,26 +1,59 @@
 ---
 /* Code, read the way GitHub shows it: the year of contributions (src/data/github.yml, refreshed by
-   tools/update-github.py), this site's own experiments as a file view where each one sits beside the real code
-   behind it (cut from the source at build time by src/lib/excerpts.ts), and the side-project repositories as
-   plain rows. The experiments are tabs with JavaScript; without it they read one after another. */
+   tools/update-github.py), this site's own experiments in a view of its repository, and the side-project
+   repositories as rows. Each experiment runs live beside the real code behind it (cut from the source at build
+   time by src/lib/excerpts.ts), numbered as in its file, with long lines wrapped under their own indent. Under each
+   effect a bar says what to try; "Show the workings" draws the geometry its code works out (the flow line, the
+   pointer's reach, the whole border, the oval) and names it. The experiments are tabs with JavaScript; without it
+   they read one after another. */
+import type { ShikiTransformer } from 'shiki';
 import { codeToHtml } from 'shiki';
 import { codeTheme, codeTransformers } from '../../lib/code-theme';
 import { github as gh, profile as p } from '../../lib/data';
 import { excerpts } from '../../lib/excerpts';
-import { isoDay } from '../../lib/format';
+import { isoDay, monthDay, shortDate } from '../../lib/format';
 import Btn from '../Btn.astro';
 import Icon from '../Icon.astro';
-import Picture from '../Picture.astro';
+import Pstar from '../Pstar.astro';
 import Repo from '../Repo.astro';
+import SkillSky from '../SkillSky.astro';
+import Swirl from '../Swirl.astro';
+
+/* Each line carries its own indent (--i), so a wrapped line hangs two columns past where its code starts. */
+const indents: ShikiTransformer = {
+  line(node, line) {
+    node.properties.style = `--i:${/^ */.exec(this.source.split('\n')[line - 1] ?? '')![0].length}`;
+  },
+};
 
 const experiments = await Promise.all(p.site_experiments.map(async (x) => {
   const src = excerpts[x.excerpt];
   if (!src) throw new Error(`site_experiments: no excerpt named "${x.excerpt}" in src/lib/excerpts.ts`);
-  const html = await codeToHtml(src.code, { lang: x.lang, theme: codeTheme, transformers: codeTransformers });
-  return { ...x, src, html, name: src.file.split('/').pop() };
+  const html = await codeToHtml(src.code, { lang: x.lang, theme: codeTheme, transformers: [...codeTransformers, indents] });
+  return { ...x, src, html };
 }));
+/* What to try in each preview, and what its workings show once they're on, in the code's own terms. */
+const bar: Record<(typeof p.site_experiments)[number]['live'], { pointer: string; touch?: string; workings: string }> = {
+  sky: { pointer: 'It paints itself in when you reach it.', workings: 'The dashed line is the flow. Each dab follows its direction, set off to one side.' },
+  constellation: { pointer: 'Move through the stars, or click the sky to add one.', touch: 'Tap the sky to add a star.', workings: 'Inside the ring (REPEL_RADIUS), stars are pushed away from the pointer.' },
+  notch: { pointer: 'Hover it, or tab to it.', touch: 'Its gaps slide on hover and focus.', workings: 'The dashed box is the whole border. The clip-path cuts the two gaps out of it.' },
+  'skills-sky': { pointer: 'Pick a role to light its stars.', workings: 'The dashed oval is the one CSS works out. Every star sits on it.' },
+};
+/* The longest run of days with contributions (the latest, if two are as long). Its days are lit gold on the
+   calendar, in day order (--k) the first time it's seen, and it's named by its dates only: the yearly total stays
+   the one number. */
+const days = gh.weeks.flatMap((w, week) => w.c.split(',').map((c, day) => ({ week, day, count: +c })));
+let best = { from: 0, length: 0 };
+for (let i = 0, run = 0; i < days.length; i++) {
+  run = days[i]!.count > 0 ? run + 1 : 0;
+  if (run && run >= best.length) best = { from: i - run + 1, length: run };
+}
+const hasStreak = best.length > 1;
+const streakAt = new Map(hasStreak ? days.slice(best.from, best.from + best.length).map((d, k) => [`${d.week}:${d.day}`, k]) : []);
+const dayOf = (i: number) => new Date(gh.start.getTime() + i * 864e5);
 const more = p.repos.length - p.repos_show;
-const repoUrl = `https://github.com/${p.github}/${p.github.toLowerCase()}.github.io/blob/master`;
+const repo = `${p.github}/${p.github.toLowerCase()}.github.io`;
+const blob = `https://github.com/${repo}/blob/master`;
 ---
 <section class="section" id="code" aria-labelledby="code-title">
   <div class="container">
@@ -30,13 +63,24 @@ const repoUrl = `https://github.com/${p.github}/${p.github.toLowerCase()}.github
     </header>
 
     <div class="gh reveal">
-      <p class="gh__head"><a class="gh__handle" href={`https://github.com/${gh.handle}`}>@{gh.handle}</a> <span><strong>{gh.total} contributions</strong> in the last year</span></p>
+      <p class="gh__head"><span><strong>{gh.total} contributions</strong> in the last year</span> <a class="gh__handle" href={`https://github.com/${gh.handle}`}><Icon name="github" px={16} />@{gh.handle}<Icon name="arrow-up-right" px={14} /></a></p>
       <div class="gh__cal" data-calendar data-start={isoDay(gh.start)} aria-hidden="true">
-        <div class="gh__months" style={`--weeks:${gh.weeks.length}`}>{gh.months.map((m) => <span style={`--w:${m.week}`}>{m.label}</span>)}</div>
+        <div class="gh__months" style={`--weeks:${gh.weeks.length}`}>{gh.months.map((m) => <span style={`--w:${m.week}`}>{m.label}{m.label === 'Jan' && ` ’${String(dayOf(m.week * 7 + 6).getUTCFullYear()).slice(2)}`}</span>)}</div>
         <div class="gh__days"><span>Mon</span><span>Wed</span><span>Fri</span></div>
-        <div class="gh__grid">{gh.weeks.map((w) => <span class="gh__week" data-c={w.c}>{[...w.l].map((l) => <i class={`l${l}`}></i>)}</span>)}</div>
+        <div class="gh__grid">{gh.weeks.map((w, week) => <span class="gh__week" data-c={w.c}>{[...w.l].map((l, day) => {
+          const k = streakAt.get(`${week}:${day}`);
+          return k === undefined ? <i class={`l${l}`}></i> : <i class={`l${l}`} data-streak style={`--k:${k}`}></i>;
+        })}</span>)}</div>
       </div>
-      <p class="gh__legend" aria-hidden="true">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More</p>
+      <div class="gh__foot">
+        {hasStreak && (
+          <p class="gh__streak-label">
+            <i class="gh__key" aria-hidden="true"></i>
+            <span>Longest streak · <time datetime={isoDay(dayOf(best.from))}>{monthDay(dayOf(best.from))}</time> – <time datetime={isoDay(dayOf(best.from + best.length - 1))}>{shortDate(dayOf(best.from + best.length - 1))}</time></span>
+          </p>
+        )}
+        <p class="gh__legend" aria-hidden="true">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More</p>
+      </div>
       <div class="visually-hidden">
       <table>
         <caption>{gh.total} contributions on GitHub in the last year, by month</caption>
@@ -50,27 +94,67 @@ const repoUrl = `https://github.com/${p.github}/${p.github.toLowerCase()}.github
 
     <h3 class="subhead reveal" id="experiments-title">Experiments on this site</h3>
     <div class="repo-view reveal" data-repo-view>
+      <p class="repo-view__repo">
+        <a href={`https://github.com/${repo}`}><Icon name="github" px={18} /><span>{p.github} <span aria-hidden="true">/</span> <strong>{p.github.toLowerCase()}.github.io</strong></span></a>
+        <span class="repo-view__branch"><Icon name="git-branch" px={14} />master</span>
+      </p>
       <div class="repo-view__files" role="tablist" aria-labelledby="experiments-title">
         {experiments.map((x, i) => (
           <button class="repo-view__file" type="button" role="tab" id={`tab-${x.id}`} aria-controls={`exp-${x.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? undefined : -1}>
-            <Icon name="code" px={16} /><span class="repo-view__name">{x.title}</span><span class="repo-view__path">{x.name}</span>
+            <Icon name="code" px={16} />{x.title}
           </button>
         ))}
       </div>
       {experiments.map((x, i) => (
         <div class={`experiment${i === 0 ? ' is-shown' : ''}`} id={`exp-${x.id}`} role="tabpanel" aria-labelledby={`tab-${x.id}`}>
-          <p class="experiment__path"><a href={`${repoUrl}/${x.src.file}#L${x.src.from}-L${x.src.to}`}>{x.src.file}</a> <span>lines {x.src.from}–{x.src.to}</span></p>
-          <div class="experiment__preview">
-            {x.image && <Picture src={x.image} alt={x.alt ?? ''} w={720} h={450} />}
-            {!x.image && x.live === 'notch' && (
-              <div class="experiment__live"><Btn href={`mailto:${p.email}`} label="Email me" icon="arrow-right" /><p>Hover it, or tab to it.</p></div>
-            )}
-          </div>
-          <div class="experiment__code" tabindex="0" role="region" aria-label={`${x.src.file}, lines ${x.src.from} to ${x.src.to}`} set:html={x.html} />
           <div class="experiment__about">
             <h4 class="experiment__title">{x.title}</h4>
             <p>{x.text}</p>
             <ul class="experiment__tags">{x.tags.map((t) => <li>{t}</li>)}</ul>
+          </div>
+
+          <div class={`experiment__preview experiment__preview--${x.live}`} data-workings data-replay={x.live === 'sky' ? '' : undefined}>
+            <div class="experiment__stage">
+              {x.live === 'sky' && (
+                <div class="experiment__sky" data-sky-host>
+                  <div class="sky" aria-hidden="true">
+                    <Swirl id="code" guide />
+                    <span class="moon"><Pstar class="pstar--moon" /><span class="moon__crescent"></span></span>
+                  </div>
+                </div>
+              )}
+              {x.live === 'constellation' && (
+                <div class="experiment__sky" data-sky-host>
+                  <div class="sky" aria-hidden="true">
+                    <canvas class="sky__canvas" data-constellation></canvas>
+                    <Pstar class="pstar--code" origin />
+                  </div>
+                </div>
+              )}
+              {x.live === 'notch' && (
+                <div class="experiment__live"><span class="experiment__notch"><Btn href={`mailto:${p.email}`} label="Email me" icon="arrow-right" /></span></div>
+              )}
+              {x.live === 'skills-sky' && <SkillSky id="code-sky" />}
+            </div>
+            <div class="experiment__bar">
+              <p class="experiment__hint">
+                <span class="experiment__try">{bar[x.live].touch ? <Fragment><span class="for-pointer">{bar[x.live].pointer}</span><span class="for-touch">{bar[x.live].touch}</span></Fragment> : bar[x.live].pointer}</span>
+                <span class="experiment__caption">{bar[x.live].workings}</span>
+              </p>
+              <div class="experiment__tools">
+                <button class="experiment__tool" type="button" aria-pressed="false" data-workings-toggle><Icon name="eye" px={15} />Show the workings</button>
+                {x.live === 'sky' && <button class="experiment__tool experiment__tool--replay" type="button" data-replay-button><Icon name="rotate-ccw" px={15} />Paint it again</button>}
+              </div>
+            </div>
+          </div>
+
+          <div class="experiment__file">
+            <p class="experiment__path">
+              <span class="experiment__file-name">{x.src.file}</span>
+              <span>Lines {x.src.from}–{x.src.to}</span>
+              <a class="experiment__github" href={`${blob}/${x.src.file}#L${x.src.from}-L${x.src.to}`}>View on GitHub <Icon name="arrow-up-right" px={14} /></a>
+            </p>
+            <div class="experiment__code" tabindex="0" role="region" aria-label={`${x.src.file}, lines ${x.src.from} to ${x.src.to}`} style={`--from:${x.src.from - 1}`} set:html={x.html} />
           </div>
         </div>
       ))}

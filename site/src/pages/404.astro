@@ -1,6 +1,7 @@
 ---
+import Btn from '../components/Btn.astro';
 import Page from '../layouts/Page.astro';
 ---
 <Page title="Page not found" lead="That page doesn't exist, or it moved." path="/404.html">
-  <p><a class="btn btn--primary" href="/">Back to the home page</a></p>
+  <p><Btn href="/" label="Back to the home page" icon="arrow-right" /></p>
 </Page>

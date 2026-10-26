@@ -11,7 +11,7 @@ twitter: klassynihal
 
 hero:
   eyebrow: Software Engineer, open to new roles
-  lead: I build web and mobile products with Ruby on Rails, React, Node and React Native, most recently at Cisco Meraki. I care about UI effects, animation and interfaces that feel intuitive.
+  lead: I build web and mobile products with Ruby on Rails, React, Node and React Native. I care about UI effects, animation and interfaces that feel intuitive.
 
 about:
   paragraphs:
@@ -44,26 +44,27 @@ about:
 # and its sketch as a constellation (x and y are percentages of the sketch; `side` puts a label above or below
 # its star). Its `id` is the #case- address that opens it.
 experience:
-  - company: Cisco Meraki
-    start: 2024-07-01
-    end: 2026-02-01
-    positions:
-      - title: Software Engineer III
-        notes:
-          - Architected a cloud packet-capture (PCAP) service for Meraki switches, for real-time packet analysis.
-          - Shipped full-stack features for the switches dashboard in React and Ruby on Rails, with the hardware and firmware teams.
-        tech: [Ruby on Rails, React, Ruby, JavaScript, Scala, TypeScript, SQL, PostgreSQL, Docker, Git]
-        system:
-          id: meraki
-          title: Packet capture for switches, in the cloud
-          text: Built the distributed systems behind it, for high-volume network traffic data.
-          nodes:
-            - { label: Meraki switch, x: 8, y: 66, side: below }
-            - { label: Packet capture, x: 28, y: 28, side: above }
-            - { label: Cloud PCAP service, x: 50, y: 70, side: below }
-            - { label: Traffic processing, x: 72, y: 24, side: above }
-            - { label: Switches dashboard, x: 92, y: 44, side: above }
-          edges: [[0, 1], [1, 2], [2, 3], [2, 4]]
+  # Cisco Meraki hidden temporarily; uncomment to restore (also restore the copy in hero.lead, site.ts and Experience.astro).
+  # - company: Cisco Meraki
+  #   start: 2024-07-01
+  #   end: 2026-02-01
+  #   positions:
+  #     - title: Software Engineer III
+  #       notes:
+  #         - Architected a cloud packet-capture (PCAP) service for Meraki switches, for real-time packet analysis.
+  #         - Shipped full-stack features for the switches dashboard in React and Ruby on Rails, with the hardware and firmware teams.
+  #       tech: [Ruby on Rails, React, Ruby, JavaScript, Scala, TypeScript, SQL, PostgreSQL, Docker, Git]
+  #       system:
+  #         id: meraki
+  #         title: Packet capture for switches, in the cloud
+  #         text: Built the distributed systems behind it, for high-volume network traffic data.
+  #         nodes:
+  #           - { label: Meraki switch, x: 8, y: 66, side: below }
+  #           - { label: Packet capture, x: 28, y: 28, side: above }
+  #           - { label: Cloud PCAP service, x: 50, y: 70, side: below }
+  #           - { label: Traffic processing, x: 72, y: 24, side: above }
+  #           - { label: Switches dashboard, x: 92, y: 44, side: above }
+  #         edges: [[0, 1], [1, 2], [2, 3], [2, 4]]
   - company: Saeloun
     start: 2022-06-01
     end: 2024-07-01
@@ -132,7 +133,8 @@ side_projects:
 # third and fourth sit below them. Keep group names short; they label the arc like a skill does.
 skills:
   - group: Languages
-    items: [Ruby, JavaScript, Scala, TypeScript, HTML/CSS, SQL, YAML]
+    # Scala hidden with Cisco Meraki, its only role; restore it here: [Ruby, JavaScript, Scala, TypeScript, ...]
+    items: [Ruby, JavaScript, TypeScript, HTML/CSS, SQL, YAML]
   - group: Frameworks
     items: [Ruby on Rails, React, React Native, Node.js, Express.js, GraphQL, Apollo Client, Sidekiq]
   - group: Tooling
@@ -183,23 +185,22 @@ case_studies:
       - { label: Email reminders, x: 92, y: 26, side: above }
     edges: [[0, 1], [1, 2], [2, 3]]
 
-# This site's own effects for the Code section, each beside the real code behind it. `excerpt` names a cut that
-# src/lib/excerpts.ts makes from the source at build time, so the code shown never drifts.
+# This site's own effects for the Code section, each running live beside the real code behind it. `live` names
+# the preview Code.astro draws; `excerpt` names a cut that src/lib/excerpts.ts makes from the source at build
+# time, so the code shown never drifts.
 site_experiments:
   - id: painted-sky
     title: The painted sky
     text: A seeded generator lays down every brush dab of the swirl and the stars, the way Van Gogh laid paint along a flow, so each build draws the same sky.
     tags: [TypeScript, SVG, Seeded random]
-    image: work/site-sky
-    alt: The painted swirl and its star over the night sky in the hero
+    live: sky
     excerpt: painted-sky
     lang: javascript
   - id: constellation
     title: The constellation
     text: Stars drift on a canvas, part around your pointer and join up in a wave from the swirl's star. It pauses off screen and stops for reduced motion.
     tags: [Canvas 2D, Animation loop, Reduced motion]
-    image: work/site-constellation
-    alt: Gold stars joined by faint lines in the hero sky
+    live: constellation
     excerpt: constellation
     lang: javascript
   - id: notch
@@ -213,8 +214,7 @@ site_experiments:
     title: The skills sky
     text: Every skill sits on an oval CSS works out with sqrt(), and the role you're reading lights its own stars, joined by one line.
     tags: [CSS math, IntersectionObserver, Astro]
-    image: work/site-skills
-    alt: The skills sky with one role's skills lit and joined
+    live: skills-sky
     excerpt: skills-sky
     lang: css
 

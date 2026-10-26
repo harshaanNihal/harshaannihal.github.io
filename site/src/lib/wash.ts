@@ -8,8 +8,8 @@ import sharp from 'sharp';
 import sky from '../originals/sky.jpg?inline';
 
 const ramps = {
-  /* From the rooms' midnight, through the owner's midnight navy, to cobalt. */
-  night: ['#061033', '#021861', '#0c2a85', '#1d4cb8', '#3a6fd8'],
+  /* Prussian moonlight: from the rooms' blue-black up through Prussian blues. */
+  night: ['#021425', '#002545', '#063d6b', '#275d93', '#5a89be'],
   /* Arles daylight: cream, warming to the gold of the stars where the painting is brightest. */
   day: ['#f8f1dc', '#f8f1dc', '#f6e7bd', '#f1d68a', '#ebc35a'],
 };

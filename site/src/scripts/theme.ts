@@ -10,7 +10,7 @@ export function initTheme() {
 
   const apply = (theme: Theme, persist: boolean) => {
     root.setAttribute('data-theme', theme);
-    themeColor?.setAttribute('content', theme === 'light' ? '#f8f1dc' : '#061033');
+    themeColor?.setAttribute('content', theme === 'light' ? '#f8f1dc' : '#021425');
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(theme === 'light'));
       toggle.setAttribute('aria-label', theme === 'light' ? 'Switch to night theme' : 'Switch to day theme');

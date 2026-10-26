@@ -31,6 +31,9 @@ export const isoDay = (date: Date, zone = 'UTC') => { const p = parts(date, zone
 /* "%b %-d, %Y": Dec 17, 2025 */
 export const shortDate = (date: Date, zone = 'UTC') => `${month(date, zone, 'short')} ${+parts(date, zone).day}, ${parts(date, zone).year}`;
 
+/* "%b %-d": Dec 17 */
+export const monthDay = (date: Date, zone = 'UTC') => `${month(date, zone, 'short')} ${+parts(date, zone).day}`;
+
 /* "%B %-d, %Y": September 28, 2018 */
 export const longDate = (date: Date, zone = SITE_ZONE) => `${month(date, zone, 'long')} ${+parts(date, zone).day}, ${parts(date, zone).year}`;
 
